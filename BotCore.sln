@@ -6,7 +6,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BotCore.Core", "src\BotCore
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BotCore.Telegram", "src\BotCore.Telegram\BotCore.Telegram.csproj", "{5626168A-DEF0-4AD8-A8EE-1C74C9285780}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BotCore.Telegram.Test", "BotCore.Telegram.Test\BotCore.Telegram.Test.csproj", "{A55B5A93-699A-4418-B40A-8C0546279502}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BotCore.Telegram.Test", "src\BotCore.Telegram.Test\BotCore.Telegram.Test.csproj", "{A55B5A93-699A-4418-B40A-8C0546279502}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
