@@ -5,7 +5,8 @@ namespace TelegramBotCore.Core.DataTransfer
 {
     public abstract class CommandBase : ICommand
     {
-        public string Name => GetType().Name;
+        private const string Command = "Command";
+        public string Name => GetType().Name.Replace(Command, string.Empty);
         
         public abstract Task ExecuteAsync();
     }

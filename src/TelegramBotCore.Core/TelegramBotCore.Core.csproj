@@ -6,7 +6,6 @@
 
     <ItemGroup>
       <Folder Include="DataTransfer\Commands" />
-      <Folder Include="DomainModels" />
     </ItemGroup>
 
 </Project>
