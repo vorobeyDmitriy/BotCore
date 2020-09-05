@@ -36,3 +36,5 @@
 /src/BotCore.Core/obj/TelegramBotCore.Core.csproj.nuget.dgspec.json
 /src/BotCore.Core/obj/TelegramBotCore.Core.csproj.nuget.g.props
 /src/BotCore.Core/obj/TelegramBotCore.Core.csproj.nuget.g.targets
+/.idea/.idea.BotCore/.idea/encodings.xml
+/.idea/.idea.BotCore/.idea/workspace.xml
