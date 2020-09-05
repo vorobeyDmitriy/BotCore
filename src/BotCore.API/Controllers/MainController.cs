@@ -16,7 +16,7 @@ namespace BotCore.API.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Update3([FromBody] Update telegramUpdate)
+        public async Task<IActionResult> Update([FromBody] Update telegramUpdate)
         {
             await _telegramHandler.HandleUpdate(telegramUpdate);
             return Ok();
