@@ -1,5 +1,5 @@
 ﻿using System.Threading.Tasks;
-using TelegramBotCore.Core.DomainModels.MessengerCommands;
+using TelegramBotCore.Core.DomainModels;
 
 namespace TelegramBotCore.Core.Interfaces
 {

@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
+using BotCore.Telegram.DomainModels;
 using Microsoft.AspNetCore.Mvc;
 using Telegram.Bot.Types;
-using TelegramBotCore.Core.DomainModels.MessengerCommands;
 using TelegramBotCore.Core.Interfaces;
 
 namespace TelegramBotCore.API.Controllers

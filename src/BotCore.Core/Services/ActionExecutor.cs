@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using TelegramBotCore.Core.DomainModels.MessengerCommands;
+using TelegramBotCore.Core.DomainModels;
 using TelegramBotCore.Core.Interfaces;
 
 namespace TelegramBotCore.Core.Services

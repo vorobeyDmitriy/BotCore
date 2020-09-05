@@ -3,7 +3,7 @@ using Telegram.Bot;
 using TelegramBotCore.Core.DataTransfer;
 using TelegramBotCore.Core.Interfaces;
 
-namespace TelegramBotCore.Core.Services
+namespace BotCore.Telegram.Services
 {
     public class TelegramMessageSender : IMessageSender
     {

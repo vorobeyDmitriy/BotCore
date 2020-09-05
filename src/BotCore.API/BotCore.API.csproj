@@ -10,6 +10,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\..\BotCore.Telegram\BotCore.Telegram.csproj" />
       <ProjectReference Include="..\BotCore.Core\BotCore.Core.csproj" />
     </ItemGroup>
 
