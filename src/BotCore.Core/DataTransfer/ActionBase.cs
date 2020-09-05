@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
-using TelegramBotCore.Core.Interfaces;
+using BotCore.Core.Interfaces;
 
-namespace TelegramBotCore.Core.DataTransfer
+namespace BotCore.Core.DataTransfer
 {
     public abstract class ActionBase : IAction
     {

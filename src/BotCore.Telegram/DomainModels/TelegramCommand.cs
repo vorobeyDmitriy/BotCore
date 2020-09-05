@@ -1,4 +1,4 @@
-﻿using TelegramBotCore.Core.DomainModels;
+﻿using BotCore.Core.DomainModels;
 
 namespace BotCore.Telegram.DomainModels
 {

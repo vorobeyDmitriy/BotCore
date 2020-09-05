@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
-using TelegramBotCore.Core.DomainModels;
+using BotCore.Core.DomainModels;
 
-namespace TelegramBotCore.Core.Interfaces
+namespace BotCore.Core.Interfaces
 {
     public interface IActionExecutor
     {

@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using TelegramBotCore.Core.DomainModels;
-using TelegramBotCore.Core.Interfaces;
+using BotCore.Core.DomainModels;
+using BotCore.Core.Interfaces;
 
-namespace TelegramBotCore.Core.Services
+namespace BotCore.Core.Services
 {
     public class ActionExecutor : IActionExecutor
     {

@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace TelegramBotCore.Core.Interfaces
+namespace BotCore.Core.Interfaces
 {
     public interface IAction
     {

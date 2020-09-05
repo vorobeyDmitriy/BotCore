@@ -10,10 +10,10 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using TelegramBotCore.Core.Interfaces;
-using TelegramBotCore.Core.Services;
+using BotCore.Core.Interfaces;
+using BotCore.Core.Services;
 
-namespace TelegramBotCore.API
+namespace BotCore.API
 {
     public class Startup
     {

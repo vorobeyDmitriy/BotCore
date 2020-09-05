@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
-using TelegramBotCore.Core.DataTransfer;
+using BotCore.Core.DataTransfer;
 
-namespace TelegramBotCore.Core.Interfaces
+namespace BotCore.Core.Interfaces
 {
     public interface IMessageSender
     {

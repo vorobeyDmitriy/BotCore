@@ -2,11 +2,11 @@
 
     <PropertyGroup>
         <TargetFramework>netcoreapp3.1</TargetFramework>
-        <RootNamespace>TelegramBotCore.API</RootNamespace>
+        <RootNamespace>BotCore.API</RootNamespace>
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\..\BotCore.Telegram\BotCore.Telegram.csproj" />
+      <ProjectReference Include="..\BotCore.Telegram\BotCore.Telegram.csproj" />
       <ProjectReference Include="..\BotCore.Core\BotCore.Core.csproj" />
     </ItemGroup>
 

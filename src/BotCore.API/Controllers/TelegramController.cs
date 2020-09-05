@@ -1,10 +1,10 @@
 ﻿using System.Threading.Tasks;
+using BotCore.Core.Interfaces;
 using BotCore.Telegram.DomainModels;
 using Microsoft.AspNetCore.Mvc;
 using Telegram.Bot.Types;
-using TelegramBotCore.Core.Interfaces;
 
-namespace TelegramBotCore.API.Controllers
+namespace BotCore.API.Controllers
 {
     [ApiController]
     [Route("bot")]

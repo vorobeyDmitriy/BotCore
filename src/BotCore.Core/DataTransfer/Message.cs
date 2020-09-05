@@ -1,6 +1,6 @@
-﻿namespace TelegramBotCore.Core.DataTransfer
+﻿namespace BotCore.Core.DataTransfer
 {
-    public class Message
+    public abstract class Message
     {
         public string Receiver { get; set; }
         public string Text { get; set; }

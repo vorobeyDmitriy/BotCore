@@ -1,4 +1,4 @@
-﻿namespace TelegramBotCore.Core.DomainModels
+﻿namespace BotCore.Core.DomainModels
 {
     public abstract class MessengerCommandBase
     {

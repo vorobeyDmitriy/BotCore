@@ -5,7 +5,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\src\BotCore.Core\BotCore.Core.csproj" />
+      <ProjectReference Include="..\BotCore.Core\BotCore.Core.csproj" />
     </ItemGroup>
 
     <ItemGroup>

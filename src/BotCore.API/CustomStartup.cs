@@ -1,11 +1,11 @@
-﻿using BotCore.Telegram.Services;
+﻿using BotCore.Core.Interfaces;
+using BotCore.Core.Services;
+using BotCore.Telegram.Services;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Telegram.Bot;
-using TelegramBotCore.Core.Interfaces;
-using TelegramBotCore.Core.Services;
 
-namespace TelegramBotCore.API
+namespace BotCore.API
 {
     public static class CustomStartup
     {
