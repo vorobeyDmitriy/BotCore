@@ -9,12 +9,12 @@ namespace TelegramBotCore.API
         public static void AddCommandExecutor(this IServiceCollection services)
         {
             var serviceProvider = services.BuildServiceProvider();
-            var commands = serviceProvider.GetServices<ICommand>();
-            var commandExecutor = new CommandExecutor(commands);
-            services.AddSingleton<ICommandExecutor>(commandExecutor);
+            var commands = serviceProvider.GetServices<IAction>();
+            var commandExecutor = new ActionExecutor(commands);
+            services.AddSingleton<IActionExecutor>(commandExecutor);
         }
         
-        public static void AddCommands(this IServiceCollection services)
+        public static void AddActions(this IServiceCollection services)
         {
         }
     }

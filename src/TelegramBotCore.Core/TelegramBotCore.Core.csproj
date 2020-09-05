@@ -5,7 +5,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <Folder Include="DataTransfer\Commands" />
+      <Folder Include="DataTransfer\Actions" />
     </ItemGroup>
 
 </Project>

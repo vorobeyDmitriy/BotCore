@@ -3,10 +3,10 @@ using TelegramBotCore.Core.Interfaces;
 
 namespace TelegramBotCore.Core.DataTransfer
 {
-    public abstract class CommandBase : ICommand
+    public abstract class ActionBase : IAction
     {
-        private const string Command = "Command";
-        public string Name => GetType().Name.Replace(Command, string.Empty);
+        private const string Action = "Action";
+        public string Name => GetType().Name.Replace(Action, string.Empty);
         
         public abstract Task ExecuteAsync();
     }

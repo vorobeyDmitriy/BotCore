@@ -2,7 +2,7 @@
 
 namespace TelegramBotCore.Core.Interfaces
 {
-    public interface ICommand
+    public interface IAction
     {
         string Name { get; }
         Task ExecuteAsync();

@@ -2,27 +2,27 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using TelegramBotCore.Core.DomainModels;
+using TelegramBotCore.Core.DomainModels.MessengerCommands;
 using TelegramBotCore.Core.Interfaces;
 
 namespace TelegramBotCore.Core.Services
 {
-    public class CommandExecutor : ICommandExecutor
+    public class ActionExecutor : IActionExecutor
     {
-        private readonly IEnumerable<ICommand> _commands;
+        private readonly IEnumerable<IAction> _commands;
 
-        public CommandExecutor(IEnumerable<ICommand> commands)
+        public ActionExecutor(IEnumerable<IAction> commands)
         {
             _commands = commands;
         }
 
-        public async Task ExecuteCommand(MessengerCommand messengerCommand)
+        public async Task ExecuteActionAsync(MessengerCommandBase messengerCommandBase)
         {
-            var command = GetCommand(messengerCommand.CommandName);
+            var command = GetAction(messengerCommandBase.CommandName);
             await command.ExecuteAsync();
         }
 
-        private ICommand GetCommand(string commandName)
+        private IAction GetAction(string commandName)
         {
             return _commands.FirstOrDefault(x => x.Name.Equals(commandName,
                 StringComparison.InvariantCultureIgnoreCase));

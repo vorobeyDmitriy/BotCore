@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Telegram.Bot.Types;
-using TelegramBotCore.Core.DomainModels;
+using TelegramBotCore.Core.DomainModels.MessengerCommands;
 using TelegramBotCore.Core.Interfaces;
 
 namespace TelegramBotCore.API.Controllers
@@ -10,22 +10,19 @@ namespace TelegramBotCore.API.Controllers
     [Route("bot")]
     public class TelegramController : ControllerBase
     {
-        private readonly ICommandExecutor _commandExecutor;
+        private readonly IActionExecutor _actionExecutor;
 
-        public TelegramController(ICommandExecutor commandExecutor)
+        public TelegramController(IActionExecutor actionExecutor)
         {
-            _commandExecutor = commandExecutor;
+            _actionExecutor = actionExecutor;
         }
 
         [HttpPost]
         public async Task Update([FromBody] Update telegramUpdate)
         {
-            var botCommand = new MessengerCommand
-            {
-                CommandName = telegramUpdate.Message.Text
-            };
+            var botCommand = new TelegramCommand(telegramUpdate.Message.Text);
             
-            await _commandExecutor.ExecuteCommand(botCommand);
+            await _actionExecutor.ExecuteActionAsync(botCommand);
         }
     }
 }
