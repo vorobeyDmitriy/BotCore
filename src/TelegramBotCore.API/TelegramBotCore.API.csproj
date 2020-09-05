@@ -5,11 +5,11 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <Folder Include="Controllers" />
+      <ProjectReference Include="..\TelegramBotCore.Core\TelegramBotCore.Core.csproj" />
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\TelegramBotCore.Core\TelegramBotCore.Core.csproj" />
+      <PackageReference Include="Telegram.Bot" Version="15.7.1" />
     </ItemGroup>
 
 
