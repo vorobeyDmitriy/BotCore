@@ -87,4 +87,6 @@ fabric.properties
 /src/BotCore.Core/
 /src/BotCore.Telegram/bin/Debug/netcoreapp3.0/
 /src/BotCore.Telegram/obj/
+/BotCore.Telegram/obj/
 /.idea/
+/BotCore.Telegram.Test/obj/
