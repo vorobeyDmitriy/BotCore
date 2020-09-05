@@ -117,3 +117,4 @@ bld/
 msbuild.log
 msbuild.err
 msbuild.wrn
+/src/BotCore.API/appsettings.Development.json
