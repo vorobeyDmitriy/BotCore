@@ -28,6 +28,7 @@ namespace TelegramBotCore.API
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            services.AddBotServices(Configuration);
             services.AddActions();
             services.AddCommandExecutor();
         }

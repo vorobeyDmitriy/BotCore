@@ -1,8 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TelegramBotCore.API", "src\TelegramBotCore.API\TelegramBotCore.API.csproj", "{22036480-2D7A-4801-AE0D-FEA5DA1E4EED}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BotCore.API", "src\BotCore.API\BotCore.API.csproj", "{22036480-2D7A-4801-AE0D-FEA5DA1E4EED}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TelegramBotCore.Core", "src\TelegramBotCore.Core\TelegramBotCore.Core.csproj", "{B2611AD5-F0A3-43D2-B853-BAED1EFABC40}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BotCore.Core", "src\BotCore.Core\BotCore.Core.csproj", "{B2611AD5-F0A3-43D2-B853-BAED1EFABC40}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
