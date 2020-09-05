@@ -1,0 +1,5 @@
+﻿/.idea/.idea.TelegramBotCore/
+/src/TelegramBotCore.API/bin/Debug/netcoreapp3.1/
+/src/TelegramBotCore.API/obj/
+/src/TelegramBotCore.API/appsettings.Development.json
+/src/TelegramBotCore.Core/obj/
