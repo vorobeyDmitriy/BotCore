@@ -7,5 +7,7 @@ namespace BotCore.Telegram.DomainModels
         public TelegramCommand(string commandName) : base(commandName)
         {
         }
+
+        public long SenderId { get; set; }
     }
 }

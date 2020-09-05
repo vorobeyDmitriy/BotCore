@@ -6,8 +6,13 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\BotCore.Telegram.Test\BotCore.Telegram.Test.csproj" />
       <ProjectReference Include="..\BotCore.Telegram\BotCore.Telegram.csproj" />
       <ProjectReference Include="..\BotCore.Core\BotCore.Core.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="3.1.7" />
     </ItemGroup>
 
 

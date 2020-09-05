@@ -1,5 +1,7 @@
 ﻿using BotCore.Core.Interfaces;
 using BotCore.Core.Services;
+using BotCore.Telegram.Handlers;
+using BotCore.Telegram.Interfaces;
 using BotCore.Telegram.Services;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -22,6 +24,7 @@ namespace BotCore.Telegram
             services.AddSingleton<IMessageSender, TelegramMessageSender>();
             var telegramBotClient = new TelegramBotClient(configuration.GetSection("TelegramBotToken").Value);
             services.AddSingleton<ITelegramBotClient>(telegramBotClient);
+            services.AddSingleton<ITelegramHandler, TelegramHandler>();
         }
     }
 }

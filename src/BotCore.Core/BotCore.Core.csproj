@@ -5,8 +5,4 @@
         <RootNamespace>BotCore.Core</RootNamespace>
     </PropertyGroup>
 
-    <ItemGroup>
-      <Folder Include="DataTransfer\Actions" />
-    </ItemGroup>
-
 </Project>
