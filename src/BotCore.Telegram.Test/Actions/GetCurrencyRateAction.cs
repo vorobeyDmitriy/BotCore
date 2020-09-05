@@ -36,16 +36,11 @@ namespace BotCore.Telegram.Test.Actions
             var eurText = string.Format(textTemplate, eur.Cur_Scale, eur.Cur_Abbreviation, eur.Cur_OfficialRate) +
                           "\r\n";
 
-
-            /*var rubResponse = await client.GetAsync("https://www.nbrb.by/api/exrates/rates/810?parammode=1");
-            var rub = JsonConvert.DeserializeObject<Currency>(await rubResponse.Content.ReadAsStringAsync());
-            var rubText = string.Format(textTemplate, rub.Cur_Scale, rub.Cur_Abbreviation, rub.Cur_OfficialRate) + "\r\n";
-            */
             await _messageSender.SendTextAsync(new TelegramMessage
             {
                 Receiver = command.SenderId.ToString(),
                 Keyboard = GetCurrencyRateKeyboard.Keyboard,
-                Text = usdText + eurText //+ rubText
+                Text = usdText + eurText
             });
         }
     }
