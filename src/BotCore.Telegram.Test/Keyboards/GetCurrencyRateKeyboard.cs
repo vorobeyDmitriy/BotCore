@@ -6,12 +6,12 @@ namespace BotCore.Telegram.Test.Keyboards
     {
         public static IReplyMarkup Keyboard => new ReplyKeyboardMarkup
         {
-            Keyboard = new KeyboardButton[][]
+            Keyboard = new[]
             {
                 new KeyboardButton[]
                 {
                     "Get Currency Rate"
-                }, 
+                }
             }
         };
     }

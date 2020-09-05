@@ -19,8 +19,8 @@ namespace BotCore.Core.Services
         public async Task ExecuteActionAsync(MessengerCommandBase messengerCommandBase)
         {
             var command = GetAction(messengerCommandBase.CommandName);
-            
-            if(command != null)
+
+            if (command != null)
                 await command.ExecuteAsync(messengerCommandBase);
         }
 

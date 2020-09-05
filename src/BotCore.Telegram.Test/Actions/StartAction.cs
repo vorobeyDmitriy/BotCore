@@ -7,7 +7,7 @@ using BotCore.Telegram.Test.Keyboards;
 
 namespace BotCore.Telegram.Test.Actions
 {
-    public class StartAction: ActionBase
+    public class StartAction : ActionBase
     {
         private readonly IMessageSender _messageSender;
 
@@ -18,7 +18,7 @@ namespace BotCore.Telegram.Test.Actions
 
         public override async Task ExecuteAsync(MessengerCommandBase commandBase)
         {
-            if(!(commandBase is TelegramCommand command))
+            if (!(commandBase is TelegramCommand command))
                 return;
 
             await _messageSender.SendTextAsync(new TelegramMessage

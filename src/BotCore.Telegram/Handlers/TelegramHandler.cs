@@ -18,10 +18,10 @@ namespace BotCore.Telegram.Handlers
         public virtual async Task HandleUpdate(Update telegramUpdate)
         {
             var commandName = telegramUpdate.Message.Text.Replace(" ", string.Empty);
-            
+
             if (commandName.StartsWith('/'))
                 commandName = commandName.Substring(1);
-            
+
             var botCommand = new TelegramCommand(commandName)
             {
                 SenderId = telegramUpdate.Message.Chat.Id

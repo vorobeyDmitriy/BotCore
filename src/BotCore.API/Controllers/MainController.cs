@@ -10,7 +10,8 @@ namespace BotCore.API.Controllers
     public class MainController : Controller
     {
         private readonly ITelegramHandler _telegramHandler;
-        public MainController(ITelegramHandler telegramHandler) 
+
+        public MainController(ITelegramHandler telegramHandler)
         {
             _telegramHandler = telegramHandler;
         }
