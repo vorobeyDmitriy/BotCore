@@ -1,4 +1,6 @@
-﻿using System.Text;
+﻿using System;
+using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using BotCore.Core.DomainModels;
 using BotCore.Core.Interfaces;
@@ -12,6 +14,7 @@ namespace BotCore.Telegram.Test.Actions
     public class GetAllCurrenciesAction : TelegramActionBase
     {
         private readonly IBankService _bankService;
+        private const int PageSize = 8;
         
         public GetAllCurrenciesAction(IMessageSender messageSender, IBankService bankService) : base(messageSender)
         {
@@ -25,23 +28,27 @@ namespace BotCore.Telegram.Test.Actions
             
             var currencies = await _bankService.GetAllCurrencies();
             var sb = new StringBuilder();
-
-            foreach (var currency in currencies)
+            var pageCount = Math.Ceiling((double)currencies.Count / PageSize);
+            
+            for (var i = 0; i < pageCount; i++)
             {
-                sb.Append(currency.Name);
-                sb.Append(" ( ");
-                sb.Append(currency.Abbreviation);
-                sb.Append(") ");
+                foreach (var currency in currencies.Skip(i*PageSize).Take(PageSize))
+                {
+                    sb.Append(currency.Name);
+                    sb.Append(" ( ");
+                    sb.Append(currency.Abbreviation);
+                    sb.Append(") ");
+                    sb.Append("\r\n");
+                }
+
+                await MessageSender.SendTextAsync(new TelegramMessage
+                {
+                    Receiver = command.SenderId.ToString(),
+                    Keyboard = GetCurrencyRateKeyboard.Keyboard,
+                    Text = sb.ToString()
+                });
+                sb.Clear();
             }
-
-            sb.Remove(sb.Length - 3, 2);
-            await MessageSender.SendTextAsync(new TelegramMessage
-            {
-                Receiver = command.SenderId.ToString(),
-                Keyboard = GetCurrencyRateKeyboard.Keyboard,
-                //TODO: too long string
-                Text = "sb.ToString()"
-            });
         }
     }
 }
