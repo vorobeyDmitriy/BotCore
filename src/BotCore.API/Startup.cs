@@ -30,7 +30,7 @@ namespace BotCore.API
         {
             services.AddControllers();
             services.AddBotServices(Configuration);
-            services.AddActions();
+            
             services.AddCommandExecutor();
         }
 

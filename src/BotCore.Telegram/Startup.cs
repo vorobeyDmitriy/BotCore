@@ -17,10 +17,6 @@ namespace BotCore.Telegram
             services.AddSingleton<IActionExecutor>(commandExecutor);
         }
 
-        public static void AddActions(this IServiceCollection services)
-        {
-        }
-
         public static void AddBotServices(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddSingleton<IMessageSender, TelegramMessageSender>();
