@@ -5,9 +5,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Telegram.Bot;
 
-namespace BotCore.API
+namespace BotCore.Telegram
 {
-    public static class CustomStartup
+    public static class Startup
     {
         public static void AddCommandExecutor(this IServiceCollection services)
         {
@@ -16,7 +16,7 @@ namespace BotCore.API
             var commandExecutor = new ActionExecutor(commands);
             services.AddSingleton<IActionExecutor>(commandExecutor);
         }
-        
+
         public static void AddActions(this IServiceCollection services)
         {
         }

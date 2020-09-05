@@ -12,6 +12,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using BotCore.Core.Interfaces;
 using BotCore.Core.Services;
+using BotCore.Telegram;
 
 namespace BotCore.API
 {

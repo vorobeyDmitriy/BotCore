@@ -4,7 +4,7 @@ using BotCore.Telegram.DomainModels;
 using Microsoft.AspNetCore.Mvc;
 using Telegram.Bot.Types;
 
-namespace BotCore.API.Controllers
+namespace BotCore.Telegram.Controllers
 {
     [ApiController]
     [Route("bot")]
