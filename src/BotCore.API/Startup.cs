@@ -10,6 +10,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using TelegramBotCore.Core.Interfaces;
+using TelegramBotCore.Core.Services;
 
 namespace TelegramBotCore.API
 {
@@ -26,6 +28,9 @@ namespace TelegramBotCore.API
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            services.AddBotServices(Configuration);
+            services.AddActions();
+            services.AddCommandExecutor();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -44,5 +49,7 @@ namespace TelegramBotCore.API
 
             app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
         }
+
+        
     }
 }

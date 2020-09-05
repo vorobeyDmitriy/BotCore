@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+    <PropertyGroup>
+        <TargetFramework>netcoreapp3.1</TargetFramework>
+        <RootNamespace>TelegramBotCore.API</RootNamespace>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\..\BotCore.Telegram\BotCore.Telegram.csproj" />
+      <ProjectReference Include="..\BotCore.Core\BotCore.Core.csproj" />
+    </ItemGroup>
+
+
+</Project>

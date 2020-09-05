@@ -1,8 +1,10 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TelegramBotCore.API", "src\TelegramBotCore.API\TelegramBotCore.API.csproj", "{22036480-2D7A-4801-AE0D-FEA5DA1E4EED}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BotCore.API", "src\BotCore.API\BotCore.API.csproj", "{22036480-2D7A-4801-AE0D-FEA5DA1E4EED}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TelegramBotCore.Core", "src\TelegramBotCore.Core\TelegramBotCore.Core.csproj", "{B2611AD5-F0A3-43D2-B853-BAED1EFABC40}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BotCore.Core", "src\BotCore.Core\BotCore.Core.csproj", "{B2611AD5-F0A3-43D2-B853-BAED1EFABC40}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BotCore.Telegram", "BotCore.Telegram\BotCore.Telegram.csproj", "{154B99EC-9358-4774-AF90-2517B0DF256D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -18,5 +20,9 @@ Global
 		{B2611AD5-F0A3-43D2-B853-BAED1EFABC40}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B2611AD5-F0A3-43D2-B853-BAED1EFABC40}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B2611AD5-F0A3-43D2-B853-BAED1EFABC40}.Release|Any CPU.Build.0 = Release|Any CPU
+		{154B99EC-9358-4774-AF90-2517B0DF256D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{154B99EC-9358-4774-AF90-2517B0DF256D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{154B99EC-9358-4774-AF90-2517B0DF256D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{154B99EC-9358-4774-AF90-2517B0DF256D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
