@@ -10,6 +10,10 @@ namespace BotCore.Telegram.Test.Keyboards
             {
                 new KeyboardButton[]
                 {
+                    "Get All Currencies"
+                },
+                new KeyboardButton[]
+                {
                     "Get Currency Rate"
                 }
             }
