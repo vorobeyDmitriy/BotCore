@@ -1,13 +1,13 @@
-﻿using BotCore.Telegram.Services;
+﻿using BotCore.Core.Interfaces;
+using BotCore.Core.Services;
+using BotCore.Telegram.Services;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Telegram.Bot;
-using TelegramBotCore.Core.Interfaces;
-using TelegramBotCore.Core.Services;
 
-namespace TelegramBotCore.API
+namespace BotCore.Telegram
 {
-    public static class CustomStartup
+    public static class Startup
     {
         public static void AddCommandExecutor(this IServiceCollection services)
         {
@@ -16,15 +16,10 @@ namespace TelegramBotCore.API
             var commandExecutor = new ActionExecutor(commands);
             services.AddSingleton<IActionExecutor>(commandExecutor);
         }
-        
-        public static void AddActions(this IServiceCollection services)
-        {
-        }
 
         public static void AddBotServices(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddSingleton<IMessageSender, TelegramMessageSender>();
-            
             var telegramBotClient = new TelegramBotClient(configuration.GetSection("TelegramBotToken").Value);
             services.AddSingleton<ITelegramBotClient>(telegramBotClient);
         }

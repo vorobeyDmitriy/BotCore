@@ -2,7 +2,7 @@
 
     <PropertyGroup>
         <TargetFramework>netcoreapp3.0</TargetFramework>
-        <RootNamespace>TelegramBotCore.Core</RootNamespace>
+        <RootNamespace>BotCore.Core</RootNamespace>
     </PropertyGroup>
 
     <ItemGroup>

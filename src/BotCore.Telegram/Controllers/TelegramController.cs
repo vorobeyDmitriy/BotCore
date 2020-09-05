@@ -1,10 +1,10 @@
 ﻿using System.Threading.Tasks;
+using BotCore.Core.Interfaces;
 using BotCore.Telegram.DomainModels;
 using Microsoft.AspNetCore.Mvc;
 using Telegram.Bot.Types;
-using TelegramBotCore.Core.Interfaces;
 
-namespace TelegramBotCore.API.Controllers
+namespace BotCore.Telegram.Controllers
 {
     [ApiController]
     [Route("bot")]
@@ -18,10 +18,9 @@ namespace TelegramBotCore.API.Controllers
         }
 
         [HttpPost]
-        public async Task Update([FromBody] Update telegramUpdate)
+        public virtual async Task Update([FromBody] Update telegramUpdate)
         {
             var botCommand = new TelegramCommand(telegramUpdate.Message.Text);
-            
             await _actionExecutor.ExecuteActionAsync(botCommand);
         }
     }
