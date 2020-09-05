@@ -19,10 +19,13 @@ namespace BotCore.Telegram.Services
 
         public async Task SendTextAsync(Message message)
         {
-            var telegramMessage = message as TelegramMessage;
+            if(!(message is TelegramMessage telegramMessage))
+                return;
+            
             await _telegram.SendTextMessageAsync(message.Receiver, message.Text, 
-                ParseMode.Default, false, false,0,
-                telegramMessage?.Keyboard, CancellationToken.None);
+                telegramMessage.ParseMode, telegramMessage.DisableWebPagePreview, 
+                telegramMessage.DisableNotification, telegramMessage.ReplyToMessageId,
+                telegramMessage.Keyboard, CancellationToken.None);
         }
     }
 }
