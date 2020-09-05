@@ -7,7 +7,7 @@ namespace BotCore.Core.DataTransfer
     {
         private const string Action = "Action";
         public string Name => GetType().Name.Replace(Action, string.Empty);
-        
+
         public abstract Task ExecuteAsync();
     }
 }

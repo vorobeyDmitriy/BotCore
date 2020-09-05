@@ -10,6 +10,6 @@ namespace BotCore.Telegram.DomainModels
         public bool DisableWebPagePreview { get; set; }
         public bool DisableNotification { get; set; }
         public int ReplyToMessageId { get; set; }
-        public IReplyMarkup Keyboard { get; set; } 
+        public IReplyMarkup Keyboard { get; set; }
     }
 }

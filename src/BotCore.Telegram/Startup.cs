@@ -20,7 +20,6 @@ namespace BotCore.Telegram
         public static void AddBotServices(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddSingleton<IMessageSender, TelegramMessageSender>();
-            
             var telegramBotClient = new TelegramBotClient(configuration.GetSection("TelegramBotToken").Value);
             services.AddSingleton<ITelegramBotClient>(telegramBotClient);
         }

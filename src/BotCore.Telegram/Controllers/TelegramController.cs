@@ -18,10 +18,9 @@ namespace BotCore.Telegram.Controllers
         }
 
         [HttpPost]
-        public async Task Update([FromBody] Update telegramUpdate)
+        public virtual async Task Update([FromBody] Update telegramUpdate)
         {
             var botCommand = new TelegramCommand(telegramUpdate.Message.Text);
-            
             await _actionExecutor.ExecuteActionAsync(botCommand);
         }
     }
