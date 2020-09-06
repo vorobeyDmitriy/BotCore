@@ -1,30 +1,27 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Net.Http;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using BotCore.Core.Interfaces;
 using BotCore.Core.Services;
 using BotCore.Telegram.DomainModels;
 using BotCore.Telegram.Handlers;
-using BotCore.Telegram.Interfaces;
 using BotCore.Telegram.Services;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Telegram.Bot;
+using Telegram.Bot.Types;
 
 namespace BotCore.Telegram
 {
     public static class Startup
     {
-        private const string TelegramUrl = "https://api.telegram.org/bot{0}/setWebhook?url={1}";
         /// <summary>
         ///     Add services for telegram functionality
         /// </summary>
         /// <remarks>
-        ///    Use it after all <see cref="IAction{T}"/> registration
+        ///     Use it after all <see cref="IAction{T}" /> registration
         /// </remarks>
-        /// <param name="services"><see cref="IServiceCollection"/></param>
+        /// <param name="services">
+        ///     <see cref="IServiceCollection" />
+        /// </param>
         public static void AddTelegramActionsExecutor(this IServiceCollection services)
         {
             var serviceProvider = services.BuildServiceProvider();
@@ -37,31 +34,30 @@ namespace BotCore.Telegram
         ///     Add services for telegram functionality
         /// </summary>
         /// <remarks>
-        ///    Use it after all <see cref="IAction{T}"/> registration
+        ///     Use it after all <see cref="IAction{T}" /> registration
         /// </remarks>
-        /// <param name="services"><see cref="IServiceCollection"/></param>
-        /// <param name="configuration">Instance of <see cref="IConfiguration"/></param>
-        public async static void AddTelegramClient(this IServiceCollection services, IConfiguration configuration)
+        /// <param name="services">
+        ///     <see cref="IServiceCollection" />
+        /// </param>
+        /// <param name="configuration">Instance of <see cref="IConfiguration" /></param>
+        public static async void AddTelegramClient(this IServiceCollection services, IConfiguration configuration)
         {
             var telegramBotToken = configuration.GetSection("Tokens").GetSection("Telegram").Value;
             var telegramBotClient = new TelegramBotClient(telegramBotToken);
             services.AddSingleton<ITelegramBotClient>(telegramBotClient);
             services.AddSingleton<IMessageSender<TelegramMessage>, TelegramMessageSender>();
-            services.AddSingleton<ITelegramHandler, TelegramHandler>();
+            services.AddSingleton<IHandler<Update>, TelegramHandler>();
 
-            await SetWebhook(configuration);
+            await SetWebhook(services, configuration);
         }
-        
-        
-        private static async Task SetWebhook(IConfiguration configuration)
+
+
+        private static async Task SetWebhook(IServiceCollection services, IConfiguration configuration)
         {
-            using var client = new HttpClient();
             var setTelegramWebhookUrl = configuration.GetSection("Webhooks").GetSection("Telegram").Value;
-            var telegramBotToken = configuration.GetSection("Tokens").GetSection("Telegram").Value;
-            var response = await client.GetAsync(string.Format(TelegramUrl, telegramBotToken, setTelegramWebhookUrl));
-            
-            if(!response.IsSuccessStatusCode)
-                throw new Exception();
-        } 
+            var serviceProvider = services.BuildServiceProvider();
+            var telegram = serviceProvider.GetService<ITelegramBotClient>();
+            await telegram.SetWebhookAsync(setTelegramWebhookUrl);
+        }
     }
 }

@@ -3,10 +3,23 @@ using BotCore.Core.DomainModels;
 
 namespace BotCore.Core.Interfaces
 {
-    public interface IAction<T>
+    /// <summary>
+    ///     Base interface for any actions
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    public interface IAction<in T>
         where T : MessengerCommandBase
     {
+        /// <summary>
+        ///     Action name
+        /// </summary>
         string Name { get; }
+
+        /// <summary>
+        ///     Method for execute commands
+        /// </summary>
+        /// <param name="commandBase"><see cref="MessengerCommandBase" /> instance for executing</param>
+        /// <returns></returns>
         Task ExecuteAsync(T commandBase);
     }
 }

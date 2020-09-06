@@ -6,11 +6,10 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\..\src\BotCore.Telegram\BotCore.Telegram.csproj" />
+      <ProjectReference Include="..\..\src\BotCore.Viber\BotCore.Viber.csproj" />
       <ProjectReference Include="..\BotCore.Telegram.Test\BotCore.Telegram.Test.csproj" />
-      <ProjectReference Include="..\BotCore.Telegram\BotCore.Telegram.csproj" />
-      <ProjectReference Include="..\BotCore.Core\BotCore.Core.csproj" />
       <ProjectReference Include="..\BotCore.Viber.Test\BotCore.Viber.Test.csproj" />
-      <ProjectReference Include="..\BotCore.Viber\BotCore.Viber.csproj" />
     </ItemGroup>
 
     <ItemGroup>

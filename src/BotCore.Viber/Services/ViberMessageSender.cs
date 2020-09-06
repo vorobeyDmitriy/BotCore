@@ -5,6 +5,7 @@ using Viber.Bot;
 
 namespace BotCore.Viber.Services
 {
+    /// <inheritdoc cref="IMessageSender{T}" />
     public class ViberMessageSender : IMessageSender<ViberMessage>
     {
         private readonly IViberBotClient _viber;

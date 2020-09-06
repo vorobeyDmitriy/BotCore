@@ -1,12 +1,12 @@
 ﻿using System.Threading.Tasks;
 using BotCore.Core.Interfaces;
 using BotCore.Viber.DomainModels;
-using BotCore.Viber.Interfaces;
 using Viber.Bot;
 
 namespace BotCore.Viber.Handlers
 {
-    public class ViberHandler : IViberHandler
+    /// <inheritdoc cref="IHandler{T}" />
+    public class ViberHandler : IHandler<CallbackData>
     {
         private readonly IActionExecutor<ViberCommand> _actionExecutor;
 
@@ -19,17 +19,18 @@ namespace BotCore.Viber.Handlers
         {
             if (update.Event != EventType.Message)
                 return;
-            
-            if(update.Message.Type != MessageType.Text)
+
+            if (update.Message.Type != MessageType.Text)
                 return;
 
-            if(!(update.Message is TextMessage message))
+            if (!(update.Message is TextMessage message))
                 return;
 
-            await _actionExecutor.ExecuteActionAsync(new ViberCommand(message.Text)
-            {
-                Receiver = update.Sender.Id
-            });
+            await _actionExecutor.ExecuteActionAsync(
+                new ViberCommand(message.Text.Replace(" ", string.Empty))
+                {
+                    Receiver = update.Sender.Id
+                });
         }
     }
 }

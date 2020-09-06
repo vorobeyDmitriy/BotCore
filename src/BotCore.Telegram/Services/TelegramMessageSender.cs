@@ -3,10 +3,10 @@ using System.Threading.Tasks;
 using BotCore.Core.Interfaces;
 using BotCore.Telegram.DomainModels;
 using Telegram.Bot;
-using Telegram.Bot.Types.Enums;
 
 namespace BotCore.Telegram.Services
 {
+    /// <inheritdoc cref="IMessageSender{T}" />
     public class TelegramMessageSender : IMessageSender<TelegramMessage>
     {
         private readonly ITelegramBotClient _telegram;

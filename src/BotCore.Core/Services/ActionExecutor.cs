@@ -7,6 +7,8 @@ using BotCore.Core.Interfaces;
 
 namespace BotCore.Core.Services
 {
+    /// <inheritdoc cref="IActionExecutor{T}" />
+    /// <typeparam name="T"></typeparam>
     public class ActionExecutor<T> : IActionExecutor<T>
         where T : MessengerCommandBase
     {

@@ -1,12 +1,12 @@
 ﻿using System.Threading.Tasks;
 using BotCore.Core.Interfaces;
 using BotCore.Telegram.DomainModels;
-using BotCore.Telegram.Interfaces;
 using Telegram.Bot.Types;
 
 namespace BotCore.Telegram.Handlers
 {
-    public class TelegramHandler : ITelegramHandler
+    /// <inheritdoc cref="IHandler{T}" />
+    public class TelegramHandler : IHandler<Update>
     {
         private readonly IActionExecutor<TelegramCommand> _actionExecutor;
 

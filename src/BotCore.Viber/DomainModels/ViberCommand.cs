@@ -4,10 +4,10 @@ namespace BotCore.Viber.DomainModels
 {
     public class ViberCommand : MessengerCommandBase
     {
-        public string Receiver { get; set; }
-        
         public ViberCommand(string commandName) : base(commandName)
         {
         }
+
+        public string Receiver { get; set; }
     }
 }

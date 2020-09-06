@@ -4,6 +4,8 @@ using BotCore.Core.Interfaces;
 
 namespace BotCore.Core.DataTransfer
 {
+    /// <inheritdoc cref="IAction{T}" />
+    /// <typeparam name="T"></typeparam>
     public abstract class ActionBase<T> : IAction<T>
         where T : MessengerCommandBase
     {
