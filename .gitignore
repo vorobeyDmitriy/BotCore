@@ -118,3 +118,4 @@ msbuild.log
 msbuild.err
 msbuild.wrn
 /src/BotCore.API/appsettings.Development.json
+/samples/BotCore.API.Test/appsettings.Development.json
