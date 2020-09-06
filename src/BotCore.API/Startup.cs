@@ -1,8 +1,11 @@
 using BotCore.Core.Interfaces;
 using BotCore.Telegram;
+using BotCore.Telegram.DomainModels;
+using BotCore.Telegram.Interfaces;
 using BotCore.Telegram.Test.Actions;
 using BotCore.Telegram.Test.Interfaces;
 using BotCore.Telegram.Test.Services;
+using BotCore.Viber;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -25,11 +28,12 @@ namespace BotCore.API
         {
             services.AddControllers().AddNewtonsoftJson();
 
-            services.AddSingleton<IAction, StartAction>();
-            services.AddSingleton<IAction, GetAllCurrenciesAction>();
-            services.AddSingleton<IAction, GetCurrencyRateAction>();
+            services.AddSingleton<IAction<TelegramCommand>, StartAction>();
+            services.AddSingleton<IAction<TelegramCommand>, GetAllCurrenciesAction>();
+            services.AddSingleton<IAction<TelegramCommand>, GetCurrencyRateAction>();
             services.AddSingleton<IBankService, BankService>();
-            services.AddTelegram(Configuration.GetSection("TelegramBotToken").Value);
+            services.AddTelegram(Configuration.GetSection("Tokens").GetSection("Telegram").Value);
+            services.AddViber(Configuration.GetSection("Tokens").GetSection("Viber").Value);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -8,14 +8,14 @@ namespace BotCore.Telegram.Handlers
 {
     public class TelegramHandler : ITelegramHandler
     {
-        private readonly IActionExecutor _actionExecutor;
+        private readonly IActionExecutor<TelegramCommand> _actionExecutor;
 
-        public TelegramHandler(IActionExecutor actionExecutor)
+        public TelegramHandler(IActionExecutor<TelegramCommand> actionExecutor)
         {
             _actionExecutor = actionExecutor;
         }
 
-        public virtual async Task HandleUpdate(Update telegramUpdate)
+        public async Task HandleUpdate(Update telegramUpdate)
         {
             var commandName = telegramUpdate.Message.Text.Replace(" ", string.Empty);
 

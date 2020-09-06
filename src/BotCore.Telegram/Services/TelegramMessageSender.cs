@@ -1,14 +1,12 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
-using BotCore.Core.DataTransfer;
 using BotCore.Core.Interfaces;
 using BotCore.Telegram.DomainModels;
-using BotCore.Telegram.Interfaces;
 using Telegram.Bot;
 
 namespace BotCore.Telegram.Services
 {
-    public class TelegramMessageSender : ITelegramMessageSender
+    public class TelegramMessageSender : IMessageSender<TelegramMessage>
     {
         private readonly ITelegramBotClient _telegram;
 
@@ -17,15 +15,12 @@ namespace BotCore.Telegram.Services
             _telegram = telegram;
         }
 
-        public async Task SendTextAsync(Message message)
+        public async Task SendTextAsync(TelegramMessage message)
         {
-            if (!(message is TelegramMessage telegramMessage))
-                return;
-
             await _telegram.SendTextMessageAsync(message.Receiver, message.Text,
-                telegramMessage.ParseMode, telegramMessage.DisableWebPagePreview,
-                telegramMessage.DisableNotification, telegramMessage.ReplyToMessageId,
-                telegramMessage.Keyboard, CancellationToken.None);
+                message.ParseMode, message.DisableWebPagePreview,
+                message.DisableNotification, message.ReplyToMessageId,
+                message.Keyboard, CancellationToken.None);
         }
     }
 }

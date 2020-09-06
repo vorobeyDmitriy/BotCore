@@ -2,26 +2,22 @@
 using BotCore.Core.DataTransfer;
 using BotCore.Core.DomainModels;
 using BotCore.Core.Interfaces;
+using BotCore.Telegram.DataTransfer;
 using BotCore.Telegram.DomainModels;
+using BotCore.Telegram.Interfaces;
 using BotCore.Telegram.Test.Keyboards;
 
 namespace BotCore.Telegram.Test.Actions
 {
-    public class StartAction : ActionBase
+    public class StartAction : TelegramAction
     {
-        private readonly IMessageSender _messageSender;
-
-        public StartAction(IMessageSender messageSender)
+        public StartAction(IMessageSender<TelegramMessage> messageSender) : base(messageSender)
         {
-            _messageSender = messageSender;
         }
 
-        public override async Task ExecuteAsync(MessengerCommandBase commandBase)
+        public override async Task ExecuteAsync(TelegramCommand command)
         {
-            if (!(commandBase is TelegramCommand command))
-                return;
-
-            await _messageSender.SendTextAsync(new TelegramMessage
+            await MessageSender.SendTextAsync(new TelegramMessage
             {
                 Receiver = command.SenderId.ToString(),
                 Keyboard = GetCurrencyRateKeyboard.Keyboard,

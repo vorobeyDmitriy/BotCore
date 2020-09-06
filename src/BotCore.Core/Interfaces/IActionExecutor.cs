@@ -3,8 +3,9 @@ using BotCore.Core.DomainModels;
 
 namespace BotCore.Core.Interfaces
 {
-    public interface IActionExecutor
+    public interface IActionExecutor<T>
+        where T : MessengerCommandBase
     {
-        Task ExecuteActionAsync(MessengerCommandBase messengerCommandBase);
+        Task ExecuteActionAsync(T messengerCommandBase);
     }
 }
