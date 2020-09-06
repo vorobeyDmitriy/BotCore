@@ -31,8 +31,8 @@ namespace BotCore.API
         {
             services.AddControllers().AddNewtonsoftJson();
 
-            services.AddTelegramClient(Configuration.GetSection("Tokens").GetSection("Telegram").Value);
-            services.AddViberClient(Configuration.GetSection("Tokens").GetSection("Viber").Value);
+            services.AddTelegramClient(Configuration);
+            services.AddViberClient(Configuration);
             
             services.AddSingleton<IAction<TelegramCommand>, StartAction>();
             services.AddSingleton<IAction<TelegramCommand>, GetAllCurrenciesAction>();
