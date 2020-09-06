@@ -2,7 +2,6 @@
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using BotCore.Core.DomainModels;
 using BotCore.Core.Interfaces;
 using BotCore.Telegram.DataTransfer;
 using BotCore.Telegram.DomainModels;
@@ -11,21 +10,18 @@ using BotCore.Telegram.Test.Keyboards;
 
 namespace BotCore.Telegram.Test.Actions
 {
-    public class GetAllCurrenciesAction : TelegramActionBase
+    public class GetAllCurrenciesAction : TelegramAction
     {
         private readonly IBankService _bankService;
         private const int PageSize = 8;
         
-        public GetAllCurrenciesAction(IMessageSender messageSender, IBankService bankService) : base(messageSender)
+        public GetAllCurrenciesAction(IMessageSender<TelegramMessage> messageSender, IBankService bankService) : base(messageSender)
         {
             _bankService = bankService;
         }
         
-        public override async Task ExecuteAsync(MessengerCommandBase commandBase)
+        public override async Task ExecuteAsync(TelegramCommand command)
         {
-            if (!(commandBase is TelegramCommand command))
-                return;
-            
             var currencies = await _bankService.GetAllCurrencies();
             var sb = new StringBuilder();
             var pageCount = Math.Ceiling((double)currencies.Count / PageSize);

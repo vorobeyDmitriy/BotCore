@@ -8,6 +8,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BotCore.Telegram", "src\Bot
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BotCore.Telegram.Test", "src\BotCore.Telegram.Test\BotCore.Telegram.Test.csproj", "{A55B5A93-699A-4418-B40A-8C0546279502}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BotCore.Viber", "src\BotCore.Viber\BotCore.Viber.csproj", "{46967296-F136-4BE1-BAA9-2C0F21587E93}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BotCore.Viber.Test", "src\BotCore.Viber.Test\BotCore.Viber.Test.csproj", "{8E2BB696-8AF9-40EF-AD47-9D3F12BF39D8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -30,5 +34,13 @@ Global
 		{A55B5A93-699A-4418-B40A-8C0546279502}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A55B5A93-699A-4418-B40A-8C0546279502}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A55B5A93-699A-4418-B40A-8C0546279502}.Release|Any CPU.Build.0 = Release|Any CPU
+		{46967296-F136-4BE1-BAA9-2C0F21587E93}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{46967296-F136-4BE1-BAA9-2C0F21587E93}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{46967296-F136-4BE1-BAA9-2C0F21587E93}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{46967296-F136-4BE1-BAA9-2C0F21587E93}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8E2BB696-8AF9-40EF-AD47-9D3F12BF39D8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8E2BB696-8AF9-40EF-AD47-9D3F12BF39D8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8E2BB696-8AF9-40EF-AD47-9D3F12BF39D8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8E2BB696-8AF9-40EF-AD47-9D3F12BF39D8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

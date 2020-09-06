@@ -4,7 +4,7 @@ using Telegram.Bot.Types.ReplyMarkups;
 
 namespace BotCore.Telegram.DomainModels
 {
-    public class TelegramMessage : Message
+    public class TelegramMessage : MessageBase
     {
         public ParseMode ParseMode { get; set; }
         public bool DisableWebPagePreview { get; set; }

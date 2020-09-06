@@ -7,16 +7,17 @@ using BotCore.Core.Interfaces;
 
 namespace BotCore.Core.Services
 {
-    public class ActionExecutor : IActionExecutor
+    public class ActionExecutor<T> : IActionExecutor<T>
+        where T : MessengerCommandBase
     {
-        private readonly IEnumerable<IAction> _commands;
+        private readonly IEnumerable<IAction<T>> _commands;
 
-        public ActionExecutor(IEnumerable<IAction> commands)
+        public ActionExecutor(IEnumerable<IAction<T>> commands)
         {
             _commands = commands;
         }
 
-        public async Task ExecuteActionAsync(MessengerCommandBase messengerCommandBase)
+        public async Task ExecuteActionAsync(T messengerCommandBase)
         {
             var command = GetAction(messengerCommandBase.CommandName);
 
@@ -24,7 +25,7 @@ namespace BotCore.Core.Services
                 await command.ExecuteAsync(messengerCommandBase);
         }
 
-        private IAction GetAction(string commandName)
+        private IAction<T> GetAction(string commandName)
         {
             return _commands.FirstOrDefault(x => x.Name.Equals(commandName,
                 StringComparison.InvariantCultureIgnoreCase));
