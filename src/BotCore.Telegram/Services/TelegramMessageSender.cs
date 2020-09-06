@@ -3,11 +3,12 @@ using System.Threading.Tasks;
 using BotCore.Core.DataTransfer;
 using BotCore.Core.Interfaces;
 using BotCore.Telegram.DomainModels;
+using BotCore.Telegram.Interfaces;
 using Telegram.Bot;
 
 namespace BotCore.Telegram.Services
 {
-    public class TelegramMessageSender : IMessageSender
+    public class TelegramMessageSender : ITelegramMessageSender
     {
         private readonly ITelegramBotClient _telegram;
 
