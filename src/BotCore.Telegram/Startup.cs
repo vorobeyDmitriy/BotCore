@@ -11,20 +11,27 @@ namespace BotCore.Telegram
 {
     public static class Startup
     {
-        public static void AddCommandExecutor(this IServiceCollection services)
+        /// <summary>
+        ///     Add services for telegram functionality
+        /// </summary>
+        /// <remarks>
+        ///    Use it after all <see cref="IAction" registration/>
+        /// </remarks>
+        /// <param name="services"><see cref="IServiceCollection"/></param>
+        /// <param name="telegramBotToken">Token for telegram bot</param>
+        public static void AddTelegram(this IServiceCollection services, string telegramBotToken)
         {
+            services.AddSingleton<ITelegramMessageSender, TelegramMessageSender>();
+            
+            var telegramBotClient = new TelegramBotClient(telegramBotToken);
+            services.AddSingleton<ITelegramBotClient>(telegramBotClient);
+            
+            services.AddSingleton<ITelegramHandler, TelegramHandler>();
+            
             var serviceProvider = services.BuildServiceProvider();
             var commands = serviceProvider.GetServices<IAction>();
             var commandExecutor = new ActionExecutor(commands);
             services.AddSingleton<IActionExecutor>(commandExecutor);
-        }
-
-        public static void AddBotServices(this IServiceCollection services, IConfiguration configuration)
-        {
-            services.AddSingleton<IMessageSender, TelegramMessageSender>();
-            var telegramBotClient = new TelegramBotClient(configuration.GetSection("TelegramBotToken").Value);
-            services.AddSingleton<ITelegramBotClient>(telegramBotClient);
-            services.AddSingleton<ITelegramHandler, TelegramHandler>();
         }
     }
 }

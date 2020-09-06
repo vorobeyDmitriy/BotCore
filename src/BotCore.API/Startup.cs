@@ -24,13 +24,12 @@ namespace BotCore.API
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers().AddNewtonsoftJson();
-            services.AddBotServices(Configuration);
 
             services.AddSingleton<IAction, StartAction>();
             services.AddSingleton<IAction, GetAllCurrenciesAction>();
             services.AddSingleton<IAction, GetCurrencyRateAction>();
             services.AddSingleton<IBankService, BankService>();
-            services.AddCommandExecutor();
+            services.AddTelegram(Configuration.GetSection("TelegramBotToken").Value);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
