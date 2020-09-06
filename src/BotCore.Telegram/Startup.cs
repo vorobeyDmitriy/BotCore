@@ -3,7 +3,6 @@ using BotCore.Core.Services;
 using BotCore.Telegram.Handlers;
 using BotCore.Telegram.Interfaces;
 using BotCore.Telegram.Services;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Telegram.Bot;
 
