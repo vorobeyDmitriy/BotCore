@@ -13,8 +13,4 @@
       <ProjectReference Include="..\BotCore.Core\BotCore.Core.csproj" />
     </ItemGroup>
 
-    <ItemGroup>
-      <Folder Include="Interfaces" />
-    </ItemGroup>
-
 </Project>
