@@ -1,6 +1,7 @@
-using BotCore.Common.Test.Interfaces;
-using BotCore.Common.Test.Services;
 using BotCore.Core.Interfaces;
+using BotCore.Core.Test.Interfaces;
+using BotCore.Core.Test.Services;
+using BotCore.Infrastructure.Test.Data;
 using BotCore.Telegram;
 using BotCore.Telegram.DomainModels;
 using BotCore.Telegram.Test.Actions;
@@ -8,6 +9,7 @@ using BotCore.Viber;
 using BotCore.Viber.DomainModels;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -35,11 +37,18 @@ namespace BotCore.API
             services.AddSingleton<IAction<TelegramCommand>, GetAllCurrenciesAction>();
             services.AddSingleton<IAction<TelegramCommand>, GetCurrencyRateAction>();
 
+
             services.AddSingleton<IAction<ViberCommand>, Viber.Test.Actions.StartAction>();
             services.AddSingleton<IAction<ViberCommand>, Viber.Test.Actions.GetAllCurrenciesAction>();
             services.AddSingleton<IAction<ViberCommand>, Viber.Test.Actions.GetCurrencyRateAction>();
 
             services.AddSingleton<IBankService, BankService>();
+            services.AddSingleton<IMessageService, MessageService>();
+
+            services.AddDbContext<BotCoreTestContext>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("BotCoreTestContext")));
+            services.AddScoped(typeof(IAsyncRepository<>), typeof(GenericRepository<>));
+
 
             services.AddTelegramActionsExecutor();
             services.AddViberActionsExecutor();

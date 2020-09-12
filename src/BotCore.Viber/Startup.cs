@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using BotCore.Core.Interfaces;
 using BotCore.Core.Services;
 using BotCore.Viber.DomainModels;
@@ -55,7 +56,19 @@ namespace BotCore.Viber
             var setViberWebhookUrl = configuration.GetSection("Webhooks").GetSection("Viber").Value;
             var serviceProvider = services.BuildServiceProvider();
             var viber = serviceProvider.GetService<IViberBotClient>();
-            await viber.SetWebhookAsync(setViberWebhookUrl);
+            var retry = 0;
+
+            while (retry < 10)
+                try
+                {
+                    await Task.Delay(1000);
+                    await viber.SetWebhookAsync(setViberWebhookUrl);
+                }
+                catch (Exception e)
+                {
+                    retry++;
+                    Console.WriteLine(e);
+                }
         }
     }
 }

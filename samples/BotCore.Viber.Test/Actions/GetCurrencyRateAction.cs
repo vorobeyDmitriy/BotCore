@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
-using BotCore.Common.Test.Interfaces;
 using BotCore.Core.Interfaces;
+using BotCore.Core.Test.Interfaces;
 using BotCore.Viber.DataTransfer;
 using BotCore.Viber.DomainModels;
 using BotCore.Viber.Test.Keyboards;

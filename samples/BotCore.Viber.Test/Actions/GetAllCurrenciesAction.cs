@@ -1,9 +1,6 @@
-﻿using System;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using BotCore.Common.Test.Interfaces;
+﻿using System.Threading.Tasks;
 using BotCore.Core.Interfaces;
+using BotCore.Core.Test.Interfaces;
 using BotCore.Viber.DataTransfer;
 using BotCore.Viber.DomainModels;
 using BotCore.Viber.Test.Keyboards;
@@ -13,39 +10,29 @@ namespace BotCore.Viber.Test.Actions
     public class GetAllCurrenciesAction : ViberAction
     {
         private const int PageSize = 8;
-        private readonly IBankService _bankService;
+        private readonly IMessageService _messageService;
 
-        public GetAllCurrenciesAction(IMessageSender<ViberMessage> messageSender, IBankService bankService) : base(
-            messageSender)
+        public GetAllCurrenciesAction(IMessageSender<ViberMessage> messageSender, IMessageService messageService)
+            : base(messageSender)
         {
-            _bankService = bankService;
+            _messageService = messageService;
         }
 
         public override async Task ExecuteAsync(ViberCommand command)
         {
-            var currencies = await _bankService.GetAllCurrencies();
-            var sb = new StringBuilder();
-            var pageCount = Math.Ceiling((double) currencies.Count / PageSize);
-
-            for (var i = 0; i < pageCount; i++)
+            var pageNumber = 0;
+            var message = await _messageService.GetAllCurrenciesMessageAsync(pageNumber, PageSize);
+            while (string.IsNullOrWhiteSpace(message))
             {
-                foreach (var currency in currencies.Skip(i * PageSize).Take(PageSize))
-                {
-                    sb.Append(currency.Name);
-                    sb.Append(" ( ");
-                    sb.Append(currency.Abbreviation);
-                    sb.Append(") ");
-                    sb.Append("\r\n");
-                }
-
                 await MessageSender.SendTextAsync(new ViberMessage
                 {
                     Receiver = command.Receiver,
                     Keyboard = GetCurrencyRateKeyboard.Keyboard,
-                    Text = sb.ToString(),
+                    Text = message,
                     SenderDisplayName = "Qwe"
                 });
-                sb.Clear();
+
+                pageNumber++;
             }
         }
     }
