@@ -3,6 +3,7 @@ using BotCore.Core.Interfaces;
 using BotCore.Core.Test.Interfaces;
 using BotCore.Core.Test.Services;
 using BotCore.Infrastructure.Test.Data;
+using BotCore.Infrastructure.Test.Middlewares;
 using BotCore.Telegram;
 using BotCore.Telegram.DomainModels;
 using BotCore.Telegram.Test.Actions;
@@ -72,6 +73,8 @@ namespace BotCore.API
         {
             if (env.IsDevelopment())
                 app.UseDeveloperExceptionPage();
+
+            app.UseMiddleware<ErrorHandlingMiddleware>();
 
             app.UseRouting();
             app.UseCors();

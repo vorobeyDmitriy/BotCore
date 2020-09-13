@@ -17,7 +17,11 @@ namespace BotCore.Telegram.Handlers
 
         public async Task HandleUpdate(Update telegramUpdate)
         {
-            var commandName = telegramUpdate.Message.Text.Replace(" ", string.Empty);
+            if(telegramUpdate?.Message?.Chat == null)
+                return;
+
+            var text = telegramUpdate.Message.Text ?? string.Empty;
+            var commandName = text.Replace(" ", string.Empty);
 
             if (commandName.StartsWith('/'))
                 commandName = commandName.Substring(1);
