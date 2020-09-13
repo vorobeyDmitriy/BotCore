@@ -12,7 +12,7 @@ using Telegram.Bot.Types;
 
 namespace BotCore.Telegram
 {
-    public static class Startup
+    public static class TelegramStartup
     {
         /// <summary>
         ///     Add services for telegram functionality

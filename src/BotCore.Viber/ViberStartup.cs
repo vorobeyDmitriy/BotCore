@@ -11,7 +11,7 @@ using Viber.Bot;
 
 namespace BotCore.Viber
 {
-    public static class Startup
+    public static class ViberStartup
     {
         /// <summary>
         ///     Add services for viber functionality
