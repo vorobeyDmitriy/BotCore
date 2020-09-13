@@ -19,8 +19,9 @@ namespace BotCore.Telegram.Handlers
         {
             if(telegramUpdate?.Message?.Chat == null)
                 return;
-            
-            var commandName = telegramUpdate.Message.Text.Replace(" ", string.Empty);
+
+            var text = telegramUpdate.Message.Text ?? string.Empty;
+            var commandName = text.Replace(" ", string.Empty);
 
             if (commandName.StartsWith('/'))
                 commandName = commandName.Substring(1);
