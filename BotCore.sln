@@ -12,7 +12,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BotCore.Telegram.Test", "sa
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BotCore.Viber.Test", "samples\BotCore.Viber.Test\BotCore.Viber.Test.csproj", "{73B246AD-881E-4606-B48F-B22AD63B91DF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BotCore.Common.Test", "samples\BotCore.Common.Test\BotCore.Common.Test.csproj", "{4EF4EDC2-BCFB-47E1-9487-41F37E5A524D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BotCore.Core.Test", "samples\BotCore.Core.Test\BotCore.Core.Test.csproj", "{4EF4EDC2-BCFB-47E1-9487-41F37E5A524D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BotCore.Infrastructure.Test", "samples\BotCore.Infrastructure.Test\BotCore.Infrastructure.Test.csproj", "{1B3E1DA4-943B-4DAB-B027-5DBB545E3C0D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -48,5 +50,9 @@ Global
 		{4EF4EDC2-BCFB-47E1-9487-41F37E5A524D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4EF4EDC2-BCFB-47E1-9487-41F37E5A524D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4EF4EDC2-BCFB-47E1-9487-41F37E5A524D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1B3E1DA4-943B-4DAB-B027-5DBB545E3C0D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1B3E1DA4-943B-4DAB-B027-5DBB545E3C0D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1B3E1DA4-943B-4DAB-B027-5DBB545E3C0D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1B3E1DA4-943B-4DAB-B027-5DBB545E3C0D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

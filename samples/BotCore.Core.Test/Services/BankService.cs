@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
-using BotCore.Common.Test.DomainModels;
-using BotCore.Common.Test.Interfaces;
+using BotCore.Core.Test.DomainModels;
+using BotCore.Core.Test.Interfaces;
 using Newtonsoft.Json;
 
-namespace BotCore.Common.Test.Services
+namespace BotCore.Core.Test.Services
 {
     public class BankService : IBankService
     {

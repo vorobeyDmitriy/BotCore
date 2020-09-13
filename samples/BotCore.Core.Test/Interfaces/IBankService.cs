@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using BotCore.Common.Test.DomainModels;
+using BotCore.Core.Test.DomainModels;
 
-namespace BotCore.Common.Test.Interfaces
+namespace BotCore.Core.Test.Interfaces
 {
     public interface IBankService
     {

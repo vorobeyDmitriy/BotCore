@@ -45,8 +45,8 @@ namespace BotCore.Telegram
             var telegramBotToken = configuration.GetSection("Tokens").GetSection("Telegram").Value;
             var telegramBotClient = new TelegramBotClient(telegramBotToken);
             services.AddSingleton<ITelegramBotClient>(telegramBotClient);
-            services.AddSingleton<IMessageSender<TelegramMessage>, TelegramMessageSender>();
-            services.AddSingleton<IHandler<Update>, TelegramHandler>();
+            services.AddScoped<IMessageSender<TelegramMessage>, TelegramMessageSender>();
+            services.AddScoped<IHandler<Update>, TelegramHandler>();
 
             await SetWebhook(services, configuration);
         }

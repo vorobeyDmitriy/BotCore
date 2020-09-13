@@ -1,7 +1,7 @@
 ﻿using System;
 using Newtonsoft.Json;
 
-namespace BotCore.Common.Test.DomainModels
+namespace BotCore.Core.Test.DomainModels
 {
     public class Currency
     {
