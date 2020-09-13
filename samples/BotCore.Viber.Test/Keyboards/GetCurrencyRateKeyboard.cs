@@ -13,7 +13,7 @@ namespace BotCore.Viber.Test.Keyboards
                 {
                     Text = "Get All Currencies",
                     ActionType = KeyboardActionType.Reply,
-                    ActionBody = "Get Currency Rate"
+                    ActionBody = "Get All Currencies"
                 },
                 new KeyboardButton
                 {
