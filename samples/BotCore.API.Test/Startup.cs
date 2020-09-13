@@ -1,3 +1,4 @@
+using System;
 using BotCore.Core.Interfaces;
 using BotCore.Core.Test.Interfaces;
 using BotCore.Core.Test.Services;
@@ -26,12 +27,13 @@ namespace BotCore.API
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
-        public void ConfigureServices(IServiceCollection services)
+        public void ConfigureServices(IServiceCollection services, IWebHostEnvironment env)
         {
+            var isProd = env.IsProduction();
             services.AddControllers().AddNewtonsoftJson();
 
-            services.AddTelegramClient(Configuration);
-            services.AddViberClient(Configuration);
+            services.AddTelegramClient(Configuration, isProd);
+            services.AddViberClient(Configuration, isProd);
 
             services.AddScoped<IAction<TelegramCommand>, StartAction>();
             services.AddScoped<IAction<TelegramCommand>, GetAllCurrenciesAction>();
@@ -45,8 +47,16 @@ namespace BotCore.API
             services.AddScoped<IBankService, BankService>();
             services.AddScoped<IMessageService, MessageService>();
 
-            services.AddDbContext<BotCoreTestContext>(options =>
-                options.UseNpgsql(Configuration.GetConnectionString("BotCoreTestContext")));
+            if(isProd)
+            {
+                services.AddDbContext<BotCoreTestContext>(options =>
+                    options.UseNpgsql(Environment.GetEnvironmentVariable("DATABASE_URL")));
+            }
+            else
+            {
+                services.AddDbContext<BotCoreTestContext>(options =>
+                    options.UseNpgsql(Configuration.GetConnectionString("BotCoreTestContext")));
+            }
             services.AddScoped(typeof(IAsyncRepository<>), typeof(GenericRepository<>));
             
             services.AddTelegramActionsExecutor();
