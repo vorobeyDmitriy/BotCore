@@ -2,11 +2,7 @@
 
     <PropertyGroup>
         <TargetFramework>netcoreapp3.0</TargetFramework>
-        <RootNamespace>TelegramBotCore.Core</RootNamespace>
+        <RootNamespace>BotCore.Core</RootNamespace>
     </PropertyGroup>
-
-    <ItemGroup>
-      <Folder Include="DataTransfer\Actions" />
-    </ItemGroup>
 
 </Project>

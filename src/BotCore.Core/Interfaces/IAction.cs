@@ -1,10 +1,25 @@
 ﻿using System.Threading.Tasks;
+using BotCore.Core.DomainModels;
 
-namespace TelegramBotCore.Core.Interfaces
+namespace BotCore.Core.Interfaces
 {
-    public interface IAction
+    /// <summary>
+    ///     Base interface for any actions
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    public interface IAction<in T>
+        where T : MessengerCommandBase
     {
+        /// <summary>
+        ///     Action name
+        /// </summary>
         string Name { get; }
-        Task ExecuteAsync();
+
+        /// <summary>
+        ///     Method for execute commands
+        /// </summary>
+        /// <param name="commandBase"><see cref="MessengerCommandBase" /> instance for executing</param>
+        /// <returns></returns>
+        Task ExecuteAsync(T commandBase);
     }
 }

@@ -1,10 +1,16 @@
 ﻿using System.Threading.Tasks;
-using TelegramBotCore.Core.DataTransfer;
+using BotCore.Core.DataTransfer;
 
-namespace TelegramBotCore.Core.Interfaces
+namespace BotCore.Core.Interfaces
 {
-    public interface IMessageSender
+    public interface IMessageSender<in T>
+        where T : MessageBase
     {
-        Task SendTextAsync(Message message);
+        /// <summary>
+        ///     Send text message to user
+        /// </summary>
+        /// <param name="message">Message</param>
+        /// <returns></returns>
+        Task SendTextAsync(T message);
     }
 }

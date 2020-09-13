@@ -1,13 +1,17 @@
 ﻿using System.Threading.Tasks;
-using TelegramBotCore.Core.Interfaces;
+using BotCore.Core.DomainModels;
+using BotCore.Core.Interfaces;
 
-namespace TelegramBotCore.Core.DataTransfer
+namespace BotCore.Core.DataTransfer
 {
-    public abstract class ActionBase : IAction
+    /// <inheritdoc cref="IAction{T}" />
+    /// <typeparam name="T"></typeparam>
+    public abstract class ActionBase<T> : IAction<T>
+        where T : MessengerCommandBase
     {
         private const string Action = "Action";
         public string Name => GetType().Name.Replace(Action, string.Empty);
-        
-        public abstract Task ExecuteAsync();
+
+        public abstract Task ExecuteAsync(T commandBase);
     }
 }

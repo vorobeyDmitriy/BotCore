@@ -1,10 +1,20 @@
 ﻿using System.Threading.Tasks;
-using TelegramBotCore.Core.DomainModels;
+using BotCore.Core.DomainModels;
 
-namespace TelegramBotCore.Core.Interfaces
+namespace BotCore.Core.Interfaces
 {
-    public interface IActionExecutor
+    /// <summary>
+    ///     Interface for automated mapping messenger commands to actions and execute it
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    public interface IActionExecutor<in T>
+        where T : MessengerCommandBase
     {
-        Task ExecuteActionAsync(MessengerCommandBase messengerCommandBase);
+        /// <summary>
+        ///     Map <typeparamref name="T" /> to <see cref="IAction{T}" /> and  execute it
+        /// </summary>
+        /// <param name="messengerCommandBase">Command from messenger</param>
+        /// <returns></returns>
+        Task ExecuteActionAsync(T messengerCommandBase);
     }
 }

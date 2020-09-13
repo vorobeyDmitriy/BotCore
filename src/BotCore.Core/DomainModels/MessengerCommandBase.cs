@@ -1,12 +1,18 @@
-﻿namespace TelegramBotCore.Core.DomainModels
+﻿namespace BotCore.Core.DomainModels
 {
+    /// <summary>
+    ///     Base class for all messenger commands
+    /// </summary>
     public abstract class MessengerCommandBase
     {
-        public string CommandName { get; set; }
-
         protected MessengerCommandBase(string commandName)
         {
-            CommandName = CommandName;
+            CommandName = commandName;
         }
+
+        /// <summary>
+        ///     Messenger command name
+        /// </summary>
+        public string CommandName { get; set; }
     }
 }
