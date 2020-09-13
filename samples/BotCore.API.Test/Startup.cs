@@ -20,15 +20,15 @@ namespace BotCore.API
     public class Startup
     {
         public IConfiguration Configuration { get; }
-        private IWebHostEnvironment CurrentEnvironment{ get; set; } 
-        
+        private IWebHostEnvironment CurrentEnvironment { get; set; }
+
         public Startup(IConfiguration configuration, IWebHostEnvironment currentEnvironment)
         {
             Configuration = configuration;
             CurrentEnvironment = currentEnvironment;
         }
 
-        
+
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
@@ -50,7 +50,7 @@ namespace BotCore.API
             services.AddScoped<IBankService, BankService>();
             services.AddScoped<IMessageService, MessageService>();
 
-            if(isProd)
+            if (isProd)
             {
                 services.AddDbContext<BotCoreTestContext>(options =>
                     options.UseNpgsql(Environment.GetEnvironmentVariable("DATABASE_URL")));
@@ -60,8 +60,9 @@ namespace BotCore.API
                 services.AddDbContext<BotCoreTestContext>(options =>
                     options.UseNpgsql(Configuration.GetConnectionString("BotCoreTestContext")));
             }
+
             services.AddScoped(typeof(IAsyncRepository<>), typeof(GenericRepository<>));
-            
+
             services.AddTelegramActionsExecutor();
             services.AddViberActionsExecutor();
         }
