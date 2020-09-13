@@ -33,5 +33,12 @@ namespace BotCore.Core.Test.Services
 
             return sb.ToString();
         }
+        
+        public async Task<int> GetCurrenciesCountAsync()
+        {
+            var currencies = await _currencyRepository.ListAllAsync();
+
+            return currencies.Count;
+        }
     }
 }

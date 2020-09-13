@@ -19,17 +19,20 @@ namespace BotCore.API
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        public IConfiguration Configuration { get; }
+        private IWebHostEnvironment CurrentEnvironment { get; set; }
+
+        public Startup(IConfiguration configuration, IWebHostEnvironment currentEnvironment)
         {
             Configuration = configuration;
+            CurrentEnvironment = currentEnvironment;
         }
 
-        public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
-        public void ConfigureServices(IServiceCollection services, IWebHostEnvironment env)
+        public void ConfigureServices(IServiceCollection services)
         {
-            var isProd = env.IsProduction();
+            var isProd = CurrentEnvironment.IsProduction();
             services.AddControllers().AddNewtonsoftJson();
 
             services.AddTelegramClient(Configuration, isProd);
@@ -47,18 +50,19 @@ namespace BotCore.API
             services.AddScoped<IBankService, BankService>();
             services.AddScoped<IMessageService, MessageService>();
 
-            if(isProd)
+            if (isProd)
             {
                 services.AddDbContext<BotCoreTestContext>(options =>
-                    options.UseNpgsql(Environment.GetEnvironmentVariable("DATABASE_URL")));
+                    options.UseNpgsql(Environment.GetEnvironmentVariable("BotCoreDbConnectionString")));
             }
             else
             {
                 services.AddDbContext<BotCoreTestContext>(options =>
                     options.UseNpgsql(Configuration.GetConnectionString("BotCoreTestContext")));
             }
+
             services.AddScoped(typeof(IAsyncRepository<>), typeof(GenericRepository<>));
-            
+
             services.AddTelegramActionsExecutor();
             services.AddViberActionsExecutor();
         }

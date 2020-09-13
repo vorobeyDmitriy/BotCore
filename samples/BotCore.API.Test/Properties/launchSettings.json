@@ -16,6 +16,23 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
+    "IIS Express stage": {
+      "commandName": "IISExpress",
+      "launchBrowser": true,
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Staging"
+      }
+    },
+    "IIS Express prod": {
+      "commandName": "IISExpress",
+      "launchBrowser": true,
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Production",
+        "DATABASE_URL" : "",
+        "ViberToken": "",
+        "TelegramToken": ""
+      }
+    },
     "BotCore.API": {
       "commandName": "Project",
       "launchBrowser": true,

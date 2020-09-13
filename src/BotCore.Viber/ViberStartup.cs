@@ -11,7 +11,7 @@ using Viber.Bot;
 
 namespace BotCore.Viber
 {
-    public static class Startup
+    public static class ViberStartup
     {
         /// <summary>
         ///     Add services for viber functionality
@@ -63,16 +63,20 @@ namespace BotCore.Viber
             var retry = 0;
 
             while (retry < 10)
+            {
                 try
                 {
                     await Task.Delay(1000);
                     await viber.SetWebhookAsync(setViberWebhookUrl);
+                    return;
                 }
                 catch (Exception e)
                 {
                     retry++;
                     Console.WriteLine(e);
                 }
+                
+            }
         }
     }
 }

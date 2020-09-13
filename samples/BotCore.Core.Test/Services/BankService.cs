@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
 using BotCore.Core.Test.DomainModels;
@@ -14,7 +15,7 @@ namespace BotCore.Core.Test.Services
 
         public async Task<Currency> GetCurrency(string currencyName)
         {
-            using var client = new HttpClient();
+            using var client = GetClient();
 
             var response = await client.GetAsync(string.Format(RatesUrl, currencyName));
 
@@ -27,7 +28,7 @@ namespace BotCore.Core.Test.Services
 
         public async Task<List<Currency>> GetAllCurrencies()
         {
-            using var client = new HttpClient();
+            using var client = GetClient();
 
             var response = await client.GetAsync(GetAllCurrenciesUrl);
 
@@ -36,6 +37,11 @@ namespace BotCore.Core.Test.Services
 
             var currency = JsonConvert.DeserializeObject<List<Currency>>(await response.Content.ReadAsStringAsync());
             return currency;
+        }
+
+        private HttpClient GetClient()
+        {
+            return new HttpClient {Timeout = TimeSpan.FromSeconds(30)};
         }
     }
 }
