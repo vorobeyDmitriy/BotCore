@@ -22,7 +22,7 @@ namespace BotCore.Telegram.Test.Actions
         {
             var pageNumber = 0;
             var message = await _messageService.GetAllCurrenciesMessageAsync(pageNumber, PageSize);
-            while (string.IsNullOrWhiteSpace(message))
+            while (!string.IsNullOrWhiteSpace(message))
             {
                 await MessageSender.SendTextAsync(new TelegramMessage
                 {
