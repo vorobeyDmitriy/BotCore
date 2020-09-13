@@ -40,9 +40,13 @@ namespace BotCore.Viber
         ///     <see cref="IServiceCollection" />
         /// </param>
         /// <param name="configuration">Instance of <see cref="IConfiguration" /></param>
-        public static async void AddViberClient(this IServiceCollection services, IConfiguration configuration)
+        /// <param name="isProduction"></param>
+        public static async void AddViberClient(this IServiceCollection services, IConfiguration configuration,
+            bool isProduction)
         {
-            var viberBotToken = configuration.GetSection("Tokens").GetSection("Viber").Value;
+            var viberBotToken = isProduction 
+                ? Environment.GetEnvironmentVariable("ViberToken") 
+                : configuration.GetSection("Tokens").GetSection("Viber").Value;
             var telegramBotClient = new ViberBotClient(viberBotToken);
             services.AddSingleton<IViberBotClient>(telegramBotClient);
             services.AddScoped<IMessageSender<ViberMessage>, ViberMessageSender>();

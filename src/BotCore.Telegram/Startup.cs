@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using BotCore.Core.Interfaces;
 using BotCore.Core.Services;
 using BotCore.Telegram.DomainModels;
@@ -40,9 +41,13 @@ namespace BotCore.Telegram
         ///     <see cref="IServiceCollection" />
         /// </param>
         /// <param name="configuration">Instance of <see cref="IConfiguration" /></param>
-        public static async void AddTelegramClient(this IServiceCollection services, IConfiguration configuration)
+        /// <param name="isProduction"></param>
+        public static async void AddTelegramClient(this IServiceCollection services, IConfiguration configuration,
+            bool isProduction)
         {
-            var telegramBotToken = configuration.GetSection("Tokens").GetSection("Telegram").Value;
+            var telegramBotToken = isProduction 
+                ? Environment.GetEnvironmentVariable("TelegramToken")
+                : configuration.GetSection("Tokens").GetSection("Telegram").Value;
             var telegramBotClient = new TelegramBotClient(telegramBotToken);
             services.AddSingleton<ITelegramBotClient>(telegramBotClient);
             services.AddScoped<IMessageSender<TelegramMessage>, TelegramMessageSender>();
