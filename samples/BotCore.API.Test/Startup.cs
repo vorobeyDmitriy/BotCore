@@ -53,7 +53,7 @@ namespace BotCore.API
             if (isProd)
             {
                 services.AddDbContext<BotCoreTestContext>(options =>
-                    options.UseNpgsql(Environment.GetEnvironmentVariable("DATABASE_URL")));
+                    options.UseNpgsql(Environment.GetEnvironmentVariable("BotCoreDbConnectionString")));
             }
             else
             {
