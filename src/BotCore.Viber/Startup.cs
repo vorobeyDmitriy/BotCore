@@ -45,8 +45,8 @@ namespace BotCore.Viber
             var viberBotToken = configuration.GetSection("Tokens").GetSection("Viber").Value;
             var telegramBotClient = new ViberBotClient(viberBotToken);
             services.AddSingleton<IViberBotClient>(telegramBotClient);
-            services.AddSingleton<IMessageSender<ViberMessage>, ViberMessageSender>();
-            services.AddSingleton<IHandler<CallbackData>, ViberHandler>();
+            services.AddScoped<IMessageSender<ViberMessage>, ViberMessageSender>();
+            services.AddScoped<IHandler<CallbackData>, ViberHandler>();
 
             await SetWebhook(services, configuration);
         }

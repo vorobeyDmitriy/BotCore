@@ -33,23 +33,22 @@ namespace BotCore.API
             services.AddTelegramClient(Configuration);
             services.AddViberClient(Configuration);
 
-            services.AddSingleton<IAction<TelegramCommand>, StartAction>();
-            services.AddSingleton<IAction<TelegramCommand>, GetAllCurrenciesAction>();
-            services.AddSingleton<IAction<TelegramCommand>, GetCurrencyRateAction>();
+            services.AddScoped<IAction<TelegramCommand>, StartAction>();
+            services.AddScoped<IAction<TelegramCommand>, GetAllCurrenciesAction>();
+            services.AddScoped<IAction<TelegramCommand>, GetCurrencyRateAction>();
 
 
-            services.AddSingleton<IAction<ViberCommand>, Viber.Test.Actions.StartAction>();
-            services.AddSingleton<IAction<ViberCommand>, Viber.Test.Actions.GetAllCurrenciesAction>();
-            services.AddSingleton<IAction<ViberCommand>, Viber.Test.Actions.GetCurrencyRateAction>();
+            services.AddScoped<IAction<ViberCommand>, Viber.Test.Actions.StartAction>();
+            services.AddScoped<IAction<ViberCommand>, Viber.Test.Actions.GetAllCurrenciesAction>();
+            services.AddScoped<IAction<ViberCommand>, Viber.Test.Actions.GetCurrencyRateAction>();
 
-            services.AddSingleton<IBankService, BankService>();
-            services.AddSingleton<IMessageService, MessageService>();
+            services.AddScoped<IBankService, BankService>();
+            services.AddScoped<IMessageService, MessageService>();
 
             services.AddDbContext<BotCoreTestContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("BotCoreTestContext")));
+                options.UseNpgsql(Configuration.GetConnectionString("BotCoreTestContext")));
             services.AddScoped(typeof(IAsyncRepository<>), typeof(GenericRepository<>));
-
-
+            
             services.AddTelegramActionsExecutor();
             services.AddViberActionsExecutor();
         }
