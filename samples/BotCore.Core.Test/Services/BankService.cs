@@ -10,38 +10,42 @@ namespace BotCore.Core.Test.Services
 {
     public class BankService : IBankService
     {
-        private const string RatesUrl = "https://www.nbrb.by/api/exrates/rates/{0}?parammode=2";
+        private const string RatesWithDateUrl = "https://www.nbrb.by/api/exrates/rates/{0}?parammode=2&ondate={1}";
         private const string GetAllCurrenciesUrl = "https://www.nbrb.by/api/exrates/currencies";
 
-        public async Task<Currency> GetCurrency(string currencyName)
+        public async Task<Currency> GetCurrency(string currencyName, DateTime? dateTime = null)
         {
+            dateTime ??= DateTime.UtcNow;
             using var client = GetClient();
-
-            var response = await client.GetAsync(string.Format(RatesUrl, currencyName));
-
-            if (!response.IsSuccessStatusCode)
-                return null;
-
-            var currency = JsonConvert.DeserializeObject<Currency>(await response.Content.ReadAsStringAsync());
+            var url = string.Format(RatesWithDateUrl, currencyName, dateTime.Value.ToString("yyyy-MM-dd"));
+            var response = await client.GetAsync(url);
+            var currency = await ProcessResponse<Currency>(response);
+            
             return currency;
         }
-
+        
         public async Task<List<Currency>> GetAllCurrencies()
         {
             using var client = GetClient();
 
             var response = await client.GetAsync(GetAllCurrenciesUrl);
-
-            if (!response.IsSuccessStatusCode)
-                return null;
-
-            var currency = JsonConvert.DeserializeObject<List<Currency>>(await response.Content.ReadAsStringAsync());
+            var currency = await ProcessResponse<List<Currency>>(response);
+            
             return currency;
         }
 
-        private HttpClient GetClient()
+        private static HttpClient GetClient()
         {
             return new HttpClient {Timeout = TimeSpan.FromSeconds(30)};
+        }
+
+        private static async Task<T> ProcessResponse<T>(HttpResponseMessage response)
+        {
+            if (!response.IsSuccessStatusCode)
+                return default;
+
+            var result = JsonConvert.DeserializeObject<T>(await response.Content.ReadAsStringAsync());
+            return result;
         }
     }
 }

@@ -9,25 +9,25 @@ namespace BotCore.Viber.Test.Actions
 {
     public class GetCurrencyRateAction : ViberAction
     {
-        private readonly IBankService _bankService;
-
-        public GetCurrencyRateAction(IMessageSender<ViberMessage> messageSender, IBankService bankService) : base(
-            messageSender)
+        private readonly IMessageService _messageService;
+        
+        public GetCurrencyRateAction(IMessageSender<ViberMessage> messageSender, IMessageService messageService) 
+            : base(messageSender)
         {
-            _bankService = bankService;
+            _messageService = messageService;
         }
 
         public override async Task ExecuteAsync(ViberCommand command)
         {
-            var usd = await _bankService.GetCurrency("USD");
-            var eur = await _bankService.GetCurrency("EUR");
-            var rub = await _bankService.GetCurrency("RUB");
+            var usd = await _messageService.GetCurrencyRateMessageAsync("USD");
+            var eur = await _messageService.GetCurrencyRateMessageAsync("EUR");
+            var rub = await _messageService.GetCurrencyRateMessageAsync("RUB");
 
             await MessageSender.SendTextAsync(new ViberMessage
             {
                 Receiver = command.Receiver,
                 Keyboard = GetCurrencyRateKeyboard.Keyboard,
-                Text = usd + "\r\n" + eur + "\r\n" + rub + "\r\n",
+                Text = usd + eur + rub,
                 SenderDisplayName = "Qwe"
             });
         }
