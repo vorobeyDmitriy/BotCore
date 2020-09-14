@@ -18,4 +18,8 @@
       <ProjectReference Include="..\BotCore.Core.Test\BotCore.Core.Test.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Migrations" />
+    </ItemGroup>
+
 </Project>

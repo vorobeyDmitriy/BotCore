@@ -45,7 +45,7 @@ namespace BotCore.Telegram
         public static async void AddTelegramClient(this IServiceCollection services, IConfiguration configuration,
             bool isProduction)
         {
-            var telegramBotToken = isProduction 
+            var telegramBotToken = isProduction
                 ? Environment.GetEnvironmentVariable("TelegramToken")
                 : configuration.GetSection("Tokens").GetSection("Telegram").Value;
             var telegramBotClient = new TelegramBotClient(telegramBotToken);

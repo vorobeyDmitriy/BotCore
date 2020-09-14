@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System;
+using System.Text;
 using System.Threading.Tasks;
 using BotCore.Core.Test.Entities;
 using BotCore.Core.Test.Interfaces;
@@ -8,11 +9,14 @@ namespace BotCore.Core.Test.Services
 {
     public class MessageService : IMessageService
     {
+        private const string Plus = "+";
+        private readonly IBankService _bankService;
         private readonly IAsyncRepository<Currency> _currencyRepository;
 
-        public MessageService(IAsyncRepository<Currency> currencyRepository)
+        public MessageService(IAsyncRepository<Currency> currencyRepository, IBankService bankService)
         {
             _currencyRepository = currencyRepository;
+            _bankService = bankService;
         }
 
         public async Task<string> GetAllCurrenciesMessageAsync(int pageNumber, int pageSize)
@@ -33,7 +37,24 @@ namespace BotCore.Core.Test.Services
 
             return sb.ToString();
         }
-        
+
+        public async Task<string> GetCurrencyRateMessageAsync(string currency, DateTime date)
+        {
+            var nextDate = date.AddDays(1);
+
+            var usdNext = await _bankService.GetCurrency(currency, nextDate);
+
+            if (usdNext == null) return await GetCurrencyRateMessageAsync(currency, date.AddDays(-1));
+
+            var usdPrev = await _bankService.GetCurrency(currency, date);
+            var diff = usdNext.OfficialRate - usdPrev.OfficialRate;
+
+            var message = $"{usdNext.Scale} {usdNext.Abbreviation} :  {usdNext.OfficialRate}  BYN " +
+                          $"({(diff > 0 ? Plus : string.Empty)}{diff:F4}) \r\n";
+
+            return message;
+        }
+
         public async Task<int> GetCurrenciesCountAsync()
         {
             var currencies = await _currencyRepository.ListAllAsync();
