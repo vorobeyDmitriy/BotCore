@@ -17,7 +17,7 @@ namespace BotCore.Telegram.Handlers
 
         public async Task HandleUpdate(Update telegramUpdate)
         {
-            if(telegramUpdate?.Message?.Chat == null)
+            if (telegramUpdate?.Message?.Chat == null)
                 return;
 
             var text = telegramUpdate.Message.Text ?? string.Empty;

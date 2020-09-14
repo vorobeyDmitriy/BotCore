@@ -44,8 +44,8 @@ namespace BotCore.Viber
         public static async void AddViberClient(this IServiceCollection services, IConfiguration configuration,
             bool isProduction)
         {
-            var viberBotToken = isProduction 
-                ? Environment.GetEnvironmentVariable("ViberToken") 
+            var viberBotToken = isProduction
+                ? Environment.GetEnvironmentVariable("ViberToken")
                 : configuration.GetSection("Tokens").GetSection("Viber").Value;
             var telegramBotClient = new ViberBotClient(viberBotToken);
             services.AddSingleton<IViberBotClient>(telegramBotClient);
@@ -63,7 +63,6 @@ namespace BotCore.Viber
             var retry = 0;
 
             while (retry < 10)
-            {
                 try
                 {
                     await Task.Delay(1000);
@@ -75,8 +74,6 @@ namespace BotCore.Viber
                     retry++;
                     Console.WriteLine(e);
                 }
-                
-            }
         }
     }
 }
