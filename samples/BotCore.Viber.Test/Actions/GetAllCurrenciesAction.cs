@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using BotCore.Core.Interfaces;
 using BotCore.Core.Test.Interfaces;
 using BotCore.Viber.DataTransfer;
@@ -20,10 +21,11 @@ namespace BotCore.Viber.Test.Actions
 
         public override async Task ExecuteAsync(ViberCommand command)
         {
-            var pageNumber = 0;
-            var message = await _messageService.GetAllCurrenciesMessageAsync(pageNumber, PageSize);
-            while (string.IsNullOrWhiteSpace(message))
+            var count = await _messageService.GetCurrenciesCountAsync();
+            var pageCount = Math.Ceiling((double) count / PageSize);
+            for (var i = 0; i < pageCount; i++)
             {
+                var message = await _messageService.GetAllCurrenciesMessageAsync(i, PageSize);
                 await MessageSender.SendTextAsync(new ViberMessage
                 {
                     Receiver = command.Receiver,
@@ -31,8 +33,6 @@ namespace BotCore.Viber.Test.Actions
                     Text = message,
                     SenderDisplayName = "Qwe"
                 });
-
-                pageNumber++;
             }
         }
     }
