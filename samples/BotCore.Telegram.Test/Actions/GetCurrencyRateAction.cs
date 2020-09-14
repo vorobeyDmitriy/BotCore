@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using BotCore.Core.Interfaces;
 using BotCore.Core.Test.Interfaces;
 using BotCore.Telegram.DataTransfer;
@@ -11,7 +12,7 @@ namespace BotCore.Telegram.Test.Actions
     {
         private readonly IMessageService _messageService;
 
-        public GetCurrencyRateAction(IMessageSender<TelegramMessage> messageSender, IMessageService messageService) 
+        public GetCurrencyRateAction(IMessageSender<TelegramMessage> messageSender, IMessageService messageService)
             : base(messageSender)
         {
             _messageService = messageService;
@@ -19,9 +20,9 @@ namespace BotCore.Telegram.Test.Actions
 
         public override async Task ExecuteAsync(TelegramCommand command)
         {
-            var usd = await _messageService.GetCurrencyRateMessageAsync("USD");
-            var eur = await _messageService.GetCurrencyRateMessageAsync("EUR");
-            var rub = await _messageService.GetCurrencyRateMessageAsync("RUB");
+            var usd = await _messageService.GetCurrencyRateMessageAsync("USD", DateTime.UtcNow);
+            var eur = await _messageService.GetCurrencyRateMessageAsync("EUR", DateTime.UtcNow);
+            var rub = await _messageService.GetCurrencyRateMessageAsync("RUB", DateTime.UtcNow);
 
             await MessageSender.SendTextAsync(new TelegramMessage
             {

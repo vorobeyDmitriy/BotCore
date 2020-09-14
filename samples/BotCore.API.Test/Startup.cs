@@ -20,14 +20,14 @@ namespace BotCore.API
 {
     public class Startup
     {
-        public IConfiguration Configuration { get; }
-        private IWebHostEnvironment CurrentEnvironment { get; set; }
-
         public Startup(IConfiguration configuration, IWebHostEnvironment currentEnvironment)
         {
             Configuration = configuration;
             CurrentEnvironment = currentEnvironment;
         }
+
+        public IConfiguration Configuration { get; }
+        private IWebHostEnvironment CurrentEnvironment { get; }
 
 
         // This method gets called by the runtime. Use this method to add services to the container.
@@ -52,15 +52,11 @@ namespace BotCore.API
             services.AddScoped<IMessageService, MessageService>();
 
             if (isProd)
-            {
                 services.AddDbContext<BotCoreTestContext>(options =>
                     options.UseNpgsql(Environment.GetEnvironmentVariable("BotCoreDbConnectionString")));
-            }
             else
-            {
                 services.AddDbContext<BotCoreTestContext>(options =>
                     options.UseNpgsql(Configuration.GetConnectionString("BotCoreTestContext")));
-            }
 
             services.AddScoped(typeof(IAsyncRepository<>), typeof(GenericRepository<>));
 

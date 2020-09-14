@@ -3,7 +3,6 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 
-
 namespace BotCore.Infrastructure.Test.Middlewares
 {
     public class ErrorHandlingMiddleware
@@ -31,5 +30,4 @@ namespace BotCore.Infrastructure.Test.Middlewares
             }
         }
     }
-
 }

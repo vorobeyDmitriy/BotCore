@@ -8,5 +8,10 @@ namespace BotCore.Core.Test.Specifications
         {
             ApplyPaging(pageNumber, pageSize);
         }
+
+        public CurrencySpecification(string abbreviation)
+            : base(x => x.Abbreviation == abbreviation)
+        {
+        }
     }
 }

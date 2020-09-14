@@ -27,20 +27,32 @@ namespace BotCore.Infrastructure.Test.Data
                         Rate = (decimal) x.OfficialRate,
                         Scale = x.Scale
                     }));
+                    await context.Currency.AddAsync(GetByn());
 
                     await context.SaveChangesAsync();
                 }
             }
             catch (Exception)
             {
-                if (retryForAvailability < 10)
-                {
-                    retryForAvailability++;
-                    await SeedAsync(context, bankService, retryForAvailability);
-                }
+                if (retryForAvailability >= 10)
+                    throw;
+
+                retryForAvailability++;
+                await SeedAsync(context, bankService, retryForAvailability);
 
                 throw;
             }
+        }
+
+        private static Currency GetByn()
+        {
+            return new Currency
+            {
+                Abbreviation = "BYN",
+                Name = "Белорусский рубль",
+                Scale = 1,
+                Rate = 1
+            };
         }
     }
 }
