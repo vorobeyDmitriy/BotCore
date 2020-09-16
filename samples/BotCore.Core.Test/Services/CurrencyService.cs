@@ -12,7 +12,7 @@ using CurrencyEntity = BotCore.Core.Test.Entities.Currency;
 
 namespace BotCore.Core.Test.Services
 {
-    public class BankService : IBankService
+    public class CurrencyService : ICurrencyService
     {
         private const string Byn = "BYN";
         private const string RatesWithDateUrl = "https://www.nbrb.by/api/exrates/rates/{0}?parammode=2&ondate={1}";
@@ -20,7 +20,7 @@ namespace BotCore.Core.Test.Services
         private readonly IAsyncRepository<CurrencyRate> _currencyRateRepository;
         private readonly IAsyncRepository<CurrencyEntity> _currencyRepository;
 
-        public BankService(IAsyncRepository<CurrencyRate> currencyRateRepository,
+        public CurrencyService(IAsyncRepository<CurrencyRate> currencyRateRepository,
             IAsyncRepository<CurrencyEntity> currencyRepository)
         {
             _currencyRateRepository = currencyRateRepository;
@@ -78,6 +78,13 @@ namespace BotCore.Core.Test.Services
             var currency = await ProcessResponse<List<Currency>>(response);
 
             return currency;
+        }
+        
+        public async Task<int> GetCurrenciesCountAsync()
+        {
+            var currencies = await _currencyRepository.ListAllAsync();
+
+            return currencies.Count;
         }
 
         private static HttpClient GetClient()
