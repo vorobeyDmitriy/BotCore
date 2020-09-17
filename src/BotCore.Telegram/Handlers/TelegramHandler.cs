@@ -28,6 +28,7 @@ namespace BotCore.Telegram.Handlers
             command.SenderId = telegramUpdate.Message.Chat.Id;
             command.Text = text;
             command.MessageId = telegramUpdate.Message.MessageId;
+            command.SenderUsername = telegramUpdate.Message.From.Username;
             
             await _actionExecutor.ExecuteActionAsync(command);
         }

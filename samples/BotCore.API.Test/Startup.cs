@@ -51,6 +51,7 @@ namespace BotCore.API
 
             services.AddScoped<ICurrencyService, CurrencyService>();
             services.AddScoped<IMessageService, MessageService>();
+            services.AddScoped<IUsersService, UsersService>();
 
             if (isProd)
                 services.AddDbContext<BotCoreTestContext>(options =>

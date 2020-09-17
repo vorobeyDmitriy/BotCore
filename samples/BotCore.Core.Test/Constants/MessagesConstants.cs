@@ -9,7 +9,7 @@
         public const string CurrencyNotFound =
             "Currency not found";
 
-        public const string Hello = "Hi!";
+        public const string Hello = "Hi";
         public const string ArrowUp = "⬆️";
         public const string ArrowDown = "⬇️";
         public const string ArrowRight = "➡️";
