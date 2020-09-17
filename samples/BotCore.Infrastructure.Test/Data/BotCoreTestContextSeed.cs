@@ -9,7 +9,7 @@ namespace BotCore.Infrastructure.Test.Data
 {
     public class BotCoreTestContextSeed
     {
-        public static async Task SeedAsync(BotCoreTestContext context, IBankService bankService, int retry = 0)
+        public static async Task SeedAsync(BotCoreTestContext context, ICurrencyService currencyService, int retry = 0)
         {
             var retryForAvailability = retry;
             try
@@ -19,7 +19,7 @@ namespace BotCore.Infrastructure.Test.Data
 
                 if (!context.Currency.Any())
                 {
-                    var currencies = await bankService.GetAllCurrencies();
+                    var currencies = await currencyService.GetAllCurrencies();
                     await context.Currency.AddRangeAsync(currencies.Select(x => new Currency
                     {
                         Abbreviation = x.Abbreviation,
@@ -38,7 +38,7 @@ namespace BotCore.Infrastructure.Test.Data
                     throw;
 
                 retryForAvailability++;
-                await SeedAsync(context, bankService, retryForAvailability);
+                await SeedAsync(context, currencyService, retryForAvailability);
 
                 throw;
             }

@@ -41,6 +41,7 @@ namespace BotCore.API
 
             services.AddScoped<IAction<TelegramCommand>, StartAction>();
             services.AddScoped<IAction<TelegramCommand>, GetAllCurrenciesAction>();
+            services.AddScoped<IAction<TelegramCommand>, GetConcreteCurrencyRateAction>();
             services.AddScoped<IAction<TelegramCommand>, GetCurrencyRateAction>();
 
 
@@ -48,7 +49,7 @@ namespace BotCore.API
             services.AddScoped<IAction<ViberCommand>, Viber.Test.Actions.GetAllCurrenciesAction>();
             services.AddScoped<IAction<ViberCommand>, Viber.Test.Actions.GetCurrencyRateAction>();
 
-            services.AddScoped<IBankService, BankService>();
+            services.AddScoped<ICurrencyService, CurrencyService>();
             services.AddScoped<IMessageService, MessageService>();
 
             if (isProd)

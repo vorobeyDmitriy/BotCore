@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Linq;
+using System.Threading.Tasks;
 using BotCore.Core.Interfaces;
 using BotCore.Telegram.DomainModels;
 using Telegram.Bot.Types;
@@ -20,17 +21,33 @@ namespace BotCore.Telegram.Handlers
             if (telegramUpdate?.Message?.Chat == null)
                 return;
 
-            var text = telegramUpdate.Message.Text ?? string.Empty;
-            var commandName = text.Replace(" ", string.Empty);
+            var command = GetTelegramCommand(telegramUpdate.Message);
+
+            var text = telegramUpdate.Message.Text ?? command.CommandName;
+
+            command.SenderId = telegramUpdate.Message.Chat.Id;
+            command.Text = text;
+            command.MessageId = telegramUpdate.Message.MessageId;
+            
+            await _actionExecutor.ExecuteActionAsync(command);
+        }
+
+        private static TelegramCommand GetTelegramCommand(Message message)
+        {
+            string commandName = null;
+            
+            if (message.ReplyToMessage != null)
+                commandName = message.ReplyToMessage.Text.Split("\n").FirstOrDefault();
+            
+            if(string.IsNullOrWhiteSpace(commandName))
+                commandName = message.Text ?? string.Empty;
+            
+            commandName = commandName.Replace(" ", string.Empty);
 
             if (commandName.StartsWith('/'))
                 commandName = commandName.Substring(1);
 
-            var botCommand = new TelegramCommand(commandName)
-            {
-                SenderId = telegramUpdate.Message.Chat.Id
-            };
-            await _actionExecutor.ExecuteActionAsync(botCommand);
+            return new TelegramCommand(commandName);
         }
     }
 }

@@ -10,13 +10,13 @@ namespace BotCore.Core.Test.Services
     public class MessageService : IMessageService
     {
         private const string Plus = "+";
-        private readonly IBankService _bankService;
+        private readonly ICurrencyService _currencyService;
         private readonly IAsyncRepository<Currency> _currencyRepository;
 
-        public MessageService(IAsyncRepository<Currency> currencyRepository, IBankService bankService)
+        public MessageService(IAsyncRepository<Currency> currencyRepository, ICurrencyService currencyService)
         {
             _currencyRepository = currencyRepository;
-            _bankService = bankService;
+            _currencyService = currencyService;
         }
 
         public async Task<string> GetAllCurrenciesMessageAsync(int pageNumber, int pageSize)
@@ -40,26 +40,21 @@ namespace BotCore.Core.Test.Services
 
         public async Task<string> GetCurrencyRateMessageAsync(string currency, DateTime date)
         {
+            currency = currency.ToUpper();
+
             var nextDate = date.AddDays(1);
 
-            var usdNext = await _bankService.GetCurrency(currency, nextDate);
+            var usdNext = await _currencyService.GetCurrency(currency, nextDate);
 
             if (usdNext == null) return await GetCurrencyRateMessageAsync(currency, date.AddDays(-1));
 
-            var usdPrev = await _bankService.GetCurrency(currency, date);
+            var usdPrev = await _currencyService.GetCurrency(currency, date);
             var diff = usdNext.OfficialRate - usdPrev.OfficialRate;
 
-            var message = $"{usdNext.Scale} {usdNext.Abbreviation} :  {usdNext.OfficialRate}  BYN " +
+            var message = $"{usdNext.Scale} {usdNext.Abbreviation} :  {usdNext.OfficialRate} BYN " +
                           $"({(diff > 0 ? Plus : string.Empty)}{diff:F4}) \r\n";
 
             return message;
-        }
-
-        public async Task<int> GetCurrenciesCountAsync()
-        {
-            var currencies = await _currencyRepository.ListAllAsync();
-
-            return currencies.Count;
         }
     }
 }
