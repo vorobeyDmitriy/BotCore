@@ -50,6 +50,9 @@ namespace BotCore.Core.Test.Services
             var response = await client.GetAsync(url);
             var currency = await ProcessResponse<Currency>(response);
 
+            if (currency == null)
+                return null;
+            
             var currencySpec = new CurrencySpecification(currencyAbbreviation);
             var from = (await _currencyRepository.ListAsync(currencySpec)).FirstOrDefault();
             currencySpec = new CurrencySpecification(Byn);
