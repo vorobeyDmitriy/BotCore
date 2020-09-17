@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using BotCore.Core.Interfaces;
+using BotCore.Core.Test.Constants;
 using BotCore.Core.Test.Interfaces;
 using BotCore.Telegram.DataTransfer;
 using BotCore.Telegram.DomainModels;
@@ -29,7 +30,8 @@ namespace BotCore.Telegram.Test.Actions
                     new TelegramMessage
                     {
                         Keyboard = new ForceReplyMarkup(),
-                        Text = $"{Name} \r\n Great! Now just write abbreviation of currency (for example USD (or usd))",
+                        Text = $"{ActionConstants.GetConcreteCurrencyRateAction} \r\n " +
+                               $"{MessagesConstants.YouChooseConcreteCurrency}",
                         Receiver = commandBase.SenderId.ToString(),
                         ReplyToMessageId = commandBase.MessageId
                     });
@@ -45,7 +47,7 @@ namespace BotCore.Telegram.Test.Actions
                     new TelegramMessage
                     {
                         Keyboard = new ForceReplyMarkup(),
-                        Text = $"{Name} \r\n Currency not found",
+                        Text = MessagesConstants.CurrencyNotFound,
                         Receiver = commandBase.SenderId.ToString(),
                         ReplyToMessageId = commandBase.MessageId
                     });

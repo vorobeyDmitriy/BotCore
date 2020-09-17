@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Text;
 using System.Threading.Tasks;
+using BotCore.Core.Test.Constants;
 using BotCore.Core.Test.Entities;
 using BotCore.Core.Test.Interfaces;
 using BotCore.Core.Test.Specifications;
@@ -50,11 +51,25 @@ namespace BotCore.Core.Test.Services
 
             var usdPrev = await _currencyService.GetCurrency(currency, date);
             var diff = usdNext.OfficialRate - usdPrev.OfficialRate;
-
-            var message = $"{usdNext.Scale} {usdNext.Abbreviation} :  {usdNext.OfficialRate} BYN " +
+            var arrow = GetArrow(diff);
+            
+            var message = $"{arrow} {usdNext.Scale} {usdNext.Abbreviation} :  {usdNext.OfficialRate} BYN " +
                           $"({(diff > 0 ? Plus : string.Empty)}{diff:F4}) \r\n";
 
             return message;
+        }
+
+        private static string GetArrow(double difference)
+        {
+            var arrow = MessagesConstants.ArrowRight;
+
+            if (difference > 0)
+                arrow = MessagesConstants.ArrowUp;
+
+            if (difference < 0)
+                arrow = MessagesConstants.ArrowDown;
+
+            return arrow;
         }
     }
 }

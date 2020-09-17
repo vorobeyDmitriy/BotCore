@@ -1,5 +1,6 @@
 ﻿using System.Threading.Tasks;
 using BotCore.Core.Interfaces;
+using BotCore.Core.Test.Constants;
 using BotCore.Telegram.DataTransfer;
 using BotCore.Telegram.DomainModels;
 using BotCore.Telegram.Test.Keyboards;
@@ -18,7 +19,7 @@ namespace BotCore.Telegram.Test.Actions
             {
                 Receiver = command.SenderId.ToString(),
                 Keyboard = GetCurrencyRateKeyboard.Keyboard,
-                Text = "Hi!"
+                Text = MessagesConstants.Hello
             });
         }
     }
