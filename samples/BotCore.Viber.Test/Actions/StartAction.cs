@@ -19,7 +19,7 @@ namespace BotCore.Viber.Test.Actions
                 Keyboard = GetCurrencyRateKeyboard.Keyboard,
                 Receiver = commandBase.Receiver,
                 Text = "Hi!",
-                SenderDisplayName = "QWE"
+                SenderDisplayName = "Currency Bot"
             });
         }
     }

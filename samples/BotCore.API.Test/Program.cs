@@ -23,7 +23,7 @@ namespace BotCore.API
                 try
                 {
                     var catalogContext = services.GetRequiredService<BotCoreTestContext>();
-                    var bankService = services.GetRequiredService<IBankService>();
+                    var bankService = services.GetRequiredService<ICurrencyService>();
                     await BotCoreTestContextSeed.SeedAsync(catalogContext, bankService);
                 }
                 catch (Exception ex)
