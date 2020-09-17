@@ -1,4 +1,5 @@
-﻿using Telegram.Bot.Types.ReplyMarkups;
+﻿using BotCore.Core.Test.Constants;
+using Telegram.Bot.Types.ReplyMarkups;
 
 namespace BotCore.Telegram.Test.Keyboards
 {
@@ -10,15 +11,15 @@ namespace BotCore.Telegram.Test.Keyboards
             {
                 new KeyboardButton[]
                 {
-                    "Get All Currencies"
+                    ActionConstants.GetAllCurrenciesAction
                 },
                 new KeyboardButton[]
                 {
-                    "Get Currency Rate"
+                    ActionConstants.GetCurrencyRateAction
                 },
                 new KeyboardButton[]
                 {
-                    "Get Concrete Currency Rate"
+                    ActionConstants.GetConcreteCurrencyRateAction
                 }
             }
         };
