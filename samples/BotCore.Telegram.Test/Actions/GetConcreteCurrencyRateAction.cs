@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using BotCore.Core.Interfaces;
+using BotCore.Core.Test.Constants;
 using BotCore.Core.Test.Interfaces;
 using BotCore.Telegram.DataTransfer;
 using BotCore.Telegram.DomainModels;
@@ -21,7 +22,7 @@ namespace BotCore.Telegram.Test.Actions
 
         public override async Task ExecuteAsync(TelegramCommand commandBase)
         {
-            if (!string.IsNullOrWhiteSpace(commandBase.Text) && commandBase.Text.Length == 3)
+            if (commandBase.Text?.Length == 3)
                 await SendReply(commandBase);
             else
             {
@@ -29,8 +30,9 @@ namespace BotCore.Telegram.Test.Actions
                     new TelegramMessage
                     {
                         Keyboard = new ForceReplyMarkup(),
-                        Text = $"{Name} \r\n Great! Now just write abbreviation of currency (for example USD (or usd))",
-                        Receiver = commandBase.SenderId.ToString(),
+                        Text = $"{ActionConstants.GetConcreteCurrencyRateAction} \r\n " +
+                               $"{MessagesConstants.YouChooseConcreteCurrency}",
+                        Receiver = commandBase.ChatId.ToString(),
                         ReplyToMessageId = commandBase.MessageId
                     });
             }
@@ -45,8 +47,8 @@ namespace BotCore.Telegram.Test.Actions
                     new TelegramMessage
                     {
                         Keyboard = new ForceReplyMarkup(),
-                        Text = $"{Name} \r\n Currency not found",
-                        Receiver = commandBase.SenderId.ToString(),
+                        Text = MessagesConstants.CurrencyNotFound,
+                        Receiver = commandBase.ChatId.ToString(),
                         ReplyToMessageId = commandBase.MessageId
                     });
 
@@ -55,7 +57,7 @@ namespace BotCore.Telegram.Test.Actions
                 {
                     Keyboard = GetCurrencyRateKeyboard.Keyboard,
                     Text = currency,
-                    Receiver = commandBase.SenderId.ToString(),
+                    Receiver = commandBase.ChatId.ToString(),
                 });
         }
     }
