@@ -13,11 +13,13 @@ namespace BotCore.Telegram.Test.Actions
     public class GetConcreteCurrencyRateAction : TelegramAction
     {
         private readonly IMessageService _messageService;
+        private readonly ICurrencyService _currencyService;
 
         public GetConcreteCurrencyRateAction(IMessageSender<TelegramMessage> messageSender,
-            IMessageService messageService) : base(messageSender)
+            IMessageService messageService, ICurrencyService currencyService) : base(messageSender)
         {
             _messageService = messageService;
+            _currencyService = currencyService;
         }
 
         public override async Task ExecuteAsync(TelegramCommand commandBase)
@@ -40,7 +42,8 @@ namespace BotCore.Telegram.Test.Actions
 
         private async Task SendReply(TelegramCommand commandBase)
         {
-            var currency = await _messageService.GetCurrencyRateMessageAsync(commandBase.Text, DateTime.UtcNow);
+            var gain = await _currencyService.GetCurrencyRateGain(commandBase.Text, DateTime.UtcNow);
+            var currency = _messageService.GetCurrencyRateMessageAsync(gain);
 
             if (string.IsNullOrWhiteSpace(currency))
                 await MessageSender.SendTextAsync(

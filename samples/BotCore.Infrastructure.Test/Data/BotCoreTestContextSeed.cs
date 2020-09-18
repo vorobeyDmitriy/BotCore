@@ -20,17 +20,7 @@ namespace BotCore.Infrastructure.Test.Data
                 if (!context.Currency.Any())
                 {
                     var currencies = await currencyService.GetAllCurrencies();
-                    currencies = currencies
-                        .GroupBy(x => x.Abbreviation)
-                        .Select(x => x.FirstOrDefault())
-                        .ToList();
-                    await context.Currency.AddRangeAsync(currencies.Select(x => new Currency
-                    {
-                        Abbreviation = x.Abbreviation,
-                        Name = x.Name,
-                        Rate = (decimal) x.OfficialRate,
-                        Scale = x.Scale
-                    }));
+                    await context.Currency.AddRangeAsync(currencies);
                     await context.Currency.AddAsync(GetByn());
 
                     await context.SaveChangesAsync();

@@ -1,10 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 using BotCore.Core.Test.Constants;
+using BotCore.Core.Test.DomainModels;
 using BotCore.Core.Test.Entities;
 using BotCore.Core.Test.Interfaces;
-using BotCore.Core.Test.Specifications;
 
 namespace BotCore.Core.Test.Services
 {
@@ -12,19 +13,14 @@ namespace BotCore.Core.Test.Services
     {
         private const string Plus = "+";
         private readonly ICurrencyService _currencyService;
-        private readonly IAsyncRepository<Currency> _currencyRepository;
 
-        public MessageService(IAsyncRepository<Currency> currencyRepository, ICurrencyService currencyService)
+        public MessageService(ICurrencyService currencyService)
         {
-            _currencyRepository = currencyRepository;
             _currencyService = currencyService;
         }
 
-        public async Task<string> GetAllCurrenciesMessageAsync(int pageNumber, int pageSize)
+        public string GetAllCurrenciesMessageAsync(IEnumerable<Currency> currencies)
         {
-            var spec = new CurrencySpecification(pageNumber, pageSize);
-            var currencies = await _currencyRepository.ListAsync(spec);
-
             var sb = new StringBuilder();
 
             foreach (var currency in currencies)
@@ -39,26 +35,16 @@ namespace BotCore.Core.Test.Services
             return sb.ToString();
         }
 
-        public async Task<string> GetCurrencyRateMessageAsync(string currency, DateTime date)
+
+        public string GetCurrencyRateMessageAsync(CurrencyGain gain)
         {
-            currency = currency.ToUpper();
-
-
-            var usdNext = await _currencyService.GetCurrency(currency, date.AddDays(1));
-            var usdCurrent = await _currencyService.GetCurrency(currency, date);
-
-            if (usdNext == null)
-                usdNext = usdCurrent;
-
-            if (usdCurrent == null)
+            if (gain == null)
                 return MessagesConstants.CurrencyNotFound;
             
-            usdCurrent = await _currencyService.GetCurrency(currency, date.AddDays(-1));
-            var diff = usdNext.OfficialRate - usdCurrent.OfficialRate;
-            var arrow = GetArrow(diff);
+            var arrow = GetArrow(gain.Gain);
             
-            var message = $"{arrow} {usdNext.Scale} {usdNext.Abbreviation} :  {usdNext.OfficialRate} BYN " +
-                          $"({(diff > 0 ? Plus : string.Empty)}{diff:F4}) \r\n";
+            var message = $"{arrow} {gain.Scale} {gain.Abbreviation} :  {gain.LatestRate} BYN " +
+                          $"({(gain.Gain > 0 ? Plus : string.Empty)}{gain.Gain:F4}) \r\n";
 
             return message;
         }

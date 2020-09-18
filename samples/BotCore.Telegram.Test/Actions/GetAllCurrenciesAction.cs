@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using BotCore.Core.Interfaces;
 using BotCore.Core.Test.Interfaces;
@@ -25,10 +26,13 @@ namespace BotCore.Telegram.Test.Actions
         public override async Task ExecuteAsync(TelegramCommand command)
         {
             var count = await _currencyService.GetCurrenciesCountAsync();
+            var currencies = await _currencyService.GetAllCurrencies();
             var pageCount = Math.Ceiling((double) count / PageSize);
+            
             for (var i = 0; i < pageCount; i++)
             {
-                var message = await _messageService.GetAllCurrenciesMessageAsync(i, PageSize);
+                var currentCurrencies = currencies.Skip(PageSize * i).Take(PageSize);
+                var message = _messageService.GetAllCurrenciesMessageAsync(currentCurrencies);
                 await MessageSender.SendTextAsync(new TelegramMessage
                 {
                     Receiver = command.ChatId.ToString(),

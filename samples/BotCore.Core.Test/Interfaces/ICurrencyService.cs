@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using BotCore.Core.Test.DomainModels;
+using BotCore.Core.Test.Entities;
 
 namespace BotCore.Core.Test.Interfaces
 {
@@ -19,7 +20,15 @@ namespace BotCore.Core.Test.Interfaces
         /// <param name="currencyAbbreviation">Currency abbreviation</param>
         /// <param name="dateTime">Date</param>
         /// <returns></returns>
-        Task<Currency> GetCurrency(string currencyAbbreviation, DateTime? dateTime = null);
+        Task<CurrencyModel> GetCurrency(string currencyAbbreviation, DateTime? dateTime = null);
+        
+        /// <summary>
+        /// Get concrete currency rate gain comparing with previous date
+        /// </summary>
+        /// <param name="currencyAbbreviation">Currency abbreviation</param>
+        /// <param name="dateTime">Date</param>
+        /// <returns></returns>
+        Task<CurrencyGain> GetCurrencyRateGain(string currencyAbbreviation, DateTime? dateTime = null);
         
         /// <summary>
         /// Get currencies count

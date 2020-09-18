@@ -1,6 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using BotCore.Core.Interfaces;
+using BotCore.Core.Test.Entities;
 using BotCore.Core.Test.Interfaces;
 using BotCore.Viber.DataTransfer;
 using BotCore.Viber.DomainModels;
@@ -11,24 +15,42 @@ namespace BotCore.Viber.Test.Actions
     public class GetCurrencyRateAction : ViberAction
     {
         private readonly IMessageService _messageService;
+        private readonly IUsersService _usersService;
+        private readonly ICurrencyService _currencyService;
 
-        public GetCurrencyRateAction(IMessageSender<ViberMessage> messageSender, IMessageService messageService)
+        public GetCurrencyRateAction(IMessageSender<ViberMessage> messageSender, IMessageService messageService, IUsersService usersService, ICurrencyService currencyService)
             : base(messageSender)
         {
             _messageService = messageService;
+            _usersService = usersService;
+            _currencyService = currencyService;
         }
 
         public override async Task ExecuteAsync(ViberCommand command)
         {
-            var usd = await _messageService.GetCurrencyRateMessageAsync("USD", DateTime.UtcNow);
-            var eur = await _messageService.GetCurrencyRateMessageAsync("EUR", DateTime.UtcNow);
-            var rub = await _messageService.GetCurrencyRateMessageAsync("RUB", DateTime.UtcNow);
+            var defaultCurrencies = await _usersService.GetUserDefaultCurrencies(command.Receiver);
+
+            if (!defaultCurrencies.Any())
+                defaultCurrencies = new List<Currency>
+                {
+                    new Currency {Abbreviation = "USD"},
+                    new Currency {Abbreviation = "EUR"},
+                    new Currency {Abbreviation = "RUB"},
+                };
+
+            var sb = new StringBuilder();
+
+            foreach (var currency in defaultCurrencies)
+            {
+                var gain = await _currencyService.GetCurrencyRateGain(currency.Abbreviation, DateTime.UtcNow);
+                sb.Append(_messageService.GetCurrencyRateMessageAsync(gain));
+            }
 
             await MessageSender.SendTextAsync(new ViberMessage
             {
                 Receiver = command.Receiver,
                 Keyboard = GetCurrencyRateKeyboard.Keyboard,
-                Text = usd + eur + rub,
+                Text = sb.ToString(),
                 SenderDisplayName = "Qwe"
             });
         }

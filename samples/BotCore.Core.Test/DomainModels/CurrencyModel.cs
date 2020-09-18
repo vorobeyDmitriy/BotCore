@@ -3,7 +3,7 @@ using Newtonsoft.Json;
 
 namespace BotCore.Core.Test.DomainModels
 {
-    public class Currency
+    public class CurrencyModel
     {
         [JsonProperty("Cur_ID")] public int Id { get; set; }
 

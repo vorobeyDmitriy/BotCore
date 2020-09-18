@@ -25,10 +25,11 @@ namespace BotCore.Viber.Test.Actions
         public override async Task ExecuteAsync(ViberCommand command)
         {
             var count = await _currencyService.GetCurrenciesCountAsync();
+            var currencies = await _currencyService.GetAllCurrencies();
             var pageCount = Math.Ceiling((double) count / PageSize);
             for (var i = 0; i < pageCount; i++)
             {
-                var message = await _messageService.GetAllCurrenciesMessageAsync(i, PageSize);
+                var message = _messageService.GetAllCurrenciesMessageAsync(currencies);
                 await MessageSender.SendTextAsync(new ViberMessage
                 {
                     Receiver = command.Receiver,
