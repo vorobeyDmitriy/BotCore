@@ -31,7 +31,7 @@ namespace BotCore.Telegram.Test.Actions
                 var message = await _messageService.GetAllCurrenciesMessageAsync(i, PageSize);
                 await MessageSender.SendTextAsync(new TelegramMessage
                 {
-                    Receiver = command.SenderId.ToString(),
+                    Receiver = command.ChatId.ToString(),
                     Keyboard = GetCurrencyRateKeyboard.Keyboard,
                     Text = message
                 });

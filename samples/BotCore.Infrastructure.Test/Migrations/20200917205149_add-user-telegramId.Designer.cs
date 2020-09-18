@@ -3,15 +3,17 @@ using System;
 using BotCore.Infrastructure.Test.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace BotCore.Infrastructure.Test.Migrations
 {
     [DbContext(typeof(BotCoreTestContext))]
-    partial class BotCoreTestContextModelSnapshot : ModelSnapshot
+    [Migration("20200917205149_add-user-telegramId")]
+    partial class addusertelegramId
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

@@ -11,5 +11,6 @@ namespace BotCore.Core.Test.Entities
 
         public virtual ICollection<CurrencyRate> FromCurrencyRates { get; set; }
         public virtual ICollection<CurrencyRate> ToCurrencyRates { get; set; }
+        public virtual ICollection<UserCurrencyMapping> UserCurrencyMapping { get; set; }
     }
 }
