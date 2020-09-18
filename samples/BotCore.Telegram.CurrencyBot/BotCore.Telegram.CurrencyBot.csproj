@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netcoreapp3.0</TargetFramework>
+        <RootNamespace>BotCore.Telegram.CurrencyBot</RootNamespace>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\..\src\BotCore.Telegram\BotCore.Telegram.csproj" />
+      <ProjectReference Include="..\BotCore.Core.CurrencyBot\BotCore.Core.CurrencyBot.csproj" />
+    </ItemGroup>
+
+</Project>

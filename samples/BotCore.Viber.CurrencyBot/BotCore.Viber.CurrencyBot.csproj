@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netcoreapp3.0</TargetFramework>
+        <RootNamespace>BotCore.Viber.CurrencyBot</RootNamespace>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\..\src\BotCore.Viber\BotCore.Viber.csproj" />
+      <ProjectReference Include="..\BotCore.Core.CurrencyBot\BotCore.Core.CurrencyBot.csproj" />
+    </ItemGroup>
+
+</Project>
