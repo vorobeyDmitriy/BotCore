@@ -1,42 +1,39 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net.Http;
 using System.Threading.Tasks;
+using BotCore.Core.Test.DomainModels;
 using BotCore.Core.Test.Entities;
 using BotCore.Core.Test.Interfaces;
-using BotCore.Core.Test.Specifications;
-using Newtonsoft.Json;
-using Currency = BotCore.Core.Test.DomainModels.Currency;
-using CurrencyEntity = BotCore.Core.Test.Entities.Currency;
 
 namespace BotCore.Core.Test.Services
 {
     public class CurrencyService : ICurrencyService
     {
-        private const string Byn = "BYN";
         private const string RatesWithDateUrl = "https://www.nbrb.by/api/exrates/rates/{0}?parammode=2&ondate={1}";
         private const string GetAllCurrenciesUrl = "https://www.nbrb.by/api/exrates/currencies";
-        private readonly IAsyncRepository<CurrencyRate> _currencyRateRepository;
-        private readonly IAsyncRepository<CurrencyEntity> _currencyRepository;
+        private readonly IApiProvider _apiProvider;
+        private readonly IAsyncRepository<Currency> _currencyRepository;
+        private readonly IDbCacheService _dbCacheService;
 
-        public CurrencyService(IAsyncRepository<CurrencyRate> currencyRateRepository,
-            IAsyncRepository<CurrencyEntity> currencyRepository)
+        public CurrencyService(IAsyncRepository<Currency> currencyRepository,
+            IApiProvider apiProvider,
+            IDbCacheService dbCacheService)
         {
-            _currencyRateRepository = currencyRateRepository;
             _currencyRepository = currencyRepository;
+            _apiProvider = apiProvider;
+            _dbCacheService = dbCacheService;
         }
 
-        public async Task<Currency> GetCurrency(string currencyAbbreviation, DateTime? dateTime = null)
+        public async Task<CurrencyModel> GetCurrency(string currencyAbbreviation, DateTime? dateTime = null)
         {
             dateTime = dateTime?.Date ?? DateTime.UtcNow.Date;
 
-            var currencyRateSpec = new CurrencyRateSpecification(currencyAbbreviation, dateTime.Value);
-            var currencyFromDb = (await _currencyRateRepository.ListAsync(currencyRateSpec))
-                .FirstOrDefault();
+            var currencyFromDb = await _dbCacheService.GetCurrencyRateFromCacheAsync(currencyAbbreviation,
+                dateTime.Value);
 
             if (currencyFromDb != null)
-                return new Currency
+                return new CurrencyModel
                 {
                     Abbreviation = currencyAbbreviation,
                     Date = dateTime.Value,
@@ -45,63 +42,69 @@ namespace BotCore.Core.Test.Services
                     Scale = currencyFromDb.From.Scale
                 };
 
-            using var client = GetClient();
+
             var url = string.Format(RatesWithDateUrl, currencyAbbreviation, dateTime.Value.ToString("yyyy-MM-dd"));
-            var response = await client.GetAsync(url);
-            var currency = await ProcessResponse<Currency>(response);
+            var currency = await _apiProvider.GetAsync<CurrencyModel>(url);
 
             if (currency == null)
                 return null;
-            
-            var currencySpec = new CurrencySpecification(currencyAbbreviation);
-            var from = (await _currencyRepository.ListAsync(currencySpec)).FirstOrDefault();
-            currencySpec = new CurrencySpecification(Byn);
-            var to = (await _currencyRepository.ListAsync(currencySpec)).FirstOrDefault();
 
-            if (from == null || to == null)
-                return currency;
-
-            var entity = new CurrencyRate
-            {
-                Rate = currency.OfficialRate,
-                Date = dateTime.Value.Date,
-                FromId = from.Id,
-                ToId = to.Id
-            };
-            await _currencyRateRepository.AddAsync(entity);
+            await _dbCacheService.SetCurrencyRateToCacheAsync(currency, dateTime.Value);
 
             return currency;
+        }
+
+        public async Task<CurrencyGain> GetCurrencyRateGain(string currencyAbbreviation, DateTime? dateTime = null)
+        {
+            dateTime = dateTime?.Date ?? DateTime.UtcNow.Date;
+
+            var next = await GetCurrency(currencyAbbreviation, dateTime.Value.AddDays(1));
+            var curr = await GetCurrency(currencyAbbreviation, dateTime.Value);
+
+            if (next == null)
+                next = curr;
+
+            if (curr == null)
+                return null;
+
+            curr = await GetCurrency(currencyAbbreviation, dateTime.Value.AddDays(-1));
+
+            return new CurrencyGain
+            {
+                Abbreviation = curr.Abbreviation,
+                Gain = next.OfficialRate - curr.OfficialRate,
+                Scale = next.Scale,
+                LatestRate = (decimal) next.OfficialRate
+            };
         }
 
         public async Task<List<Currency>> GetAllCurrencies()
         {
-            using var client = GetClient();
+            var currencies = await _currencyRepository.ListAllAsync();
 
-            var response = await client.GetAsync(GetAllCurrenciesUrl);
-            var currency = await ProcessResponse<List<Currency>>(response);
+            if (currencies.Any())
+                return currencies.ToList();
 
-            return currency;
+            var result = await _apiProvider.GetAsync<List<CurrencyModel>>(GetAllCurrenciesUrl);
+
+            return result
+                .GroupBy(x => x.Abbreviation)
+                .Select(x => x.FirstOrDefault())
+                .Where(x => x != null)
+                .Select(x => new Currency
+                {
+                    Abbreviation = x.Abbreviation,
+                    Name = x.Name,
+                    Rate = (decimal) x.OfficialRate,
+                    Scale = x.Scale
+                }).ToList();
         }
-        
+
         public async Task<int> GetCurrenciesCountAsync()
         {
             var currencies = await _currencyRepository.ListAllAsync();
 
             return currencies.Count;
-        }
-
-        private static HttpClient GetClient()
-        {
-            return new HttpClient {Timeout = TimeSpan.FromSeconds(30)};
-        }
-
-        private static async Task<T> ProcessResponse<T>(HttpResponseMessage response)
-        {
-            if (!response.IsSuccessStatusCode)
-                return default;
-
-            var result = JsonConvert.DeserializeObject<T>(await response.Content.ReadAsStringAsync());
-            return result;
         }
     }
 }

@@ -50,7 +50,9 @@ namespace BotCore.API
             services.AddScoped<IAction<ViberCommand>, Viber.Test.Actions.GetCurrencyRateAction>();
             services.AddScoped<IAction<ViberCommand>, Viber.Test.Actions.StartAction>();
 
+            services.AddScoped<IApiProvider, ApiProvider>();
             services.AddScoped<ICurrencyService, CurrencyService>();
+            services.AddScoped<IDbCacheService, DbCacheService>();
             services.AddScoped<IMessageService, MessageService>();
             services.AddScoped<IUsersService, UsersService>();
 

@@ -15,7 +15,7 @@ namespace BotCore.Core.Test.Specifications
             : base(x => x.Abbreviation == abbreviation)
         {
         }
-        
+
         public CurrencySpecification(IEnumerable<string> abbreviations)
             : base(x => abbreviations.Contains(x.Abbreviation))
         {

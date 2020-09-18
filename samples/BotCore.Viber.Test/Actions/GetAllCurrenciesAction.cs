@@ -11,10 +11,10 @@ namespace BotCore.Viber.Test.Actions
     public class GetAllCurrenciesAction : ViberAction
     {
         private const int PageSize = 8;
-        private readonly IMessageService _messageService;
         private readonly ICurrencyService _currencyService;
+        private readonly IMessageService _messageService;
 
-        public GetAllCurrenciesAction(IMessageSender<ViberMessage> messageSender, IMessageService messageService, 
+        public GetAllCurrenciesAction(IMessageSender<ViberMessage> messageSender, IMessageService messageService,
             ICurrencyService currencyService)
             : base(messageSender)
         {
@@ -25,10 +25,11 @@ namespace BotCore.Viber.Test.Actions
         public override async Task ExecuteAsync(ViberCommand command)
         {
             var count = await _currencyService.GetCurrenciesCountAsync();
+            var currencies = await _currencyService.GetAllCurrencies();
             var pageCount = Math.Ceiling((double) count / PageSize);
             for (var i = 0; i < pageCount; i++)
             {
-                var message = await _messageService.GetAllCurrenciesMessageAsync(i, PageSize);
+                var message = _messageService.GetAllCurrenciesMessageAsync(currencies);
                 await MessageSender.SendTextAsync(new ViberMessage
                 {
                     Receiver = command.Receiver,

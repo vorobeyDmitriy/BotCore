@@ -12,12 +12,14 @@ namespace BotCore.Telegram.Test.Actions
 {
     public class GetConcreteCurrencyRateAction : TelegramAction
     {
+        private readonly ICurrencyService _currencyService;
         private readonly IMessageService _messageService;
 
         public GetConcreteCurrencyRateAction(IMessageSender<TelegramMessage> messageSender,
-            IMessageService messageService) : base(messageSender)
+            IMessageService messageService, ICurrencyService currencyService) : base(messageSender)
         {
             _messageService = messageService;
+            _currencyService = currencyService;
         }
 
         public override async Task ExecuteAsync(TelegramCommand commandBase)
@@ -25,7 +27,6 @@ namespace BotCore.Telegram.Test.Actions
             if (commandBase.Text?.Length == 3)
                 await SendReply(commandBase);
             else
-            {
                 await MessageSender.SendTextAsync(
                     new TelegramMessage
                     {
@@ -35,12 +36,12 @@ namespace BotCore.Telegram.Test.Actions
                         Receiver = commandBase.ChatId.ToString(),
                         ReplyToMessageId = commandBase.MessageId
                     });
-            }
         }
 
         private async Task SendReply(TelegramCommand commandBase)
         {
-            var currency = await _messageService.GetCurrencyRateMessageAsync(commandBase.Text, DateTime.UtcNow);
+            var gain = await _currencyService.GetCurrencyRateGain(commandBase.Text, DateTime.UtcNow);
+            var currency = _messageService.GetCurrencyRateMessageAsync(gain);
 
             if (string.IsNullOrWhiteSpace(currency))
                 await MessageSender.SendTextAsync(
@@ -57,7 +58,7 @@ namespace BotCore.Telegram.Test.Actions
                 {
                     Keyboard = GetCurrencyRateKeyboard.Keyboard,
                     Text = currency,
-                    Receiver = commandBase.ChatId.ToString(),
+                    Receiver = commandBase.ChatId.ToString()
                 });
         }
     }

@@ -26,19 +26,21 @@ namespace BotCore.Infrastructure.Test.Data
                 .HasOne(a => a.To)
                 .WithMany(b => b.ToCurrencyRates)
                 .HasForeignKey(e => e.ToId);
-            
+
             builder.Entity<UserCurrencyMapping>()
-                .HasKey(x => new { x.UserId,
-                    x.CurrencyId });  
+                .HasKey(x => new
+                {
+                    x.UserId,
+                    x.CurrencyId
+                });
             builder.Entity<UserCurrencyMapping>()
                 .HasOne(x => x.User)
                 .WithMany(x => x.UserCurrencyMapping)
-                .HasForeignKey(x => x.UserId);  
+                .HasForeignKey(x => x.UserId);
             builder.Entity<UserCurrencyMapping>()
                 .HasOne(x => x.Currency)
                 .WithMany(x => x.UserCurrencyMapping)
                 .HasForeignKey(x => x.CurrencyId);
-            
         }
     }
 }
