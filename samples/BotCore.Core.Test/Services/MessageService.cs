@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Text;
-using System.Threading.Tasks;
 using BotCore.Core.Test.Constants;
 using BotCore.Core.Test.DomainModels;
 using BotCore.Core.Test.Entities;
@@ -40,9 +38,9 @@ namespace BotCore.Core.Test.Services
         {
             if (gain == null)
                 return MessagesConstants.CurrencyNotFound;
-            
+
             var arrow = GetArrow(gain.Gain);
-            
+
             var message = $"{arrow} {gain.Scale} {gain.Abbreviation} :  {gain.LatestRate} BYN " +
                           $"({(gain.Gain > 0 ? Plus : string.Empty)}{gain.Gain:F4}) \r\n";
 

@@ -12,8 +12,8 @@ namespace BotCore.Telegram.Test.Actions
 {
     public class GetConcreteCurrencyRateAction : TelegramAction
     {
-        private readonly IMessageService _messageService;
         private readonly ICurrencyService _currencyService;
+        private readonly IMessageService _messageService;
 
         public GetConcreteCurrencyRateAction(IMessageSender<TelegramMessage> messageSender,
             IMessageService messageService, ICurrencyService currencyService) : base(messageSender)
@@ -27,7 +27,6 @@ namespace BotCore.Telegram.Test.Actions
             if (commandBase.Text?.Length == 3)
                 await SendReply(commandBase);
             else
-            {
                 await MessageSender.SendTextAsync(
                     new TelegramMessage
                     {
@@ -37,7 +36,6 @@ namespace BotCore.Telegram.Test.Actions
                         Receiver = commandBase.ChatId.ToString(),
                         ReplyToMessageId = commandBase.MessageId
                     });
-            }
         }
 
         private async Task SendReply(TelegramCommand commandBase)
@@ -60,7 +58,7 @@ namespace BotCore.Telegram.Test.Actions
                 {
                     Keyboard = GetCurrencyRateKeyboard.Keyboard,
                     Text = currency,
-                    Receiver = commandBase.ChatId.ToString(),
+                    Receiver = commandBase.ChatId.ToString()
                 });
         }
     }

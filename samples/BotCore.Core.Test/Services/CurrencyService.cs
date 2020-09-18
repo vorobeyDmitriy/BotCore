@@ -13,8 +13,8 @@ namespace BotCore.Core.Test.Services
         private const string RatesWithDateUrl = "https://www.nbrb.by/api/exrates/rates/{0}?parammode=2&ondate={1}";
         private const string GetAllCurrenciesUrl = "https://www.nbrb.by/api/exrates/currencies";
         private readonly IApiProvider _apiProvider;
-        private readonly IDbCacheService _dbCacheService;
         private readonly IAsyncRepository<Currency> _currencyRepository;
+        private readonly IDbCacheService _dbCacheService;
 
         public CurrencyService(IAsyncRepository<Currency> currencyRepository,
             IApiProvider apiProvider,
@@ -66,9 +66,9 @@ namespace BotCore.Core.Test.Services
 
             if (curr == null)
                 return null;
-            
+
             curr = await GetCurrency(currencyAbbreviation, dateTime.Value.AddDays(-1));
-            
+
             return new CurrencyGain
             {
                 Abbreviation = curr.Abbreviation,

@@ -14,9 +14,9 @@ namespace BotCore.Telegram.Test.Actions
 {
     public class GetCurrencyRateAction : TelegramAction
     {
+        private readonly ICurrencyService _currencyService;
         private readonly IMessageService _messageService;
         private readonly IUsersService _usersService;
-        private readonly ICurrencyService _currencyService;
 
         public GetCurrencyRateAction(IMessageSender<TelegramMessage> messageSender, IMessageService messageService,
             IUsersService usersService, ICurrencyService currencyService)
@@ -36,7 +36,7 @@ namespace BotCore.Telegram.Test.Actions
                 {
                     new Currency {Abbreviation = "USD"},
                     new Currency {Abbreviation = "EUR"},
-                    new Currency {Abbreviation = "RUB"},
+                    new Currency {Abbreviation = "RUB"}
                 };
 
             var sb = new StringBuilder();

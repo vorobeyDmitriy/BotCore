@@ -14,11 +14,12 @@ namespace BotCore.Viber.Test.Actions
 {
     public class GetCurrencyRateAction : ViberAction
     {
+        private readonly ICurrencyService _currencyService;
         private readonly IMessageService _messageService;
         private readonly IUsersService _usersService;
-        private readonly ICurrencyService _currencyService;
 
-        public GetCurrencyRateAction(IMessageSender<ViberMessage> messageSender, IMessageService messageService, IUsersService usersService, ICurrencyService currencyService)
+        public GetCurrencyRateAction(IMessageSender<ViberMessage> messageSender, IMessageService messageService,
+            IUsersService usersService, ICurrencyService currencyService)
             : base(messageSender)
         {
             _messageService = messageService;
@@ -35,7 +36,7 @@ namespace BotCore.Viber.Test.Actions
                 {
                     new Currency {Abbreviation = "USD"},
                     new Currency {Abbreviation = "EUR"},
-                    new Currency {Abbreviation = "RUB"},
+                    new Currency {Abbreviation = "RUB"}
                 };
 
             var sb = new StringBuilder();

@@ -12,10 +12,10 @@ namespace BotCore.Telegram.Test.Actions
     public class GetAllCurrenciesAction : TelegramAction
     {
         private const int PageSize = 8;
-        private readonly IMessageService _messageService;
         private readonly ICurrencyService _currencyService;
+        private readonly IMessageService _messageService;
 
-        public GetAllCurrenciesAction(IMessageSender<TelegramMessage> messageSender, IMessageService messageService, 
+        public GetAllCurrenciesAction(IMessageSender<TelegramMessage> messageSender, IMessageService messageService,
             ICurrencyService currencyService)
             : base(messageSender)
         {
@@ -28,7 +28,7 @@ namespace BotCore.Telegram.Test.Actions
             var count = await _currencyService.GetCurrenciesCountAsync();
             var currencies = await _currencyService.GetAllCurrencies();
             var pageCount = Math.Ceiling((double) count / PageSize);
-            
+
             for (var i = 0; i < pageCount; i++)
             {
                 var currentCurrencies = currencies.Skip(PageSize * i).Take(PageSize);

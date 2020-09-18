@@ -9,26 +9,27 @@ namespace BotCore.Core.Test.Services
 {
     public class ApiProvider : IApiProvider
     {
-        public async Task<T> GetAsync<T>(string url) where T: class
+        public async Task<T> GetAsync<T>(string url) where T : class
         {
             var response = await SendRequestAsync<object>(HttpMethod.Get, url, null);
             var result = await ProcessResponseAsync<T>(response);
-            
+
             return result;
         }
-        
-        public async Task<T> PostAsync<T, T1>(string url, T1 requestObject) where T: class
+
+        public async Task<T> PostAsync<T, T1>(string url, T1 requestObject) where T : class
         {
             var response = await SendRequestAsync(HttpMethod.Post, url, requestObject);
             var result = await ProcessResponseAsync<T>(response);
-            
+
             return result;
         }
 
         private static HttpRequestMessage CreateRequestWithBody<T>(HttpMethod method, string url, T requestObject)
         {
-            var content = new StringContent(JsonConvert.SerializeObject(requestObject), Encoding.UTF8, "application/json");
-            
+            var content = new StringContent(JsonConvert.SerializeObject(requestObject), Encoding.UTF8,
+                "application/json");
+
             return new HttpRequestMessage
             {
                 Content = content,
@@ -39,7 +40,7 @@ namespace BotCore.Core.Test.Services
 
         private static async Task<T> ProcessResponseAsync<T>(HttpResponseMessage response)
         {
-            if(!response.IsSuccessStatusCode)
+            if (!response.IsSuccessStatusCode)
                 return default;
 
             var content = await response.Content.ReadAsStringAsync();
@@ -54,6 +55,5 @@ namespace BotCore.Core.Test.Services
             var response = await client.SendAsync(request);
             return response;
         }
-
     }
 }

@@ -11,10 +11,9 @@ namespace BotCore.Core.Test.Services
 {
     public class DbCacheService : IDbCacheService
     {
+        private const string Byn = "BYN";
         private readonly IAsyncRepository<CurrencyRate> _currencyRateRepository;
         private readonly IAsyncRepository<CurrencyEntity> _currencyRepository;
-
-        private const string Byn = "BYN";
 
         public DbCacheService(IAsyncRepository<CurrencyRate> currencyRateRepository,
             IAsyncRepository<CurrencyEntity> currencyRepository)
@@ -22,7 +21,7 @@ namespace BotCore.Core.Test.Services
             _currencyRateRepository = currencyRateRepository;
             _currencyRepository = currencyRepository;
         }
-        
+
         public async Task<CurrencyRate> GetCurrencyRateFromCacheAsync(string currencyAbbreviation, DateTime dateTime)
         {
             var currencyRateSpec = new CurrencyRateSpecification(currencyAbbreviation, dateTime);
@@ -31,7 +30,7 @@ namespace BotCore.Core.Test.Services
 
             return currencyFromDb;
         }
-        
+
         public async Task SetCurrencyRateToCacheAsync(CurrencyModel currencyModel, DateTime dateTime)
         {
             var currencySpec = new CurrencySpecification(currencyModel.Abbreviation);

@@ -8,21 +8,19 @@ namespace BotCore.Infrastructure.Test.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "User",
-                columns: table => new
+                "User",
+                table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                        .Annotation("Npgsql:ValueGenerationStrategy",
+                            NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     Username = table.Column<string>(nullable: true)
                 },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_User", x => x.Id);
-                });
+                constraints: table => { table.PrimaryKey("PK_User", x => x.Id); });
 
             migrationBuilder.CreateTable(
-                name: "UserCurrencyMappings",
-                columns: table => new
+                "UserCurrencyMappings",
+                table => new
                 {
                     UserId = table.Column<int>(nullable: false),
                     CurrencyId = table.Column<int>(nullable: false),
@@ -30,34 +28,34 @@ namespace BotCore.Infrastructure.Test.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_UserCurrencyMappings", x => new { x.UserId, x.CurrencyId });
+                    table.PrimaryKey("PK_UserCurrencyMappings", x => new {x.UserId, x.CurrencyId});
                     table.ForeignKey(
-                        name: "FK_UserCurrencyMappings_Currency_CurrencyId",
-                        column: x => x.CurrencyId,
-                        principalTable: "Currency",
-                        principalColumn: "Id",
+                        "FK_UserCurrencyMappings_Currency_CurrencyId",
+                        x => x.CurrencyId,
+                        "Currency",
+                        "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_UserCurrencyMappings_User_UserId",
-                        column: x => x.UserId,
-                        principalTable: "User",
-                        principalColumn: "Id",
+                        "FK_UserCurrencyMappings_User_UserId",
+                        x => x.UserId,
+                        "User",
+                        "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_UserCurrencyMappings_CurrencyId",
-                table: "UserCurrencyMappings",
-                column: "CurrencyId");
+                "IX_UserCurrencyMappings_CurrencyId",
+                "UserCurrencyMappings",
+                "CurrencyId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "UserCurrencyMappings");
+                "UserCurrencyMappings");
 
             migrationBuilder.DropTable(
-                name: "User");
+                "User");
         }
     }
 }

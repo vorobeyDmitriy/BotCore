@@ -11,10 +11,10 @@ namespace BotCore.Viber.Test.Actions
     public class GetAllCurrenciesAction : ViberAction
     {
         private const int PageSize = 8;
-        private readonly IMessageService _messageService;
         private readonly ICurrencyService _currencyService;
+        private readonly IMessageService _messageService;
 
-        public GetAllCurrenciesAction(IMessageSender<ViberMessage> messageSender, IMessageService messageService, 
+        public GetAllCurrenciesAction(IMessageSender<ViberMessage> messageSender, IMessageService messageService,
             ICurrencyService currencyService)
             : base(messageSender)
         {

@@ -30,20 +30,20 @@ namespace BotCore.Telegram.Handlers
             command.MessageId = telegramUpdate.Message.MessageId;
             command.SenderUsername = telegramUpdate.Message.From.Username;
             command.UserId = telegramUpdate.Message.From.Id;
-            
+
             await _actionExecutor.ExecuteActionAsync(command);
         }
 
         private static TelegramCommand GetTelegramCommand(Message message)
         {
             string commandName = null;
-            
+
             if (message.ReplyToMessage != null)
                 commandName = message.ReplyToMessage.Text.Split("\n").FirstOrDefault();
-            
-            if(string.IsNullOrWhiteSpace(commandName))
+
+            if (string.IsNullOrWhiteSpace(commandName))
                 commandName = message.Text ?? string.Empty;
-            
+
             commandName = commandName.Replace(" ", string.Empty);
 
             if (commandName.StartsWith('/'))

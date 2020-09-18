@@ -12,6 +12,7 @@ namespace BotCore.Telegram.Test.Actions
     public class StartAction : TelegramAction
     {
         private readonly IUsersService _usersService;
+
         public StartAction(IMessageSender<TelegramMessage> messageSender, IUsersService usersService)
             : base(messageSender)
         {
@@ -25,10 +26,10 @@ namespace BotCore.Telegram.Test.Actions
             if (user == null)
                 user = await _usersService.CreateUserAsync(new User
                 {
-                   TelegramId = command.UserId,
-                   Username = command.SenderUsername
+                    TelegramId = command.UserId,
+                    Username = command.SenderUsername
                 });
-            
+
             await MessageSender.SendTextAsync(new TelegramMessage
             {
                 Receiver = command.ChatId.ToString(),

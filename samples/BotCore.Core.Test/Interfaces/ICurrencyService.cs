@@ -9,29 +9,29 @@ namespace BotCore.Core.Test.Interfaces
     public interface ICurrencyService
     {
         /// <summary>
-        /// Get list of all currencies
+        ///     Get list of all currencies
         /// </summary>
         /// <returns></returns>
         Task<List<Currency>> GetAllCurrencies();
-        
+
         /// <summary>
-        /// Get concrete currency
+        ///     Get concrete currency
         /// </summary>
         /// <param name="currencyAbbreviation">Currency abbreviation</param>
         /// <param name="dateTime">Date</param>
         /// <returns></returns>
         Task<CurrencyModel> GetCurrency(string currencyAbbreviation, DateTime? dateTime = null);
-        
+
         /// <summary>
-        /// Get concrete currency rate gain comparing with previous date
+        ///     Get concrete currency rate gain comparing with previous date
         /// </summary>
         /// <param name="currencyAbbreviation">Currency abbreviation</param>
         /// <param name="dateTime">Date</param>
         /// <returns></returns>
         Task<CurrencyGain> GetCurrencyRateGain(string currencyAbbreviation, DateTime? dateTime = null);
-        
+
         /// <summary>
-        /// Get currencies count
+        ///     Get currencies count
         /// </summary>
         /// <returns></returns>
         Task<int> GetCurrenciesCountAsync();

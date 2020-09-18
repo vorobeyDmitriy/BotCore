@@ -12,6 +12,7 @@ namespace BotCore.Telegram.Test.Actions
     public class SetupDefaultCurrenciesAction : TelegramAction
     {
         private readonly IUsersService _usersService;
+
         public SetupDefaultCurrenciesAction(IMessageSender<TelegramMessage> messageSender, IUsersService usersService)
             : base(messageSender)
         {
@@ -20,7 +21,7 @@ namespace BotCore.Telegram.Test.Actions
 
         public override async Task ExecuteAsync(TelegramCommand commandBase)
         {
-            if(IsSetupMessage(commandBase.Text))
+            if (IsSetupMessage(commandBase.Text))
             {
                 await MessageSender.SendTextAsync(
                     new TelegramMessage
@@ -40,7 +41,7 @@ namespace BotCore.Telegram.Test.Actions
                     {
                         Keyboard = GetCurrencyRateKeyboard.Keyboard,
                         Text = MessagesConstants.SetupDefaultCurrenciesSuccess,
-                        Receiver = commandBase.ChatId.ToString(),
+                        Receiver = commandBase.ChatId.ToString()
                     });
             }
         }

@@ -7,8 +7,8 @@ namespace BotCore.Infrastructure.Test.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.AddColumn<long>(
-                name: "TelegramId",
-                table: "User",
+                "TelegramId",
+                "User",
                 nullable: false,
                 defaultValue: 0L);
         }
@@ -16,8 +16,8 @@ namespace BotCore.Infrastructure.Test.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropColumn(
-                name: "TelegramId",
-                table: "User");
+                "TelegramId",
+                "User");
         }
     }
 }

@@ -6,7 +6,7 @@ namespace BotCore.Core.Test.Entities
     {
         public long TelegramId { get; set; }
         public string Username { get; set; }
-        
+
         public virtual ICollection<UserCurrencyMapping> UserCurrencyMapping { get; set; }
     }
 }
