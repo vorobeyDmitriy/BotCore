@@ -26,7 +26,7 @@ namespace BotCore.Telegram.Test.Actions
 
             await MessageSender.SendTextAsync(new TelegramMessage
             {
-                Receiver = command.SenderId.ToString(),
+                Receiver = command.ChatId.ToString(),
                 Keyboard = GetCurrencyRateKeyboard.Keyboard,
                 Text = usd + eur + rub
             });

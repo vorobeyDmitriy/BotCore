@@ -25,13 +25,13 @@ namespace BotCore.Telegram.Test.Actions
             if (user == null)
                 user = await _usersService.CreateUserAsync(new User
                 {
-                   TelegramId = command.SenderId,
+                   TelegramId = command.UserId,
                    Username = command.SenderUsername
                 });
             
             await MessageSender.SendTextAsync(new TelegramMessage
             {
-                Receiver = command.SenderId.ToString(),
+                Receiver = command.ChatId.ToString(),
                 Keyboard = GetCurrencyRateKeyboard.Keyboard,
                 Text = $"{MessagesConstants.Hello} {user.Username}"
             });

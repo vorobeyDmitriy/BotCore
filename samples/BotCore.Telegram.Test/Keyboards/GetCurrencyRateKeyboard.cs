@@ -20,6 +20,10 @@ namespace BotCore.Telegram.Test.Keyboards
                 new KeyboardButton[]
                 {
                     ActionConstants.GetConcreteCurrencyRateAction
+                },
+                new KeyboardButton[]
+                {
+                    ActionConstants.SetupDefaultCurrencies
                 }
             }
         };

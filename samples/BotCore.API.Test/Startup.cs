@@ -39,15 +39,16 @@ namespace BotCore.API
             services.AddTelegramClient(Configuration, isProd);
             services.AddViberClient(Configuration, isProd);
 
-            services.AddScoped<IAction<TelegramCommand>, StartAction>();
             services.AddScoped<IAction<TelegramCommand>, GetAllCurrenciesAction>();
             services.AddScoped<IAction<TelegramCommand>, GetConcreteCurrencyRateAction>();
             services.AddScoped<IAction<TelegramCommand>, GetCurrencyRateAction>();
+            services.AddScoped<IAction<TelegramCommand>, SetupDefaultCurrenciesAction>();
+            services.AddScoped<IAction<TelegramCommand>, StartAction>();
 
 
-            services.AddScoped<IAction<ViberCommand>, Viber.Test.Actions.StartAction>();
             services.AddScoped<IAction<ViberCommand>, Viber.Test.Actions.GetAllCurrenciesAction>();
             services.AddScoped<IAction<ViberCommand>, Viber.Test.Actions.GetCurrencyRateAction>();
+            services.AddScoped<IAction<ViberCommand>, Viber.Test.Actions.StartAction>();
 
             services.AddScoped<ICurrencyService, CurrencyService>();
             services.AddScoped<IMessageService, MessageService>();

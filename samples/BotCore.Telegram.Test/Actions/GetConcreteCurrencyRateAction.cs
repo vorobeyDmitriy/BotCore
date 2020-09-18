@@ -22,7 +22,7 @@ namespace BotCore.Telegram.Test.Actions
 
         public override async Task ExecuteAsync(TelegramCommand commandBase)
         {
-            if (!string.IsNullOrWhiteSpace(commandBase.Text) && commandBase.Text.Length == 3)
+            if (commandBase.Text?.Length == 3)
                 await SendReply(commandBase);
             else
             {
@@ -32,7 +32,7 @@ namespace BotCore.Telegram.Test.Actions
                         Keyboard = new ForceReplyMarkup(),
                         Text = $"{ActionConstants.GetConcreteCurrencyRateAction} \r\n " +
                                $"{MessagesConstants.YouChooseConcreteCurrency}",
-                        Receiver = commandBase.SenderId.ToString(),
+                        Receiver = commandBase.ChatId.ToString(),
                         ReplyToMessageId = commandBase.MessageId
                     });
             }
@@ -48,7 +48,7 @@ namespace BotCore.Telegram.Test.Actions
                     {
                         Keyboard = new ForceReplyMarkup(),
                         Text = MessagesConstants.CurrencyNotFound,
-                        Receiver = commandBase.SenderId.ToString(),
+                        Receiver = commandBase.ChatId.ToString(),
                         ReplyToMessageId = commandBase.MessageId
                     });
 
@@ -57,7 +57,7 @@ namespace BotCore.Telegram.Test.Actions
                 {
                     Keyboard = GetCurrencyRateKeyboard.Keyboard,
                     Text = currency,
-                    Receiver = commandBase.SenderId.ToString(),
+                    Receiver = commandBase.ChatId.ToString(),
                 });
         }
     }

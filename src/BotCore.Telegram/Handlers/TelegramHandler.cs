@@ -25,10 +25,11 @@ namespace BotCore.Telegram.Handlers
 
             var text = telegramUpdate.Message.Text ?? command.CommandName;
 
-            command.SenderId = telegramUpdate.Message.Chat.Id;
+            command.ChatId = telegramUpdate.Message.Chat.Id;
             command.Text = text;
             command.MessageId = telegramUpdate.Message.MessageId;
             command.SenderUsername = telegramUpdate.Message.From.Username;
+            command.UserId = telegramUpdate.Message.From.Id;
             
             await _actionExecutor.ExecuteActionAsync(command);
         }
