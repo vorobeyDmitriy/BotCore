@@ -20,7 +20,8 @@ namespace BotCore.Telegram.Test.Actions
 
         public override async Task ExecuteAsync(TelegramCommand commandBase)
         {
-            if(!IsCurrencies(commandBase.Text))
+            if(IsSetupMessage(commandBase.Text))
+            {
                 await MessageSender.SendTextAsync(
                     new TelegramMessage
                     {
@@ -30,20 +31,23 @@ namespace BotCore.Telegram.Test.Actions
                         Receiver = commandBase.ChatId.ToString(),
                         ReplyToMessageId = commandBase.MessageId
                     });
-
-            await _usersService.SetUserDefaultCurrencies(commandBase.UserId, commandBase.Text);
-            await MessageSender.SendTextAsync(
-                new TelegramMessage
-                {
-                    Keyboard = GetCurrencyRateKeyboard.Keyboard,
-                    Text = MessagesConstants.SetupDefaultCurrenciesSuccess,
-                    Receiver = commandBase.ChatId.ToString(),
-                });
+            }
+            else
+            {
+                await _usersService.SetUserDefaultCurrencies(commandBase.SenderUsername, commandBase.Text);
+                await MessageSender.SendTextAsync(
+                    new TelegramMessage
+                    {
+                        Keyboard = GetCurrencyRateKeyboard.Keyboard,
+                        Text = MessagesConstants.SetupDefaultCurrenciesSuccess,
+                        Receiver = commandBase.ChatId.ToString(),
+                    });
+            }
         }
 
-        private static bool IsCurrencies(string text)
+        private static bool IsSetupMessage(string text)
         {
-            return text.Split(" ").Length >= 1;
+            return text.Equals(ActionConstants.SetupDefaultCurrencies);
         }
     }
 }

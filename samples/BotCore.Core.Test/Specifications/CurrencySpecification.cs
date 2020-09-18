@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using BotCore.Core.Test.Entities;
 
 namespace BotCore.Core.Test.Specifications
@@ -15,7 +16,7 @@ namespace BotCore.Core.Test.Specifications
         {
         }
         
-        public CurrencySpecification(ICollection<string> abbreviations)
+        public CurrencySpecification(IEnumerable<string> abbreviations)
             : base(x => abbreviations.Contains(x.Abbreviation))
         {
         }

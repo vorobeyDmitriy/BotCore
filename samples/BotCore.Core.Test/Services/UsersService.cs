@@ -34,30 +34,35 @@ namespace BotCore.Core.Test.Services
             return user;
         }
 
-        public async Task<IEnumerable<Currency>> GetUserDefaultCurrencies(string username)
+        public async Task<List<Currency>> GetUserDefaultCurrencies(string username)
         {
             var userSpec = new UserSpecification(username, true);
             var user = (await _userRepository.ListAsync(userSpec)).FirstOrDefault();
 
-            return user?.UserCurrencyMapping.Select(x => x.Currency);
+            return user?.UserCurrencyMapping.Select(x => x.Currency).ToList();
         }
 
-        public async Task SetUserDefaultCurrencies(int userId, string currencyAbbreviationsText)
+        public async Task SetUserDefaultCurrencies(string username, string currencyAbbreviationsText)
         {
-            var currencyAbbreviations = currencyAbbreviationsText.Split(" ");
+            var currencyAbbreviations = currencyAbbreviationsText
+                .Split(" ")
+                .Select(x=>x.ToUpperInvariant());
             
             var currenciesSpec = new CurrencySpecification(currencyAbbreviations);
             var currencies = await _currencyRepository.ListAsync(currenciesSpec);
-            
-            var userCurrencyMappingSpecification = new UserCurrencyMappingSpecification(userId);
+
+            var user = await GetUserByUsernameAsync(username);
+ 
+            var userCurrencyMappingSpecification = new UserCurrencyMappingSpecification(user.Id);
             await _userCurrencyMappingRepository.DeleteAsync(
                 await _userCurrencyMappingRepository.ListAsync(userCurrencyMappingSpecification));
+            
 
             await _userCurrencyMappingRepository.AddAsync(
                 currencies.Select(x => new UserCurrencyMapping
                 {
                     CurrencyId = x.Id,
-                    UserId = userId
+                    UserId = user.Id
                 }));
         }
     }

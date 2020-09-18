@@ -8,7 +8,7 @@ namespace BotCore.Core.Test.Interfaces
     {
         public Task<User> CreateUserAsync(User user);
         public Task<User> GetUserByUsernameAsync(string username);
-        Task<IEnumerable<Currency>> GetUserDefaultCurrencies(string username);
-        Task SetUserDefaultCurrencies(int userId, string currencyAbbreviationsText);
+        Task<List<Currency>> GetUserDefaultCurrencies(string username);
+        Task SetUserDefaultCurrencies(string username, string currencyAbbreviationsText);
     }
 }

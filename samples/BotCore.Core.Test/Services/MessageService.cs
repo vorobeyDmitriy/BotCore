@@ -43,14 +43,18 @@ namespace BotCore.Core.Test.Services
         {
             currency = currency.ToUpper();
 
-            var nextDate = date.AddDays(1);
 
-            var usdNext = await _currencyService.GetCurrency(currency, nextDate);
+            var usdNext = await _currencyService.GetCurrency(currency, date.AddDays(1));
+            var usdCurrent = await _currencyService.GetCurrency(currency, date);
 
-            if (usdNext == null) return await GetCurrencyRateMessageAsync(currency, date.AddDays(-1));
+            if (usdNext == null)
+                usdNext = usdCurrent;
 
-            var usdPrev = await _currencyService.GetCurrency(currency, date);
-            var diff = usdNext.OfficialRate - usdPrev.OfficialRate;
+            if (usdCurrent == null)
+                return MessagesConstants.CurrencyNotFound;
+            
+            usdCurrent = await _currencyService.GetCurrency(currency, date.AddDays(-1));
+            var diff = usdNext.OfficialRate - usdCurrent.OfficialRate;
             var arrow = GetArrow(diff);
             
             var message = $"{arrow} {usdNext.Scale} {usdNext.Abbreviation} :  {usdNext.OfficialRate} BYN " +
