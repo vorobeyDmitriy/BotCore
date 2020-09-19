@@ -1,4 +1,6 @@
 ﻿using System.Threading.Tasks;
+using BotCore.Core.DataTransfer;
+using BotCore.Core.DomainModels;
 using BotCore.Core.Interfaces;
 using BotCore.Viber.CurrencyBot.Keyboards;
 using BotCore.Viber.DataTransfer;
@@ -12,7 +14,7 @@ namespace BotCore.Viber.CurrencyBot.Actions
         {
         }
 
-        public override async Task ExecuteAsync(ViberCommand commandBase)
+        public override async Task<OperationResult> ExecuteAsync(ViberCommand commandBase)
         {
             await MessageSender.SendTextAsync(new ViberMessage
             {

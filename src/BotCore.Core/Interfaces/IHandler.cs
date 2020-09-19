@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using BotCore.Core.DomainModels;
 
 namespace BotCore.Core.Interfaces
 {
@@ -9,6 +10,6 @@ namespace BotCore.Core.Interfaces
         /// </summary>
         /// <param name="update">Update from messenger</param>
         /// <returns></returns>
-        Task HandleUpdate(T update);
+        Task<OperationResult> HandleUpdate(T update);
     }
 }

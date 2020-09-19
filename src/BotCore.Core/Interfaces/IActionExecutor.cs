@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using BotCore.Core.DataTransfer;
 using BotCore.Core.DomainModels;
 
 namespace BotCore.Core.Interfaces
@@ -15,6 +16,6 @@ namespace BotCore.Core.Interfaces
         /// </summary>
         /// <param name="messengerCommandBase">Command from messenger</param>
         /// <returns></returns>
-        Task ExecuteActionAsync(T messengerCommandBase);
+        Task<OperationResult> ExecuteActionAsync(T messengerCommandBase);
     }
 }

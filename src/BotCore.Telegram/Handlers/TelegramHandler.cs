@@ -1,5 +1,7 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
+using BotCore.Core;
+using BotCore.Core.DomainModels;
 using BotCore.Core.Interfaces;
 using BotCore.Telegram.DomainModels;
 using Telegram.Bot.Types;
@@ -16,10 +18,10 @@ namespace BotCore.Telegram.Handlers
             _actionExecutor = actionExecutor;
         }
 
-        public async Task HandleUpdate(Update telegramUpdate)
+        public async Task<OperationResult> HandleUpdate(Update telegramUpdate)
         {
             if (telegramUpdate?.Message?.Chat == null)
-                return;
+                return new OperationResult(Constants.IncomingMessageIsNull);
 
             var command = GetTelegramCommand(telegramUpdate.Message);
 
@@ -31,7 +33,7 @@ namespace BotCore.Telegram.Handlers
             command.SenderUsername = telegramUpdate.Message.From.Username;
             command.UserId = telegramUpdate.Message.From.Id;
 
-            await _actionExecutor.ExecuteActionAsync(command);
+            return await _actionExecutor.ExecuteActionAsync(command);
         }
 
         private static TelegramCommand GetTelegramCommand(Message message)

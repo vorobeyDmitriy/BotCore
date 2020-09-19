@@ -2,6 +2,8 @@
 using System.Threading.Tasks;
 using BotCore.Core.CurrencyBot.Constants;
 using BotCore.Core.CurrencyBot.Interfaces;
+using BotCore.Core.DataTransfer;
+using BotCore.Core.DomainModels;
 using BotCore.Core.Interfaces;
 using BotCore.Telegram.CurrencyBot.Keyboards;
 using BotCore.Telegram.DataTransfer;
@@ -22,7 +24,7 @@ namespace BotCore.Telegram.CurrencyBot.Actions
             _currencyService = currencyService;
         }
 
-        public override async Task ExecuteAsync(TelegramCommand commandBase)
+        public override async Task<OperationResult> ExecuteAsync(TelegramCommand commandBase)
         {
             if (commandBase.Text?.Length == 3)
                 await SendReply(commandBase);

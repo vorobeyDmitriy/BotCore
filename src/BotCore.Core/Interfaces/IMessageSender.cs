@@ -1,5 +1,6 @@
 ﻿using System.Threading.Tasks;
 using BotCore.Core.DataTransfer;
+using BotCore.Core.DomainModels;
 
 namespace BotCore.Core.Interfaces
 {
@@ -11,6 +12,6 @@ namespace BotCore.Core.Interfaces
         /// </summary>
         /// <param name="message">Message</param>
         /// <returns></returns>
-        Task SendTextAsync(T message);
+        Task<OperationResult> SendTextAsync(T message);
     }
 }

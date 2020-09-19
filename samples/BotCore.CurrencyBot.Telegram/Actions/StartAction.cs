@@ -2,6 +2,8 @@
 using BotCore.Core.CurrencyBot.Constants;
 using BotCore.Core.CurrencyBot.Entities;
 using BotCore.Core.CurrencyBot.Interfaces;
+using BotCore.Core.DataTransfer;
+using BotCore.Core.DomainModels;
 using BotCore.Core.Interfaces;
 using BotCore.Telegram.CurrencyBot.Keyboards;
 using BotCore.Telegram.DataTransfer;
@@ -19,7 +21,7 @@ namespace BotCore.Telegram.CurrencyBot.Actions
             _usersService = usersService;
         }
 
-        public override async Task ExecuteAsync(TelegramCommand command)
+        public override async Task<OperationResult> ExecuteAsync(TelegramCommand command)
         {
             var user = await _usersService.GetUserByUsernameAsync(command.SenderUsername);
 

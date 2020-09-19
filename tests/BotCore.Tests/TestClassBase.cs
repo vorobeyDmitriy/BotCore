@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using BotCore.Tests.DependencyInjection;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using NUnit.Framework;
@@ -20,10 +21,6 @@ namespace BotCore.Tests
         {
         }
 
-        protected virtual IModule Module { get; }
-        protected IServiceProvider AppContainer { get; set; }
-        protected IConfiguration Configuration { get; set; }
-
         [OneTimeSetUp]
         protected virtual void Setup()
         {
@@ -33,8 +30,6 @@ namespace BotCore.Tests
 
             configurationBuilder
                 .SetBasePath(Path.Combine(AppContext.BaseDirectory))
-                .AddJsonFile("Configs/appsettings.json", false)
-                .AddJsonFile("Configs/servicesettings.json", true)
                 .AddInMemoryCollection(new Dictionary<string, string>());
 
             Configuration = configurationBuilder.Build();
@@ -49,11 +44,15 @@ namespace BotCore.Tests
         {
         }
 
+        protected virtual IModule Module { get; }
+        protected IServiceProvider AppContainer { get; set; }
+        protected IConfiguration Configuration { get; set; }
+
         protected virtual void RegisterIoCModules(IServiceCollection collection)
         {
             Module?.Load(collection, Configuration);
         }
-        
+
         protected T GetService<T>()
         {
             return AppContainer.GetService<T>();

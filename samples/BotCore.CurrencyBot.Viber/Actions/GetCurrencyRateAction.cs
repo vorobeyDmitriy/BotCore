@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using BotCore.Core.CurrencyBot.Entities;
 using BotCore.Core.CurrencyBot.Interfaces;
+using BotCore.Core.DataTransfer;
+using BotCore.Core.DomainModels;
 using BotCore.Core.Interfaces;
 using BotCore.Viber.CurrencyBot.Keyboards;
 using BotCore.Viber.DataTransfer;
@@ -27,7 +29,7 @@ namespace BotCore.Viber.CurrencyBot.Actions
             _currencyService = currencyService;
         }
 
-        public override async Task ExecuteAsync(ViberCommand command)
+        public override async Task<OperationResult> ExecuteAsync(ViberCommand command)
         {
             var defaultCurrencies = await _usersService.GetUserDefaultCurrencies(command.Receiver);
 

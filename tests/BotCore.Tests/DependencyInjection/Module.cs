@@ -2,7 +2,7 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace BotCore.Telegram.Tests.DependencyInjection
+namespace BotCore.Tests.DependencyInjection
 {
     public abstract class Module : IModule
     {
