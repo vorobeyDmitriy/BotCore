@@ -2,7 +2,6 @@
 using BotCore.Core.CurrencyBot.Constants;
 using BotCore.Core.CurrencyBot.Entities;
 using BotCore.Core.CurrencyBot.Interfaces;
-using BotCore.Core.DataTransfer;
 using BotCore.Core.DomainModels;
 using BotCore.Core.Interfaces;
 using BotCore.Telegram.CurrencyBot.Keyboards;

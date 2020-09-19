@@ -1,6 +1,5 @@
 ﻿using System.Threading.Tasks;
 using BotCore.Core;
-using BotCore.Core.DataTransfer;
 using BotCore.Core.DomainModels;
 using BotCore.Core.Interfaces;
 using BotCore.Viber.DomainModels;

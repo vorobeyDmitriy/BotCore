@@ -1,5 +1,4 @@
 ﻿using System.Threading.Tasks;
-using BotCore.Core.DataTransfer;
 using BotCore.Core.DomainModels;
 
 namespace BotCore.Core.Interfaces

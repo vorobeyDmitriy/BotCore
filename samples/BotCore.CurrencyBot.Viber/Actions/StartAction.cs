@@ -1,5 +1,4 @@
 ﻿using System.Threading.Tasks;
-using BotCore.Core.DataTransfer;
 using BotCore.Core.DomainModels;
 using BotCore.Core.Interfaces;
 using BotCore.Viber.CurrencyBot.Keyboards;

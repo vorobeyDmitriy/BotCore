@@ -1,6 +1,5 @@
 ﻿using System.Threading.Tasks;
 using BotCore.Core;
-using BotCore.Core.DataTransfer;
 using BotCore.Core.DomainModels;
 using BotCore.Core.Interfaces;
 using BotCore.Viber.DomainModels;
@@ -30,9 +29,9 @@ namespace BotCore.Viber.Services
                 },
                 Keyboard = message.Keyboard
             });
-            
-            return result == 0 
-                ? new OperationResult(Constants.Error) 
+
+            return result == 0
+                ? new OperationResult(Constants.Error)
                 : new OperationResult();
         }
     }

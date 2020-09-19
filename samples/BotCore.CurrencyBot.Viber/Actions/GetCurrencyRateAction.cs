@@ -5,7 +5,6 @@ using System.Text;
 using System.Threading.Tasks;
 using BotCore.Core.CurrencyBot.Entities;
 using BotCore.Core.CurrencyBot.Interfaces;
-using BotCore.Core.DataTransfer;
 using BotCore.Core.DomainModels;
 using BotCore.Core.Interfaces;
 using BotCore.Viber.CurrencyBot.Keyboards;

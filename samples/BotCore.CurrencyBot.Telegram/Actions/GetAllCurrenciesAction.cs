@@ -2,7 +2,6 @@
 using System.Linq;
 using System.Threading.Tasks;
 using BotCore.Core.CurrencyBot.Interfaces;
-using BotCore.Core.DataTransfer;
 using BotCore.Core.DomainModels;
 using BotCore.Core.Interfaces;
 using BotCore.Telegram.CurrencyBot.Keyboards;

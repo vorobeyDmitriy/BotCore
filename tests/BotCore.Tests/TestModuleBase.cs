@@ -5,7 +5,7 @@ using Moq;
 
 namespace BotCore.Tests
 {
-    public abstract class TestModuleBase: Module
+    public abstract class TestModuleBase : Module
     {
         protected IConfiguration Configuration;
 

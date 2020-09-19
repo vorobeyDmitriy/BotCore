@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using BotCore.Core.DataTransfer;
 using BotCore.Core.DomainModels;
 using BotCore.Core.Interfaces;
 
@@ -26,7 +25,7 @@ namespace BotCore.Core.Services
 
             if (command != null)
                 return await command.ExecuteAsync(messengerCommandBase);
-            
+
             return new OperationResult(Constants.CommandNotFound);
         }
 

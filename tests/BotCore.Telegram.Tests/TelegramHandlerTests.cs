@@ -15,24 +15,24 @@ namespace BotCore.Telegram.Tests
         public async Task HandleUpdate_EmptyUpdate_UnsuccessfullyResult()
         {
             var handler = GetService<IHandler<Update>>();
-            
+
             var update = (Update) null;
 
             var result = await handler.HandleUpdate(update);
             Assert.False(result.Success);
         }
-        
+
         [Test]
         public async Task HandleUpdate_EmptyMessage_UnsuccessfullyResult()
         {
             var handler = GetService<IHandler<Update>>();
-            
+
             var update = new Update();
 
             var result = await handler.HandleUpdate(update);
             Assert.False(result.Success);
         }
-        
+
         [Test]
         public async Task HandleUpdate_EmptyChat_UnsuccessfullyResult()
         {
