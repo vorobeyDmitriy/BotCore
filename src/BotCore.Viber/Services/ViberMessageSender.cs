@@ -1,4 +1,6 @@
 ﻿using System.Threading.Tasks;
+using BotCore.Core;
+using BotCore.Core.DomainModels;
 using BotCore.Core.Interfaces;
 using BotCore.Viber.DomainModels;
 using Viber.Bot;
@@ -15,9 +17,9 @@ namespace BotCore.Viber.Services
             _viber = viber;
         }
 
-        public async Task SendTextAsync(ViberMessage message)
+        public async Task<OperationResult> SendTextAsync(ViberMessage message)
         {
-            await _viber.SendKeyboardMessageAsync(new KeyboardMessage
+            var result = await _viber.SendKeyboardMessageAsync(new KeyboardMessage
             {
                 Receiver = message.Receiver,
                 Text = message.Text,
@@ -27,6 +29,10 @@ namespace BotCore.Viber.Services
                 },
                 Keyboard = message.Keyboard
             });
+
+            return result == 0
+                ? new OperationResult(Constants.Error)
+                : new OperationResult();
         }
     }
 }
