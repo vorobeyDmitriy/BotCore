@@ -12,6 +12,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\..\samples\BotCore.CurrencyBot.Telegram\BotCore.CurrencyBot.Telegram.csproj" />
       <ProjectReference Include="..\..\src\BotCore.Telegram\BotCore.Telegram.csproj" />
       <ProjectReference Include="..\BotCore.Tests\BotCore.Tests.csproj" />
     </ItemGroup>

@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using BotCore.Core;
 using BotCore.Core.Interfaces;
 using BotCore.Tests;
 using BotCore.Tests.DependencyInjection;
@@ -20,6 +21,7 @@ namespace BotCore.Telegram.Tests
 
             var result = await handler.HandleUpdate(update);
             Assert.False(result.Success);
+            Assert.AreEqual(Constants.IncomingMessageIsNull, result.Error);
         }
 
         [Test]
@@ -31,6 +33,7 @@ namespace BotCore.Telegram.Tests
 
             var result = await handler.HandleUpdate(update);
             Assert.False(result.Success);
+            Assert.AreEqual(Constants.IncomingMessageIsNull, result.Error);
         }
 
         [Test]
@@ -48,6 +51,44 @@ namespace BotCore.Telegram.Tests
 
             var result = await handler.HandleUpdate(update);
             Assert.False(result.Success);
+            Assert.AreEqual(Constants.IncomingMessageIsNull, result.Error);
+        }
+
+        [Test]
+        public async Task HandleUpdate_SimpleUpdate_SuccessfullyResult()
+        {
+            var handler = GetService<IHandler<Update>>();
+
+            var update = DataGenerator.Telegram.GetDefaultTelegramUpdate(TestConstants.Test);
+
+            var result = await handler.HandleUpdate(update);
+            Assert.False(result.Success);
+            Assert.AreEqual(TestConstants.Test, result.Error);
+        }
+        
+        [Test]
+        public async Task HandleUpdate_UpdateWithReply_SuccessfullyResult()
+        {
+            var handler = GetService<IHandler<Update>>();
+
+            var update = DataGenerator.Telegram.GetDefaultTelegramUpdateWithReply(TestConstants.ReplyTest,
+                TestConstants.Test);
+
+            var result = await handler.HandleUpdate(update);
+            Assert.False(result.Success);
+            Assert.AreEqual(TestConstants.Test, result.Error);
+        }
+        
+        [Test]
+        public async Task HandleUpdate_UpdateWithSlash_SuccessfullyResult()
+        {
+            var handler = GetService<IHandler<Update>>();
+
+            var update = DataGenerator.Telegram.GetDefaultTelegramUpdate(TestConstants.StartTest);
+
+            var result = await handler.HandleUpdate(update);
+            Assert.False(result.Success);
+            Assert.AreEqual(TestConstants.StartTest, result.Error);
         }
     }
 }

@@ -19,7 +19,7 @@ namespace BotCore.Core.Services
             _commands = commands;
         }
 
-        public async Task<OperationResult> ExecuteActionAsync(T messengerCommandBase)
+        public virtual async Task<OperationResult> ExecuteActionAsync(T messengerCommandBase)
         {
             var command = GetAction(messengerCommandBase.CommandName);
 
