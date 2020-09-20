@@ -42,7 +42,15 @@ namespace BotCore.Telegram.Tests.Tests
         {
             var actionExecutor = GetService<IActionExecutor<TelegramCommand>>();
 
-            var command = new TelegramCommand(nameof(TestAction).Replace(TestConstants.Action, string.Empty));
+            var command = new TelegramCommand(nameof(TestAction)
+                .Replace(TestConstants.Action, string.Empty))
+            {
+                ChatId = 1,
+                Text = string.Empty,
+                MessageId = 1,
+                SenderUsername = "1",
+                UserId = 1
+            };
 
             var result = await actionExecutor.ExecuteActionAsync(command);
             Assert.True(result.Success);

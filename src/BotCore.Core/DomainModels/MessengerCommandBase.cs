@@ -13,6 +13,6 @@
         /// <summary>
         ///     Messenger command name
         /// </summary>
-        public string CommandName { get; set; }
+        public string CommandName { get; }
     }
 }

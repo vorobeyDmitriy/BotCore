@@ -7,6 +7,7 @@ using BotCore.Telegram.Tests.Modules;
 using BotCore.Tests;
 using BotCore.Tests.DependencyInjection;
 using NUnit.Framework;
+using Telegram.Bot.Types.Enums;
 
 namespace BotCore.Telegram.Tests.Tests
 {
@@ -31,7 +32,13 @@ namespace BotCore.Telegram.Tests.Tests
 
             var message = new TelegramMessage
             {
-                Receiver = "-1"
+                Receiver = "-1",
+                Text = "test",
+                Keyboard = null,
+                DisableNotification = false,
+                ParseMode = ParseMode.Default,
+                DisableWebPagePreview = false,
+                ReplyToMessageId = 1
             };
 
             var result = await messageSender.SendTextAsync(message);
@@ -46,7 +53,8 @@ namespace BotCore.Telegram.Tests.Tests
 
             var message = new TelegramMessage
             {
-                Receiver = "123"
+                Receiver = "123",
+                Text = "test"
             };
 
             var result = await messageSender.SendTextAsync(message);
