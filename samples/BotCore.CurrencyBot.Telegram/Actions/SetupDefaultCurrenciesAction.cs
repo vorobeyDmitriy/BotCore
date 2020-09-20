@@ -23,7 +23,6 @@ namespace BotCore.Telegram.CurrencyBot.Actions
         public override async Task<OperationResult> ExecuteAsync(TelegramCommand commandBase)
         {
             if (IsSetupMessage(commandBase.Text))
-            {
                 return await MessageSender.SendTextAsync(
                     new TelegramMessage
                     {
@@ -33,7 +32,6 @@ namespace BotCore.Telegram.CurrencyBot.Actions
                         Receiver = commandBase.ChatId.ToString(),
                         ReplyToMessageId = commandBase.MessageId
                     });
-            }
 
             await _usersService.SetUserDefaultCurrencies(commandBase.SenderUsername, commandBase.Text);
             return await MessageSender.SendTextAsync(

@@ -65,7 +65,7 @@ namespace BotCore.Telegram.Tests
             Assert.False(result.Success);
             Assert.AreEqual(TestConstants.Test, result.Error);
         }
-        
+
         [Test]
         public async Task HandleUpdate_UpdateWithReply_SuccessfullyResult()
         {
@@ -78,7 +78,7 @@ namespace BotCore.Telegram.Tests
             Assert.False(result.Success);
             Assert.AreEqual(TestConstants.Test, result.Error);
         }
-        
+
         [Test]
         public async Task HandleUpdate_UpdateWithSlash_SuccessfullyResult()
         {

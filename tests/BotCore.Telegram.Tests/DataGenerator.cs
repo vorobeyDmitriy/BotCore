@@ -1,5 +1,4 @@
-﻿using BotCore.Telegram.DomainModels;
-using Telegram.Bot.Types;
+﻿using Telegram.Bot.Types;
 
 namespace BotCore.Telegram.Tests
 {
@@ -26,7 +25,7 @@ namespace BotCore.Telegram.Tests
                     }
                 };
             }
-            
+
             public static Update GetDefaultTelegramUpdateWithReply(string replyText, string text)
             {
                 return new Update
@@ -47,7 +46,7 @@ namespace BotCore.Telegram.Tests
                             Text = replyText
                         },
                         Text = text
-                    },
+                    }
                 };
             }
         }

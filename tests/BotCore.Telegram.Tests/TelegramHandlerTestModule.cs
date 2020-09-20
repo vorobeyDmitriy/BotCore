@@ -1,11 +1,7 @@
-﻿using System;
-using System.Threading.Tasks;
-using BotCore.Core.CurrencyBot.Interfaces;
+﻿using System.Threading.Tasks;
 using BotCore.Core.DomainModels;
 using BotCore.Core.Interfaces;
 using BotCore.Core.Services;
-using BotCore.Telegram.CurrencyBot.Actions;
-using BotCore.Telegram.DataTransfer;
 using BotCore.Telegram.DomainModels;
 using BotCore.Telegram.Handlers;
 using BotCore.Tests;
@@ -34,21 +30,17 @@ namespace BotCore.Telegram.Tests
             var commandExecutor = new Mock<ActionExecutor<TelegramCommand>>(commands);
 
             commandExecutor.Setup(x => x.ExecuteActionAsync(
-                        It.Is<TelegramCommand>(c=> c.Text == TestConstants.Test)))
+                    It.Is<TelegramCommand>(c => c.Text == TestConstants.Test)))
                 .Returns(Task.FromResult(new OperationResult(TestConstants.Test)));
-            
+
             commandExecutor.Setup(x => x.ExecuteActionAsync(
-                    It.Is<TelegramCommand>(c=> c.Text == TestConstants.ReplyTest)))
+                    It.Is<TelegramCommand>(c => c.Text == TestConstants.ReplyTest)))
                 .Returns(Task.FromResult(new OperationResult(TestConstants.Test)));
-            
+
             commandExecutor.Setup(x => x.ExecuteActionAsync(
-                    It.Is<TelegramCommand>(c=> c.Text == TestConstants.StartTest)))
+                    It.Is<TelegramCommand>(c => c.Text == TestConstants.StartTest)))
                 .Returns(Task.FromResult(new OperationResult(TestConstants.StartTest)));
-            
-            /*commandExecutor.Setup(x => x.ExecuteActionAsync(
-                    It.Is<TelegramCommand>(c=> c.Text == TestConstants.ReplyTest)))
-                .Returns(Task.FromResult(new OperationResult(TestConstants.ReplyTest)));*/
-            
+
             services.AddSingleton<IActionExecutor<TelegramCommand>>(commandExecutor.Object);
         }
     }

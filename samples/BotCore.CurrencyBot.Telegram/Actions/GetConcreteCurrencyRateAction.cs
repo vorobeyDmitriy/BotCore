@@ -27,7 +27,7 @@ namespace BotCore.Telegram.CurrencyBot.Actions
         {
             if (commandBase.Text?.Length == 3)
                 return await SendReply(commandBase);
-            
+
             return await MessageSender.SendTextAsync(
                 new TelegramMessage
                 {
@@ -61,7 +61,7 @@ namespace BotCore.Telegram.CurrencyBot.Actions
                     Text = currency,
                     Receiver = commandBase.ChatId.ToString()
                 });
-            
+
             return new OperationResult();
         }
     }
