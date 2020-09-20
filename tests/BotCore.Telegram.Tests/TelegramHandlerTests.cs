@@ -62,7 +62,7 @@ namespace BotCore.Telegram.Tests
             var update = DataGenerator.Telegram.GetDefaultTelegramUpdate(TestConstants.Test);
 
             var result = await handler.HandleUpdate(update);
-            Assert.True(result.Success);
+            Assert.False(result.Success);
             Assert.AreEqual(TestConstants.Test, result.Error);
         }
 
