@@ -39,6 +39,8 @@ namespace BotCore.Viber.CurrencyBot.Actions
                     SenderDisplayName = "Qwe"
                 });
             }
+            
+            return new OperationResult();
         }
     }
 }

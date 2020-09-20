@@ -15,7 +15,7 @@ namespace BotCore.Viber.CurrencyBot.Actions
 
         public override async Task<OperationResult> ExecuteAsync(ViberCommand commandBase)
         {
-            await MessageSender.SendTextAsync(new ViberMessage
+            return await MessageSender.SendTextAsync(new ViberMessage
             {
                 Keyboard = GetCurrencyRateKeyboard.Keyboard,
                 Receiver = commandBase.Receiver,

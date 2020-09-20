@@ -26,20 +26,20 @@ namespace BotCore.Telegram.CurrencyBot.Actions
         public override async Task<OperationResult> ExecuteAsync(TelegramCommand commandBase)
         {
             if (commandBase.Text?.Length == 3)
-                await SendReply(commandBase);
-            else
-                await MessageSender.SendTextAsync(
-                    new TelegramMessage
-                    {
-                        Keyboard = new ForceReplyMarkup(),
-                        Text = $"{ActionConstants.GetConcreteCurrencyRateAction} \r\n " +
-                               $"{MessagesConstants.YouChooseConcreteCurrency}",
-                        Receiver = commandBase.ChatId.ToString(),
-                        ReplyToMessageId = commandBase.MessageId
-                    });
+                return await SendReply(commandBase);
+            
+            return await MessageSender.SendTextAsync(
+                new TelegramMessage
+                {
+                    Keyboard = new ForceReplyMarkup(),
+                    Text = $"{ActionConstants.GetConcreteCurrencyRateAction} \r\n " +
+                           $"{MessagesConstants.YouChooseConcreteCurrency}",
+                    Receiver = commandBase.ChatId.ToString(),
+                    ReplyToMessageId = commandBase.MessageId
+                });
         }
 
-        private async Task SendReply(TelegramCommand commandBase)
+        private async Task<OperationResult> SendReply(TelegramCommand commandBase)
         {
             var gain = await _currencyService.GetCurrencyRateGain(commandBase.Text, DateTime.UtcNow);
             var currency = _messageService.GetCurrencyRateMessageAsync(gain);
@@ -61,6 +61,8 @@ namespace BotCore.Telegram.CurrencyBot.Actions
                     Text = currency,
                     Receiver = commandBase.ChatId.ToString()
                 });
+            
+            return new OperationResult();
         }
     }
 }

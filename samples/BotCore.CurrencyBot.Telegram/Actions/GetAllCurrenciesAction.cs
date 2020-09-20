@@ -41,6 +41,8 @@ namespace BotCore.Telegram.CurrencyBot.Actions
                     Text = message
                 });
             }
+            
+            return new OperationResult();
         }
     }
 }

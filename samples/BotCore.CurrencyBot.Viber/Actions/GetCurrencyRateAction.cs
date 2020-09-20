@@ -48,7 +48,7 @@ namespace BotCore.Viber.CurrencyBot.Actions
                 sb.Append(_messageService.GetCurrencyRateMessageAsync(gain));
             }
 
-            await MessageSender.SendTextAsync(new ViberMessage
+            return await MessageSender.SendTextAsync(new ViberMessage
             {
                 Receiver = command.Receiver,
                 Keyboard = GetCurrencyRateKeyboard.Keyboard,

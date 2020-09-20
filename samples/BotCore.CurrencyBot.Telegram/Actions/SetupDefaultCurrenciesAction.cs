@@ -24,7 +24,7 @@ namespace BotCore.Telegram.CurrencyBot.Actions
         {
             if (IsSetupMessage(commandBase.Text))
             {
-                await MessageSender.SendTextAsync(
+                return await MessageSender.SendTextAsync(
                     new TelegramMessage
                     {
                         Keyboard = new ForceReplyMarkup(),
@@ -34,17 +34,15 @@ namespace BotCore.Telegram.CurrencyBot.Actions
                         ReplyToMessageId = commandBase.MessageId
                     });
             }
-            else
-            {
-                await _usersService.SetUserDefaultCurrencies(commandBase.SenderUsername, commandBase.Text);
-                await MessageSender.SendTextAsync(
-                    new TelegramMessage
-                    {
-                        Keyboard = GetCurrencyRateKeyboard.Keyboard,
-                        Text = MessagesConstants.SetupDefaultCurrenciesSuccess,
-                        Receiver = commandBase.ChatId.ToString()
-                    });
-            }
+
+            await _usersService.SetUserDefaultCurrencies(commandBase.SenderUsername, commandBase.Text);
+            return await MessageSender.SendTextAsync(
+                new TelegramMessage
+                {
+                    Keyboard = GetCurrencyRateKeyboard.Keyboard,
+                    Text = MessagesConstants.SetupDefaultCurrenciesSuccess,
+                    Receiver = commandBase.ChatId.ToString()
+                });
         }
 
         private static bool IsSetupMessage(string text)

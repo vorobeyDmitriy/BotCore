@@ -31,7 +31,7 @@ namespace BotCore.Telegram.CurrencyBot.Actions
                     Username = command.SenderUsername
                 });
 
-            await MessageSender.SendTextAsync(new TelegramMessage
+            return await MessageSender.SendTextAsync(new TelegramMessage
             {
                 Receiver = command.ChatId.ToString(),
                 Keyboard = GetCurrencyRateKeyboard.Keyboard,
