@@ -10,6 +10,6 @@ namespace BotCore.Core.Interfaces
         /// </summary>
         /// <param name="update">Update from messenger</param>
         /// <returns></returns>
-        Task<OperationResult> HandleUpdate(T update);
+        Task<OperationResult> HandleUpdateAsync(T update);
     }
 }

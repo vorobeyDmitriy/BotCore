@@ -21,6 +21,9 @@ namespace BotCore.Core.Services
 
         public virtual async Task<OperationResult> ExecuteActionAsync(T messengerCommandBase)
         {
+            if (messengerCommandBase == null)
+                return new OperationResult(Constants.CommandNotFound);
+
             var command = GetAction(messengerCommandBase.CommandName);
 
             if (command != null)

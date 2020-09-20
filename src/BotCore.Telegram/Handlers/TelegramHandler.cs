@@ -18,7 +18,7 @@ namespace BotCore.Telegram.Handlers
             _actionExecutor = actionExecutor;
         }
 
-        public async Task<OperationResult> HandleUpdate(Update telegramUpdate)
+        public async Task<OperationResult> HandleUpdateAsync(Update telegramUpdate)
         {
             if (telegramUpdate?.Message?.Chat == null)
                 return new OperationResult(Constants.IncomingMessageIsNull);

@@ -17,7 +17,7 @@ namespace BotCore.Viber.Handlers
             _actionExecutor = actionExecutor;
         }
 
-        public async Task<OperationResult> HandleUpdate(CallbackData update)
+        public async Task<OperationResult> HandleUpdateAsync(CallbackData update)
         {
             if (update.Event != EventType.Message || update.Message.Type != MessageType.Text)
                 return new OperationResult(Constants.IncomingMessageIsNull);

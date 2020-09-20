@@ -9,7 +9,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Moq;
 using Telegram.Bot.Types;
 
-namespace BotCore.Telegram.Tests
+namespace BotCore.Telegram.Tests.Modules
 {
     public class TelegramHandlerTestModule : TestModuleBase
     {
