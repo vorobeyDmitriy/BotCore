@@ -1,4 +1,5 @@
-﻿using System.Threading;
+﻿using System;
+using System.Threading;
 using System.Threading.Tasks;
 using BotCore.Core;
 using BotCore.Core.DomainModels;
@@ -20,6 +21,9 @@ namespace BotCore.Telegram.Services
 
         public async Task<OperationResult> SendTextAsync(TelegramMessage message)
         {
+            if (message == null)
+                throw new ArgumentNullException(nameof(TelegramMessage));
+           
             var result = await _telegram.SendTextMessageAsync(message.Receiver, message.Text,
                 message.ParseMode, message.DisableWebPagePreview,
                 message.DisableNotification, message.ReplyToMessageId,

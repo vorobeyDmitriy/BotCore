@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using BotCore.Core;
 using BotCore.Core.DomainModels;
 using BotCore.Core.Interfaces;
@@ -19,6 +20,9 @@ namespace BotCore.Viber.Services
 
         public async Task<OperationResult> SendTextAsync(ViberMessage message)
         {
+            if (message==null)
+                throw new ArgumentNullException(nameof(ViberMessage));
+            
             var result = await _viber.SendKeyboardMessageAsync(new KeyboardMessage
             {
                 Receiver = message.Receiver,

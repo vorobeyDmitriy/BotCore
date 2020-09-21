@@ -22,14 +22,14 @@ namespace BotCore.CurrencyBot.API.Controllers
         [HttpPost("telegram")]
         public async Task<IActionResult> Update([FromBody] Update telegramUpdate)
         {
-            await _telegramHandler.HandleUpdate(telegramUpdate);
+            await _telegramHandler.HandleUpdateAsync(telegramUpdate);
             return Ok();
         }
 
         [HttpPost("viber")]
         public async Task<IActionResult> Update([FromBody] CallbackData viberUpdate)
         {
-            await _viberHandler.HandleUpdate(viberUpdate);
+            await _viberHandler.HandleUpdateAsync(viberUpdate);
             return Ok();
         }
     }
