@@ -20,6 +20,6 @@ namespace BotCore.Core.Interfaces
         /// </summary>
         /// <param name="commandBase"><see cref="MessengerCommandBase" /> instance for executing</param>
         /// <returns></returns>
-        Task ExecuteAsync(T commandBase);
+        Task<OperationResult> ExecuteAsync(T commandBase);
     }
 }

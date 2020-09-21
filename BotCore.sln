@@ -6,19 +6,31 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BotCore.Telegram", "src\Bot
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BotCore.Viber", "src\BotCore.Viber\BotCore.Viber.csproj", "{46967296-F136-4BE1-BAA9-2C0F21587E93}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BotCore.API.Test", "samples\BotCore.API.Test\BotCore.API.Test.csproj", "{78D5B9D1-7571-4866-8458-E41062E6C2FD}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BotCore.CurrencyBot.API", "samples\BotCore.CurrencyBot.API\BotCore.CurrencyBot.API.csproj", "{78D5B9D1-7571-4866-8458-E41062E6C2FD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BotCore.Telegram.Test", "samples\BotCore.Telegram.Test\BotCore.Telegram.Test.csproj", "{167255DA-E4AD-4C75-BFF3-216DA68A91D2}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BotCore.CurrencyBot.Telegram", "samples\BotCore.CurrencyBot.Telegram\BotCore.CurrencyBot.Telegram.csproj", "{167255DA-E4AD-4C75-BFF3-216DA68A91D2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BotCore.Viber.Test", "samples\BotCore.Viber.Test\BotCore.Viber.Test.csproj", "{73B246AD-881E-4606-B48F-B22AD63B91DF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BotCore.CurrencyBot.Viber", "samples\BotCore.CurrencyBot.Viber\BotCore.CurrencyBot.Viber.csproj", "{73B246AD-881E-4606-B48F-B22AD63B91DF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BotCore.Core.Test", "samples\BotCore.Core.Test\BotCore.Core.Test.csproj", "{4EF4EDC2-BCFB-47E1-9487-41F37E5A524D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BotCore.CurrencyBot.Core", "samples\BotCore.CurrencyBot.Core\BotCore.CurrencyBot.Core.csproj", "{4EF4EDC2-BCFB-47E1-9487-41F37E5A524D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BotCore.Infrastructure.Test", "samples\BotCore.Infrastructure.Test\BotCore.Infrastructure.Test.csproj", "{1B3E1DA4-943B-4DAB-B027-5DBB545E3C0D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BotCore.CurrencyBot.Infrastructure", "samples\BotCore.CurrencyBot.Infrastructure\BotCore.CurrencyBot.Infrastructure.csproj", "{1B3E1DA4-943B-4DAB-B027-5DBB545E3C0D}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "samples", "samples", "{1F882863-DCB3-4F20-93E3-68C21F15C108}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "botCore", "botCore", "{96AD730D-AE1E-4CD2-92E2-1A07A2B03871}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{0041CAA7-C5A4-44CB-AC90-64B563A20A21}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BotCore.CurrencyBot.Tests", "samples\tests\BotCore.CurrencyBot.Tests\BotCore.CurrencyBot.Tests.csproj", "{855D8A88-A28C-44C8-AC70-62E3ACEBE368}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{70704EAD-D04C-40F2-8FBE-9A072195370A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BotCore.Tests", "tests\BotCore.Tests\BotCore.Tests.csproj", "{8D7A6F57-6517-4B2B-9951-6ADC64A36B7E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BotCore.Telegram.Tests", "tests\BotCore.Telegram.Tests\BotCore.Telegram.Tests.csproj", "{5E50628E-5EAD-41E7-8D59-712FDA0ED4F8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BotCore.Viber.Tests", "tests\BotCore.Viber.Tests\BotCore.Viber.Tests.csproj", "{D8668517-CA90-4D6D-9C88-9F5BBFE31EE3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -58,6 +70,22 @@ Global
 		{1B3E1DA4-943B-4DAB-B027-5DBB545E3C0D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1B3E1DA4-943B-4DAB-B027-5DBB545E3C0D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1B3E1DA4-943B-4DAB-B027-5DBB545E3C0D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{855D8A88-A28C-44C8-AC70-62E3ACEBE368}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{855D8A88-A28C-44C8-AC70-62E3ACEBE368}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{855D8A88-A28C-44C8-AC70-62E3ACEBE368}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{855D8A88-A28C-44C8-AC70-62E3ACEBE368}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8D7A6F57-6517-4B2B-9951-6ADC64A36B7E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8D7A6F57-6517-4B2B-9951-6ADC64A36B7E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8D7A6F57-6517-4B2B-9951-6ADC64A36B7E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8D7A6F57-6517-4B2B-9951-6ADC64A36B7E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5E50628E-5EAD-41E7-8D59-712FDA0ED4F8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5E50628E-5EAD-41E7-8D59-712FDA0ED4F8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5E50628E-5EAD-41E7-8D59-712FDA0ED4F8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5E50628E-5EAD-41E7-8D59-712FDA0ED4F8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D8668517-CA90-4D6D-9C88-9F5BBFE31EE3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D8668517-CA90-4D6D-9C88-9F5BBFE31EE3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D8668517-CA90-4D6D-9C88-9F5BBFE31EE3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D8668517-CA90-4D6D-9C88-9F5BBFE31EE3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{4EF4EDC2-BCFB-47E1-9487-41F37E5A524D} = {1F882863-DCB3-4F20-93E3-68C21F15C108}
@@ -68,5 +96,11 @@ Global
 		{B2611AD5-F0A3-43D2-B853-BAED1EFABC40} = {96AD730D-AE1E-4CD2-92E2-1A07A2B03871}
 		{5626168A-DEF0-4AD8-A8EE-1C74C9285780} = {96AD730D-AE1E-4CD2-92E2-1A07A2B03871}
 		{46967296-F136-4BE1-BAA9-2C0F21587E93} = {96AD730D-AE1E-4CD2-92E2-1A07A2B03871}
+		{0041CAA7-C5A4-44CB-AC90-64B563A20A21} = {1F882863-DCB3-4F20-93E3-68C21F15C108}
+		{855D8A88-A28C-44C8-AC70-62E3ACEBE368} = {0041CAA7-C5A4-44CB-AC90-64B563A20A21}
+		{70704EAD-D04C-40F2-8FBE-9A072195370A} = {96AD730D-AE1E-4CD2-92E2-1A07A2B03871}
+		{8D7A6F57-6517-4B2B-9951-6ADC64A36B7E} = {70704EAD-D04C-40F2-8FBE-9A072195370A}
+		{5E50628E-5EAD-41E7-8D59-712FDA0ED4F8} = {70704EAD-D04C-40F2-8FBE-9A072195370A}
+		{D8668517-CA90-4D6D-9C88-9F5BBFE31EE3} = {70704EAD-D04C-40F2-8FBE-9A072195370A}
 	EndGlobalSection
 EndGlobal

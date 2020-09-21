@@ -1,5 +1,8 @@
-﻿using System.Threading;
+﻿using System;
+using System.Threading;
 using System.Threading.Tasks;
+using BotCore.Core;
+using BotCore.Core.DomainModels;
 using BotCore.Core.Interfaces;
 using BotCore.Telegram.DomainModels;
 using Telegram.Bot;
@@ -16,12 +19,19 @@ namespace BotCore.Telegram.Services
             _telegram = telegram;
         }
 
-        public async Task SendTextAsync(TelegramMessage message)
+        public async Task<OperationResult> SendTextAsync(TelegramMessage message)
         {
-            await _telegram.SendTextMessageAsync(message.Receiver, message.Text,
+            if (message == null)
+                throw new ArgumentNullException(nameof(TelegramMessage));
+           
+            var result = await _telegram.SendTextMessageAsync(message.Receiver, message.Text,
                 message.ParseMode, message.DisableWebPagePreview,
                 message.DisableNotification, message.ReplyToMessageId,
                 message.Keyboard, CancellationToken.None);
+
+            return result == null
+                ? new OperationResult(Constants.Error)
+                : new OperationResult();
         }
     }
 }

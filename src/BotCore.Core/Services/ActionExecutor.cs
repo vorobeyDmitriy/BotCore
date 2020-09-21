@@ -19,12 +19,17 @@ namespace BotCore.Core.Services
             _commands = commands;
         }
 
-        public async Task ExecuteActionAsync(T messengerCommandBase)
+        public virtual async Task<OperationResult> ExecuteActionAsync(T messengerCommandBase)
         {
+            if (messengerCommandBase == null)
+                return new OperationResult(Constants.CommandNotFound);
+
             var command = GetAction(messengerCommandBase.CommandName);
 
             if (command != null)
-                await command.ExecuteAsync(messengerCommandBase);
+                return await command.ExecuteAsync(messengerCommandBase);
+
+            return new OperationResult(Constants.CommandNotFound);
         }
 
         private IAction<T> GetAction(string commandName)

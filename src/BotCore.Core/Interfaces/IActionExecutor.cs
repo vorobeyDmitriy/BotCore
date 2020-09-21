@@ -15,6 +15,6 @@ namespace BotCore.Core.Interfaces
         /// </summary>
         /// <param name="messengerCommandBase">Command from messenger</param>
         /// <returns></returns>
-        Task ExecuteActionAsync(T messengerCommandBase);
+        Task<OperationResult> ExecuteActionAsync(T messengerCommandBase);
     }
 }
