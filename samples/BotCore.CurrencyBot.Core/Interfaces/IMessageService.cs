@@ -17,13 +17,24 @@ namespace BotCore.Core.CurrencyBot.Interfaces
         string GetAllCurrenciesMessageAsync(IEnumerable<Currency> currencies);
 
         /// <summary>
-        ///     Get currency rate message
+        ///     Get currency rate gain message
         /// </summary>
         /// <param name="gain"></param>
         /// <returns>
         ///     For example:
         ///     1 USD: 5 BYN (+4.0505)
         /// </returns>
-        string GetCurrencyRateMessageAsync(CurrencyGain gain);
+        string GetCurrencyRateGainMessageAsync(CurrencyGain gain);
+
+        /// <summary>
+        ///     Get currency rate message
+        /// </summary>
+        /// <param name="currency"></param>
+        /// <param name="amount"></param>
+        /// <returns>
+        ///     For example:
+        ///     1000 USD - 50000 BYN 
+        /// </returns>
+        string GetCurrencyRateMessageAsync(CurrencyModel currency, double amount);
     }
 }

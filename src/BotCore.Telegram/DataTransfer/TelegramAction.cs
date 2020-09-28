@@ -12,5 +12,10 @@ namespace BotCore.Telegram.DataTransfer
         {
             MessageSender = messageSender;
         }
+        
+        protected static bool IsFirstStepMessage(string text, string actionName)
+        {
+            return text.Contains(actionName);
+        }
     }
 }
