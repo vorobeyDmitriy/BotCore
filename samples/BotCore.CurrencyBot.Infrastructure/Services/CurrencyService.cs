@@ -61,13 +61,14 @@ namespace BotCore.CurrencyBot.Infrastructure.Services
             var next = await GetCurrency(currencyAbbreviation, dateTime.Value.AddDays(1));
             var curr = await GetCurrency(currencyAbbreviation, dateTime.Value);
 
-            if (next == null)
-                next = curr;
-
-            if (curr == null)
+            if (next == null && curr == null)
                 return null;
 
-            curr = await GetCurrency(currencyAbbreviation, dateTime.Value.AddDays(-1));
+            if (next == null)
+            {
+                next = curr;
+                curr = await GetCurrency(currencyAbbreviation, dateTime.Value.AddDays(-1));
+            }
 
             return new CurrencyGain
             {
