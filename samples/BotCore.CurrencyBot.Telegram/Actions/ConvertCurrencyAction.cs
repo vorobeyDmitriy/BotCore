@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using BotCore.Core.CurrencyBot.Constants;
 using BotCore.Core.CurrencyBot.Interfaces;
@@ -11,12 +12,12 @@ using Telegram.Bot.Types.ReplyMarkups;
 
 namespace BotCore.Telegram.CurrencyBot.Actions
 {
-    public class GetConcreteCurrencyRateAction : TelegramAction
+    public class ConvertCurrencyAction: TelegramAction
     {
         private readonly ICurrencyService _currencyService;
         private readonly IMessageService _messageService;
 
-        public GetConcreteCurrencyRateAction(IMessageSender<TelegramMessage> messageSender,
+        public ConvertCurrencyAction(IMessageSender<TelegramMessage> messageSender,
             IMessageService messageService, ICurrencyService currencyService) : base(messageSender)
         {
             _messageService = messageService;
@@ -25,15 +26,15 @@ namespace BotCore.Telegram.CurrencyBot.Actions
 
         public override async Task<OperationResult> ExecuteAsync(TelegramCommand commandBase)
         {
-            if (!IsFirstStepMessage(commandBase.Text, ActionConstants.GetConcreteCurrencyRateAction))
+            if (!IsFirstStepMessage(commandBase.Text, ActionConstants.ConvertCurrency))
                 return await SendReply(commandBase);
 
             return await MessageSender.SendTextAsync(
                 new TelegramMessage
                 {
                     Keyboard = new ForceReplyMarkup(),
-                    Text = $"{ActionConstants.GetConcreteCurrencyRateAction} \r\n " +
-                           $"{MessagesConstants.ConcreteCurrency}",
+                    Text = $"{ActionConstants.ConvertCurrency} \r\n " +
+                           $"{MessagesConstants.ConvertCurrency}",
                     Receiver = commandBase.ChatId.ToString(),
                     ReplyToMessageId = commandBase.MessageId
                 });
@@ -41,24 +42,37 @@ namespace BotCore.Telegram.CurrencyBot.Actions
 
         private async Task<OperationResult> SendReply(TelegramCommand commandBase)
         {
-            var gain = await _currencyService.GetCurrencyRateGain(commandBase.Text, DateTime.UtcNow);
-            var currency = _messageService.GetCurrencyRateGainMessageAsync(gain);
+            var textParts = commandBase.Text.Split(" ");
 
-            if (string.IsNullOrWhiteSpace(currency))
-                return await MessageSender.SendTextAsync(
-                    new TelegramMessage
-                    {
-                        Keyboard = new ForceReplyMarkup(),
-                        Text = MessagesConstants.CurrencyNotFound,
-                        Receiver = commandBase.ChatId.ToString(),
-                        ReplyToMessageId = commandBase.MessageId
-                    });
+            string currencyAbbreviation;
+            if (double.TryParse(textParts.FirstOrDefault(), out var amount))
+            {
+                currencyAbbreviation = textParts.LastOrDefault();
+            }
+            else
+            {
+                if (!double.TryParse(textParts.LastOrDefault(), out amount))
+                {
+                    return await MessageSender.SendTextAsync(
+                        new TelegramMessage
+                        {
+                            Keyboard = new ForceReplyMarkup(),
+                            Text = MessagesConstants.CurrencyNotFound,
+                            Receiver = commandBase.ChatId.ToString(),
+                            ReplyToMessageId = commandBase.MessageId
+                        });
+                }
+                currencyAbbreviation = textParts.FirstOrDefault();
+   
+            }
+            var currency = await _currencyService.GetCurrency(currencyAbbreviation, DateTime.UtcNow);
+            var message = _messageService.GetCurrencyRateMessageAsync(currency, amount);
 
             return await MessageSender.SendTextAsync(
                 new TelegramMessage
                 {
                     Keyboard = GetCurrencyRateKeyboard.Keyboard,
-                    Text = currency,
+                    Text = message,
                     Receiver = commandBase.ChatId.ToString()
                 });
         }

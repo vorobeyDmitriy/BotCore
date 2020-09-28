@@ -28,7 +28,7 @@ namespace BotCore.CurrencyBot.Infrastructure.Services
         }
 
 
-        public string GetCurrencyRateMessageAsync(CurrencyGain gain)
+        public string GetCurrencyRateGainMessageAsync(CurrencyGain gain)
         {
             if (gain == null)
                 return MessagesConstants.CurrencyNotFound;
@@ -37,6 +37,16 @@ namespace BotCore.CurrencyBot.Infrastructure.Services
 
             var message = $"{arrow} {gain.Scale} {gain.Abbreviation} :  {gain.LatestRate} BYN " +
                           $"({(gain.Gain > 0 ? Plus : string.Empty)}{gain.Gain:F4}) \r\n";
+
+            return message;
+        }
+
+        public string GetCurrencyRateMessageAsync(CurrencyModel currency, double amount)
+        {
+            if (currency == null)
+                return MessagesConstants.CurrencyNotFound;
+
+            var message = $"{amount} {currency.Abbreviation}  -  {currency.OfficialRate * amount:F2} BYN\r\n";
 
             return message;
         }

@@ -39,6 +39,7 @@ namespace BotCore.CurrencyBot.API
             services.AddTelegramClient(Configuration, isProd);
             services.AddViberClient(Configuration, isProd);
 
+            services.AddScoped<IAction<TelegramCommand>, ConvertCurrencyAction>();
             services.AddScoped<IAction<TelegramCommand>, GetAllCurrenciesAction>();
             services.AddScoped<IAction<TelegramCommand>, GetConcreteCurrencyRateAction>();
             services.AddScoped<IAction<TelegramCommand>, GetCurrencyRateAction>();

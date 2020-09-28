@@ -11,20 +11,18 @@ namespace BotCore.Telegram.CurrencyBot.Keyboards
             {
                 new KeyboardButton[]
                 {
-                    ActionConstants.GetAllCurrenciesAction
-                },
-                new KeyboardButton[]
-                {
+                    ActionConstants.ConvertCurrency,
                     ActionConstants.GetCurrencyRateAction
                 },
                 new KeyboardButton[]
                 {
+                    ActionConstants.SetupDefaultCurrencies,
                     ActionConstants.GetConcreteCurrencyRateAction
                 },
                 new KeyboardButton[]
                 {
-                    ActionConstants.SetupDefaultCurrencies
-                }
+                    ActionConstants.GetAllCurrenciesAction
+                },
             }
         };
     }

@@ -45,7 +45,7 @@ namespace BotCore.Viber.CurrencyBot.Actions
             foreach (var currency in defaultCurrencies)
             {
                 var gain = await _currencyService.GetCurrencyRateGain(currency.Abbreviation, DateTime.UtcNow);
-                sb.Append(_messageService.GetCurrencyRateMessageAsync(gain));
+                sb.Append(_messageService.GetCurrencyRateGainMessageAsync(gain));
             }
 
             return await MessageSender.SendTextAsync(new ViberMessage
