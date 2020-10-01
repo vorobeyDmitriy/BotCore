@@ -75,7 +75,8 @@ namespace BotCore.CurrencyBot.Infrastructure.Services
                 Abbreviation = curr.Abbreviation,
                 Gain = next.OfficialRate - curr.OfficialRate,
                 Scale = next.Scale,
-                LatestRate = (decimal) next.OfficialRate
+                LatestRate = (decimal) next.OfficialRate,
+                Date = next.Date
             };
         }
 

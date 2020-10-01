@@ -33,7 +33,7 @@ namespace BotCore.Telegram.CurrencyBot.Actions
                 new TelegramMessage
                 {
                     Keyboard = new ForceReplyMarkup(),
-                    Text = $"{ActionConstants.ConvertCurrency} \r\n " +
+                    Text = $"{ActionConstants.ConvertCurrency}{MessagesConstants.NextLine}" +
                            $"{MessagesConstants.ConvertCurrency}",
                     Receiver = commandBase.ChatId.ToString(),
                     ReplyToMessageId = commandBase.MessageId
@@ -63,8 +63,8 @@ namespace BotCore.Telegram.CurrencyBot.Actions
                         });
                 }
                 currencyAbbreviation = textParts.FirstOrDefault();
-   
             }
+
             var currency = await _currencyService.GetCurrency(currencyAbbreviation, DateTime.UtcNow);
             var message = _messageService.GetCurrencyRateMessageAsync(currency, amount);
 
@@ -72,7 +72,7 @@ namespace BotCore.Telegram.CurrencyBot.Actions
                 new TelegramMessage
                 {
                     Keyboard = GetCurrencyRateKeyboard.Keyboard,
-                    Text = message,
+                    Text = $"{currency.Date:M}{MessagesConstants.NextLine}{message}",
                     Receiver = commandBase.ChatId.ToString()
                 });
         }

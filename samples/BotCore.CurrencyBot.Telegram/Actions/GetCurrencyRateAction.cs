@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using BotCore.Core.CurrencyBot.Constants;
 using BotCore.Core.CurrencyBot.Entities;
 using BotCore.Core.CurrencyBot.Interfaces;
 using BotCore.Core.DomainModels;
@@ -40,19 +41,25 @@ namespace BotCore.Telegram.CurrencyBot.Actions
                     new Currency {Abbreviation = "RUB"}
                 };
 
+            var currentDate = DateTime.UtcNow;
+
             var sb = new StringBuilder();
 
+            var date = DateTime.MinValue;
             foreach (var currency in defaultCurrencies)
             {
-                var gain = await _currencyService.GetCurrencyRateGain(currency.Abbreviation, DateTime.UtcNow);
+                var gain = await _currencyService.GetCurrencyRateGain(currency.Abbreviation, currentDate);
                 sb.Append(_messageService.GetCurrencyRateGainMessageAsync(gain));
+                
+                if (gain.Date > date)
+                    date = gain.Date;
             }
 
             return await MessageSender.SendTextAsync(new TelegramMessage
             {
                 Receiver = command.ChatId.ToString(),
                 Keyboard = GetCurrencyRateKeyboard.Keyboard,
-                Text = sb.ToString()
+                Text = $"{date:M}{MessagesConstants.NextLine}{sb}" 
             });
         }
     }
