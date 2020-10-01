@@ -1,4 +1,6 @@
-﻿namespace BotCore.Core.CurrencyBot.DomainModels
+﻿using System;
+
+namespace BotCore.Core.CurrencyBot.DomainModels
 {
     public class CurrencyGain
     {
@@ -6,5 +8,6 @@
         public double Gain { get; set; }
         public decimal LatestRate { get; set; }
         public int Scale { get; set; }
+        public DateTime Date { get; set; }
     }
 }

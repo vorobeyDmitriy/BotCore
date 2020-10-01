@@ -58,7 +58,7 @@ namespace BotCore.Telegram.CurrencyBot.Actions
                 new TelegramMessage
                 {
                     Keyboard = GetCurrencyRateKeyboard.Keyboard,
-                    Text = currency,
+                    Text = $"{gain.Date:M}{MessagesConstants.NextLine}{currency}",
                     Receiver = commandBase.ChatId.ToString()
                 });
         }
