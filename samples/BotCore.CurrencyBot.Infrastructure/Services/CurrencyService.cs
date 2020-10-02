@@ -12,6 +12,7 @@ namespace BotCore.CurrencyBot.Infrastructure.Services
     {
         private const string RatesWithDateUrl = "https://www.nbrb.by/api/exrates/rates/{0}?parammode=2&ondate={1}";
         private const string GetAllCurrenciesUrl = "https://www.nbrb.by/api/exrates/currencies";
+        private const string RatesInInterval = "https://www.nbrb.by/API/ExRates/Rates/Dynamics/{0}?startDate={1}&endDate={2}";
         private readonly IApiProvider _apiProvider;
         private readonly IAsyncRepository<Currency> _currencyRepository;
         private readonly IDbCacheService _dbCacheService;
@@ -100,6 +101,18 @@ namespace BotCore.CurrencyBot.Infrastructure.Services
                     Rate = (decimal) x.OfficialRate,
                     Scale = x.Scale
                 }).ToList();
+        }
+
+        public async Task<List<CurrencyModel>> GetCurrencyRatesInInterval(string currencyAbbreviation, DateTime start, DateTime end)
+        {
+            var url = string.Format(RatesWithDateUrl, currencyAbbreviation, DateTime.UtcNow.ToString("yyyy-MM-dd"));
+            var currency = await _apiProvider.GetAsync<CurrencyModel>(url);
+            
+            url = string.Format(RatesInInterval, currency.Id, start.ToString("yyyy-MM-dd"), 
+                end.ToString("yyyy-MM-dd"));
+            var currencyRates = await _apiProvider.GetAsync<List<CurrencyModel>>(url);
+
+            return currencyRates;
         }
 
         public async Task<int> GetCurrenciesCountAsync()

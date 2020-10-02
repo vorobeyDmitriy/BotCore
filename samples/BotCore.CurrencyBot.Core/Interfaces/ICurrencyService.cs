@@ -30,6 +30,8 @@ namespace BotCore.Core.CurrencyBot.Interfaces
         /// <returns></returns>
         Task<CurrencyGain> GetCurrencyRateGain(string currencyAbbreviation, DateTime? dateTime = null);
 
+        Task<List<CurrencyModel>> GetCurrencyRatesInInterval(string currencyAbbreviation, DateTime start, DateTime end);
+
         /// <summary>
         ///     Get currencies count
         /// </summary>
