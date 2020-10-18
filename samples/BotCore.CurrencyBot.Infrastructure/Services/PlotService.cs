@@ -1,18 +1,25 @@
-﻿using System.IO;
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Security.Cryptography;
 using BotCore.Core.CurrencyBot.Interfaces;
 
 namespace BotCore.CurrencyBot.Infrastructure.Services
 {
     public class PlotService : IPlotService
     {
-        public string SavePlot()
+        private const string PlotExtension = ".png";
+        public string SavePlot<TX, TY>(IEnumerable<TX> dataX, IEnumerable<TY> dataY)  
+            where TX : struct, IComparable
+            where TY : struct, IComparable
         {
-            var path = "quickstart.png";
-            var dataX = new double[] {1, 2, 3, 4, 5};
-            var dataY = new double[] {1, 4, 9, 16, 25};
-            var plt = new ScottPlot.Plot(400, 300);
-            plt.PlotScatter(dataX, dataY);
-            plt.SaveFig("quickstart.png");
+            var path = DateTime.UtcNow.Ticks.ToString() + RandomNumberGenerator.GetInt32(int.MaxValue) +
+                       PlotExtension;
+            var plt = new ScottPlot.Plot(600, 600);
+            plt.PlotSignalXYConst(dataX.ToArray(), dataY.ToArray());
+            plt.Ticks(dateTimeX: true);
+            plt.SaveFig(path);
 
             return path;
         }
