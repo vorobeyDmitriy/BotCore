@@ -8,6 +8,7 @@
         public const string GetConcreteCurrencyRate = "Get Concrete Currency Rate";
         public const string GetCurrencyRate = "Get Currency Rate";
         public const string SetupDefaultCurrencies = "Setup Default Currencies";
+        public const string InternalServerError = "Internal Server Error";
         public const string Start = "Start";
     }
 }

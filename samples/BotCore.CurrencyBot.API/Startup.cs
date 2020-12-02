@@ -46,6 +46,7 @@ namespace BotCore.CurrencyBot.API
             services.AddScoped<IAction<TelegramCommand>, GetCurrencyRateChartAction>();
             services.AddScoped<IAction<TelegramCommand>, GetDefaultKeyboardAction>();
             services.AddScoped<IAction<TelegramCommand>, SetupDefaultCurrenciesAction>();
+            services.AddScoped<IAction<TelegramCommand>, InternalServerErrorAction>();
             services.AddScoped<IAction<TelegramCommand>, StartAction>();
 
 
