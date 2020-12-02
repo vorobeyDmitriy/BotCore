@@ -1,4 +1,6 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
+using BotCore.Core.CurrencyBot.Constants;
 using BotCore.Core.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Telegram.Bot.Types;
@@ -22,7 +24,16 @@ namespace BotCore.CurrencyBot.API.Controllers
         [HttpPost("telegram")]
         public async Task<IActionResult> Update([FromBody] Update telegramUpdate)
         {
-            await _telegramHandler.HandleUpdateAsync(telegramUpdate);
+            try
+            {
+                await _telegramHandler.HandleUpdateAsync(telegramUpdate);
+            }
+            catch
+            {
+                telegramUpdate.Message.Text = ActionConstants.InternalServerError;
+                telegramUpdate.Message.ReplyToMessage = null;
+                await _telegramHandler.HandleUpdateAsync(telegramUpdate);
+            }
             return Ok();
         }
 

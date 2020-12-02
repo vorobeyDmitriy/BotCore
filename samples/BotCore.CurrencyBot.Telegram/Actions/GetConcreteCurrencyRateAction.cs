@@ -25,14 +25,14 @@ namespace BotCore.Telegram.CurrencyBot.Actions
 
         public override async Task<OperationResult> ExecuteAsync(TelegramCommand commandBase)
         {
-            if (!IsFirstStepMessage(commandBase.Text, ActionConstants.GetConcreteCurrencyRateAction))
+            if (!IsFirstStepMessage(commandBase.Text, ActionConstants.GetConcreteCurrencyRate))
                 return await SendReply(commandBase);
 
             return await MessageSender.SendTextAsync(
                 new TelegramMessage
                 {
                     Keyboard = new ForceReplyMarkup(),
-                    Text = $"{ActionConstants.GetConcreteCurrencyRateAction} \r\n " +
+                    Text = $"{ActionConstants.GetConcreteCurrencyRate} \r\n " +
                            $"{MessagesConstants.ConcreteCurrency}",
                     Receiver = commandBase.ChatId.ToString(),
                     ReplyToMessageId = commandBase.MessageId

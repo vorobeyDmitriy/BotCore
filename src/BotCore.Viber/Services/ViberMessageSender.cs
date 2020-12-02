@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Threading.Tasks;
 using BotCore.Core;
 using BotCore.Core.DomainModels;
@@ -37,6 +38,11 @@ namespace BotCore.Viber.Services
             return result == 0
                 ? new OperationResult(Constants.Error)
                 : new OperationResult();
+        }
+
+        public Task<OperationResult> SendPictureAsync(ViberMessage message, string picturePath)
+        {
+            throw new NotImplementedException();
         }
     }
 }
